@@ -1,0 +1,63 @@
+ 
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
+  <h1>Technologie</h1>
+
+         <div class="flex flex-col gap-1">
+    <label for="id" class="font-medium">id</label>
+    <input
+      id="id"
+      name="id"
+      type="number"
+      formControlName="id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['id'].touched || submitted) && f['id'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['id']?.errors?.['required']) {
+          L'id est obligatoire.
+        }
+        @if (f['id']?.errors?.['id']) {
+          Format d'id invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="label" class="font-medium">label</label>
+    <input
+      id="label"
+      name="label"
+      type="text"
+      formControlName="label"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['label'].touched || submitted) && f['label'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['label']?.errors?.['required']) {
+          L'label est obligatoire.
+        }
+        @if (f['label']?.errors?.['label']) {
+          Format d'label invalide.
+        }
+      </p>
+    }
+  </div>
+
+@if (submitted && form.invalid) {
+    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  }
+
+  <button
+    type="submit"
+    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
+  >
+    Se connecter
+  </button>
+</form>
+ 

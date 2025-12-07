@@ -1,0 +1,15 @@
+
+    .project-template-sprint-template{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .project-template-sprint-template_input{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .project-template-sprint-template_input input{
+      width: 100%;
+    }
+    

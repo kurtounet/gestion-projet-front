@@ -1,0 +1,13 @@
+<div
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  class="flex items-center justify-start gap-4 card"
+  (cdkDropListDropped)="drop($event)"
+>
+  @for (view of viewTypes; track view) {
+    <div (click)="selectViewType(view)" class="item-box hover:cursor-pointer" cdkDrag>
+      {{ view.icon }} {{ view.label }}
+    </div>
+  }
+  <!-- <div (click)="showViewTypeList()" class="item-box" cdkDrag>+ Vue</div> -->
+</div>

@@ -1,0 +1,30 @@
+Login
+<div class="login-container">
+  <form (submit)="onSubmit($event)">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" [field]="loginForm.email" />
+      @if (loginForm.email().invalid() && loginForm.email().touched()) {
+      <ul class="text-red-500 text-sm mt-1 block">
+        @for (error of loginForm.email().errors(); track $index) {
+        <li>{{ error.message }}</li>
+        }
+      </ul>
+
+      }
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" [field]="loginForm.password" />
+      @if (loginForm.password().invalid() && loginForm.password().touched()) {
+      <ul class="text-red-500 text-sm mt-1 block">
+        @for (error of loginForm.password().errors(); track $index) {
+        <li>{{ error.message }}</li>
+        }
+      </ul>
+      }
+    </div>
+    <button type="submit" [disabled]="loginForm().invalid()">Login</button>
+  </form>
+</div>

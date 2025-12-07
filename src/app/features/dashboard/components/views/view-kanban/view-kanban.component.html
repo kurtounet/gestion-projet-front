@@ -1,0 +1,34 @@
+<section class="panel-view">
+  <!-- <app-tool-bar-liste-type-view /> -->
+  <div class="w-full flex items-start gap-2">
+    <app-side-bar-sprints id="side-bar-sprints" class="container-type-view" />
+    <div id="content-view" class="w-full flex flex-col items-start gap-2">
+      <app-view-tool-bar [title]="viewToolBarTitle" [quantity]="viewToolBarQuantity" />
+      <section>
+        @for (column of columns; track column.label) {
+          <div class="card column-container">
+            <div class="column-header">
+              <h2 class="column-title">{{ column.label.toUpperCase() }}</h2>
+              <button (click)="addTask()" class="card">+</button>
+            </div>
+            <div
+              cdkDropList
+              [id]="column.label + 'List'"
+              [cdkDropListData]="column.tasks"
+              [cdkDropListConnectedTo]="columnsList"
+              class="item-list"
+              (cdkDropListDropped)="drop($event)"
+            >
+              @for (task of column.tasks; track task.id) {
+                <div class="item-box" cdkDrag>
+                  <app-card-task-kanban [task]="task" />
+                </div>
+              }
+            </div>
+            <button (click)="addTask()" class="btn-add-task">+ Ajouter une tâche</button>
+          </div>
+        }
+      </section>
+    </div>
+  </div>
+</section>

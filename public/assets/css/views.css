@@ -1,0 +1,17 @@
+.panel-view {
+  /* @apply card; */
+  @apply w-full flex flex-col py-1 mx-auto mt-1 gap-2;
+
+  /* .container {
+    @apply max-w-5xl mx-auto px-8;
+  }
+  .icon-container svg {
+    @apply w-8 h-8;
+  }
+  .value {
+    @apply text-3xl font-bold text-gray-900;
+  }
+  .title {
+    @apply text-gray-600 text-xl font-medium;
+  } */
+}

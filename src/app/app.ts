@@ -1,12 +1,17 @@
-import { Component, signal } from '@angular/core';
+import { Component, Inject, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ProjectInstantStore } from './features/dashboard/stores/project-instant.store';
+import { Modal } from "./features/dashboard/components/modal/modal";
+import { LocalStorageService } from './features/dashboard/services/local-storage.service';
+import { InitAppService } from './features/dashboard/services/init-app.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Modal],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('gestion-projet-angular');
+  initService = inject(InitAppService).Init();
+
 }

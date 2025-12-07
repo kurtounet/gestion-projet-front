@@ -1,0 +1,40 @@
+<section class="page-wrapper">
+  <section>
+    <h1 class="text-3xl font-bold mb-4">Tableau de bord</h1>
+    <app-panel-statistic />
+  </section>
+  <section class="card">
+    <div>
+      <h1 class="text-3xl font-bold">Listes de projets</h1>
+    </div>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      @for (project of projects(); track $index) {
+        <app-card-project [project]="project"></app-card-project>
+      }
+    </ul>
+  </section>
+</section>
+<!-- }
+    </div>
+
+    <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">Statistiques principales</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      @for( stat of mainStats; track $index){
+      <app-card-stat [stat]="stat"></app-card-stat>
+      }
+    </div>
+
+    <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">Statistiques secondaires</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      @for( stat of secondaryStats; track $index){
+      <app-card-stat [stat]="stat"></app-card-stat>
+      }
+    </div>
+
+    <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">Statistiques tertiaires</h2>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      @for( stat of tertiaryStats; track $index){
+      <app-card-stat [stat]="stat"></app-card-stat> -->

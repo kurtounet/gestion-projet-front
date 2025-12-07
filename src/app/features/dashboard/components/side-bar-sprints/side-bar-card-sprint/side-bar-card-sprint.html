@@ -1,0 +1,49 @@
+<div
+  (click)="selectedSprint()"
+  class="card flex justify-between hover:bg-gray-50"
+  [class.sprint-active]="projectInstanceStore.selectedSprint() === sprint()?.id"
+>
+  <div class="w-full pr-2 flex flex-col">
+    <div class="w-full flex items-center justify-start gap-2">
+      <img [src]="'assets/svg/man-sprinting.svg'" width="20" height="20" alt="" />
+      <h4 class="sprint-name text-sm font-semibold">{{ sprint()?.name }}</h4>
+    </div>
+    <div class="flex items-center justify-between">
+      <p class="text-xs">D:{{ sprint()?.start_date | date: 'd/M/yyyy' }}</p>
+      <p class="text-xs">F:{{ sprint()?.end_date | date: 'd/M/yyyy' }}</p>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <p class="sprint-status text-xs font-semibold">Statut : {{ sprint()?.status_id }}</p>
+      <p class="sprint-status text-xs font-semibold">Color : {{ sprint()?.status_id }}</p>
+    </div>
+    <div
+      class="flex items-center justify-between pt-2"
+      [class.hidden]="!isVisible"
+      (click)="toggleSprint()"
+    >
+      <div class="w-full flex flex-col items-start gap-1 text-sm p-1 bg-gray-50 rounded-md">
+        <p class="">{{ sprint()?.description }}</p>
+        <p class="">{{ sprint()?.description }}</p>
+        <p class="">{{ sprint()?.description }}</p>
+        <p class="">{{ sprint()?.description }}</p>
+        <p class="">{{ sprint()?.description }}</p>
+        <p class="">{{ sprint()?.description }}</p>
+        <p class="">{{ sprint()?.description }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col justify-between">
+    <img ngSrc="assets/svg/edit.svg" width="20" height="20" (click)="editSprint(sprint()?.id)" />
+
+    <img
+      (click)="toggleSprint()"
+      class="rotate-90 hover:cursor-pointer"
+      [class.rotate-270]="isVisible"
+      ngSrc="assets/svg/chevron-right.svg"
+      width="20"
+      height="20"
+    />
+  </div>
+  <div [class.sprint-active-bar]="projectInstanceStore.selectedSprint() === sprint()?.id"></div>
+</div>

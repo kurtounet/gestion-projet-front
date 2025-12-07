@@ -1,0 +1,53 @@
+<div class="flex flex-col justify-between gap-2">
+  <!-- <img ngSrc="assets/svg/three-dots-vertical.svg" width="20" height="20" alt="" /> -->
+  <!-- <input type="checkbox" name="task-{{ task()?.id }}" id="task-{{ task()?.id }}" /> -->
+  <div class="flex gap-2 justify-start">
+    <p class="">{{ task()?.priority_id }}</p>
+    <p class="">{{ task()?.start_date | date: 'd/M/yyyy' }}</p>
+  </div>
+  <h3>{{ task()?.name }}</h3>
+  <ul class="flex">
+    <!-- @for (tag of task()?.tags; track tag) {
+      <li>{{ tag }}</li>
+    } -->
+  </ul>
+  <div class="flex gap-2">
+    <p>{{ task()?.description }}</p>
+  </div>
+
+  <div class="w-full flex justify-between gap-2">
+    <ul class="flex gap-2">
+      <!-- {{ task()?.assignedTo }} -->
+      <li class="w-5">
+        <img src="https://avatar.iran.liara.run/username?username=Scott+Wilson" alt="" />
+      </li>
+      <li class="w-5">
+        <img src="https://avatar.iran.liara.run/username?username=Scott+Wilson" alt="" />
+      </li>
+      <li class="w-5">
+        <img src="https://avatar.iran.liara.run/username?username=Scott+Wilson" alt="" />
+      </li>
+      <li class="w-5">
+        <img src="https://avatar.iran.liara.run/username?username=Scott+Wilson" alt="" />
+      </li>
+    </ul>
+    <div class="flex justify-end gap-2">
+      <img
+        (click)="editTask(task()?.id)"
+        ngSrc="assets/svg/edit.svg"
+        class="w-5 h-5 hover:cursor-pointer"
+        alt="supprimer"
+        width="20"
+        height="20"
+      />
+      <img
+        (click)="deleteTask(task()?.id)"
+        ngSrc="assets/svg/trash.svg"
+        class="w-5 h-5 hover:cursor-pointer"
+        alt="supprimer"
+        width="20"
+        height="20"
+      />
+    </div>
+  </div>
+</div>

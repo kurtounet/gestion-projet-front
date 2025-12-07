@@ -1,0 +1,26 @@
+@if(modalService.isOpen()){
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-7xl h-[90vh] p-6">
+    <!-- Modal header -->
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold">
+        {{ modalService.title() }}-{{ modalService.typeItem() }}-{{ modalService.action() }}-{{
+          modalService.id()
+        }}
+      </h2>
+      <button (click)="close()" class="text-gray-500 hover:text-black">✕</button>
+    </div>
+    <!-- Modal content -->
+    <div class="modal-content">
+      <ng-container *ngComponentOutlet="selectedForm"></ng-container>
+    </div>
+
+    <!-- Modal footer -->
+    <div class="mt-6 flex justify-end gap-3">
+      <button (click)="close()" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>
+}

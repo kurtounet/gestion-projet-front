@@ -1,0 +1,16 @@
+ 
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
+  <h1>Est</h1>
+
+@if (submitted && form.invalid) {
+    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  }
+
+  <button
+    type="submit"
+    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
+  >
+    Se connecter
+  </button>
+</form>
+ 

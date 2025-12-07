@@ -1,0 +1,33 @@
+.panel-statistic {
+  /* @apply card; */
+  @apply mb-2 bg-white mx-auto text-black rounded-xs shadow-md border border-gray-200 p-2 hover:shadow-md transition-shadow;
+
+  .container {
+    @apply max-w-5xl mx-auto px-8;
+  }
+  .icon-container svg {
+    @apply w-8 h-8;
+  }
+  .value {
+    @apply text-3xl font-bold text-gray-900;
+  }
+  .title {
+    @apply text-gray-600 text-xl font-medium;
+  }
+}
+.card-stat {
+  @apply card;
+
+  .icon-container {
+    @apply p-3 rounded-lg;
+  }
+  .icon-container svg {
+    @apply w-8 h-8;
+  }
+  .value {
+    @apply text-3xl font-bold text-gray-900;
+  }
+  .title {
+    @apply text-gray-600 text-sm font-medium mb-3;
+  }
+}

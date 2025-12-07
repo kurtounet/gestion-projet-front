@@ -1,0 +1,15 @@
+
+    .status{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .status_input{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .status_input input{
+      width: 100%;
+    }
+    

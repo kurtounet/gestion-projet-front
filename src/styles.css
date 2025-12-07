@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@import '../public/assets/css/statistic.css';
+@import '../public/assets/css/views.css';
+@import '../public/assets/css/tools-bar.css';
+
+@theme {
+  --font-sans: 'Roboto-Condensed', sans-serif;
+  --font-mono: 'Roboto';
+}
+html,
+body {
+  @apply font-mono;
+}
+@utility hidden {
+  display: none;
+}
+@utility page-wrapper {
+  @apply container flex flex-col mx-auto px-4 py-8 gap-4 text-black;
+}
+@utility card {
+  @apply bg-white text-black rounded-xs shadow-md border border-gray-200 p-1 hover:shadow-md transition-shadow;
+}

@@ -1,0 +1,44 @@
+<div class="sidebar-container">
+  <!-- Bouton hamburger pour mobile -->
+  <button class="hamburger-btn" (click)="toggleSidebar(false)" [class.mobile]="isMobile()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- Overlay pour mobile -->
+  <div
+    class="overlay"
+    (click)="closeSidebar()"
+    onKeyDown="closeSidebar();"
+    tabindex="0"
+    [class.active]="isMobile() && isOpen()"
+  ></div>
+
+  <!-- Sidebar -->
+  <nav
+    class="sidebar"
+    [class.collapsed]="isCollapsed() && !isMobile()"
+    [class.mobile-open]="isMobile() && isOpen()"
+    [class.mobile-closed]="isMobile() && !isOpen()"
+  >
+    <!-- Header -->
+    <app-side-bar-header
+      [title]="title"
+      [isCollapsed]="isCollapsed()"
+      [isMobile]="isMobile()"
+      (stateSidebar)="toggleSidebar($event)"
+    />
+
+    <ul class="menu-list">
+      @if (projectInstantStore.projectsLoading()) {
+      } @else if (projectInstantStore.projectsLoaded()) {
+        @for (section of menuGroups(); track section.label) {
+          <li class="menu-item">
+            <app-side-bar-section [section]="section" />
+          </li>
+        }
+      }
+    </ul>
+  </nav>
+</div>

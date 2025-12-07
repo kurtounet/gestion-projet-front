@@ -1,0 +1,25 @@
+/* Conteneur global */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;   /* header en haut, puis contenu */
+  height: 100vh;
+  margin: 0;
+  background-color: #333030;
+}
+
+/* Zone sous le header : sidebar + contenu */
+.dashboard-content {
+  display: flex;            /* active le mode flex pour ses enfants */
+  flex: 1;                  /* occupe la hauteur restante après le header */
+  overflow: hidden;         /* pour gérer proprement le scroll interne */
+  background-color: #fcf8f8;
+}
+
+
+/* Contenu principal */
+.dashboard-main {
+  flex: 1;                  /* prend tout l’espace restant */
+  overflow-y: auto;         /* scroll si le contenu déborde */
+  padding: 0 px;            /* ou ce que tu veux */
+  box-sizing: border-box;
+}

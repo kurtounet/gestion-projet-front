@@ -1,0 +1,39 @@
+.card-container-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 100%;
+}
+.card-container-col,
+.header-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.tag-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+li {
+  display: inline-block;
+  margin-right: 5px;
+}
+.header-content-card,
+.footer-card,
+.tag-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+}
+
+.body-card img {
+  display: flex;
+  flex-direction: column;
+}
+.rounded {
+  border-radius: 10px;
+}

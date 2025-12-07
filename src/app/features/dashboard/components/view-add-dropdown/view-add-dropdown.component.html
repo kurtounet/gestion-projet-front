@@ -1,0 +1,74 @@
+<div class="data-view-add-dropdown__menu-container">
+  <div class="data-view-add-dropdown__menu-scrollable">
+    <ng-container *ngFor="let group of groups">
+      <div class="data-view-add-dropdown__group">
+        <div
+          label
+          size="xsmall"
+          class="data-view-add-dropdown__group-title"
+          size="xsmall"
+          strong="true"
+        >
+          {{ group.title }}
+        </div>
+        <!-- <ng-container *ngFor="let item; in: group.items">
+          <button class="data-view-add-dropdown-item" [disabled]="item.disabled">
+            <ng-container *ngIf="item.imageSrc">
+              <img
+                [src]="item.imageSrc"
+                [alt]="item.alt"
+                class="data-view-add-dropdown-item__image"
+              />
+            </ng-container>
+            <ng-container *ngIf="item.iconName">
+              <img
+                [src]="'assets/icons/' + item.iconName + '.svg'"
+                [alt]="item.title + ' icon'"
+                class="data-view-add-dropdown-item__icon"
+              />
+            </ng-container>
+            <span
+              class="data-view-add-dropdown-item__body"
+              [attr.data-test]="'data-view-add-dropdown-item__body-' + item.title"
+            >
+              <span
+                label
+                size="small"
+                class="data-view-add-dropdown-item__title"
+                [attr.data-test]="'data-view-add-dropdown-item__title-' + item.title"
+                size="small"
+                strong="true"
+              >
+                {{ item.title }}
+                @if (item.tag) {
+                <span class="data-view-add-dropdown-item__tag">{{ item.tag }}</span>
+                }
+              </span>
+              <span
+                paragraph
+                size="small"
+                class="data-view-add-dropdown-item__description"
+                size="small"
+                strong="false"
+              >
+                {{ item.description }}
+              </span>
+            </span>
+          </button>
+        </ng-container> -->
+      </div>
+    </ng-container>
+  </div>
+  <div class="data-view-add-dropdown__footer">
+    <label class="item_paywalled">
+      <input type="checkbox" name="personal-view" />
+      <img src="assets/icons/lock.svg" alt="Verrou" class="footer-icon" />
+      Vue privée
+    </label>
+    <label>
+      <input type="checkbox" name="pinned-view" />
+      <img src="assets/icons/pin.svg" alt="Épingler" class="footer-icon" />
+      Épingler la vue
+    </label>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+.sprints-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sprint-card {
+  /* border: 1px solid #e5e7eb; */
+  /* border-radius: 0.1rem; */
+  padding: 0.5rem;
+  /* background-color: #f9fafb; */
+  margin-bottom: 0.1rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.sprint-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.sprint-description {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.sprint-active {
+  background-color: #dbd9e9bd;
+  border: 1px solid #818181;
+}
+.sprint-active-bar {
+  background-color: #1900ff;
+  padding: 2px;
+  margin: 0px;
+  border-right: 2px;
+}

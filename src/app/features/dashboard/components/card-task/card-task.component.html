@@ -1,0 +1,50 @@
+<div class="card flex justify-between gap-4 hover:bg-gray-100">
+  <div class="flex gap-2">
+    <img
+      ngSrc="assets/svg/three-dots-vertical.svg"
+      class="h-5 w-5 hover:cursor-pointer"
+      width="20"
+      height="20"
+    />
+    <input id="task-{{ task().id }}" type="checkbox" name="task-{{ task().id }}" />
+    <p>{{ task().name }}</p>
+    <!-- <ul class="flex">
+      @for (tag of task().tags; track tag){
+      <li>{{ tag }}</li>
+      }
+    </ul> -->
+  </div>
+  <div class="flex gap-2">
+    <p>{{ task().description }}</p>
+  </div>
+  <div class="flex gap-2 justify-start">
+    <p>{{ task().start_date }}</p>
+    <p>{{ task().due_date }}</p>
+    <p>{{ task().priority_id }}</p>
+  </div>
+  <div class="flex gap-2">
+    <img
+      (click)="editTask(task().id)"
+      ngSrc="assets/svg/edit.svg"
+      class="h-5 w-5 hover:cursor-pointer"
+      alt="supprimer"
+      width="20"
+      height="20"
+    />
+    <img
+      (click)="deleteTask(task().id)"
+      ngSrc="assets/svg/trash.svg"
+      class="h-5 w-5 hover:cursor-pointer"
+      alt="supprimer"
+      width="20"
+      height="20"
+    />
+  </div>
+  <!-- <ul class="w-full flex flex-col justify-between gap-2">
+    @for ( task of task()?.parentTask; track $index) {
+    <li>
+      <app-card-task [task]="task"></app-card-task>
+    </li>
+    }
+  </ul> -->
+</div>

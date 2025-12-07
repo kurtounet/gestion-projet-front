@@ -1,0 +1,207 @@
+ 
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
+  <h1>TypeTask</h1>
+
+         <div class="flex flex-col gap-1">
+    <label for="id" class="font-medium">id</label>
+    <input
+      id="id"
+      name="id"
+      type="number"
+      formControlName="id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['id'].touched || submitted) && f['id'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['id']?.errors?.['required']) {
+          L'id est obligatoire.
+        }
+        @if (f['id']?.errors?.['id']) {
+          Format d'id invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="code_id" class="font-medium">code_id</label>
+    <input
+      id="code_id"
+      name="code_id"
+      type="number"
+      formControlName="code_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['code_id'].touched || submitted) && f['code_id'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['code_id']?.errors?.['required']) {
+          L'code_id est obligatoire.
+        }
+        @if (f['code_id']?.errors?.['code_id']) {
+          Format d'code_id invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="name" class="font-medium">name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      formControlName="name"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['name'].touched || submitted) && f['name'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['name']?.errors?.['required']) {
+          L'name est obligatoire.
+        }
+        @if (f['name']?.errors?.['name']) {
+          Format d'name invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="path_file_script" class="font-medium">path_file_script</label>
+    <input
+      id="path_file_script"
+      name="path_file_script"
+      type="file"
+      formControlName="path_file_script"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['path_file_script'].touched || submitted) && f['path_file_script'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['path_file_script']?.errors?.['required']) {
+          L'path_file_script est obligatoire.
+        }
+        @if (f['path_file_script']?.errors?.['path_file_script']) {
+          Format d'path_file_script invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="description" class="font-medium">description</label>
+    <input
+      id="description"
+      name="description"
+      type="text"
+      formControlName="description"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['description'].touched || submitted) && f['description'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['description']?.errors?.['required']) {
+          L'description est obligatoire.
+        }
+        @if (f['description']?.errors?.['description']) {
+          Format d'description invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="created_At" class="font-medium">created_At</label>
+    <input
+      id="created_At"
+      name="created_At"
+      type="datetime-local"
+      formControlName="created_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['created_At'].touched || submitted) && f['created_At'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['created_At']?.errors?.['required']) {
+          L'created_At est obligatoire.
+        }
+        @if (f['created_At']?.errors?.['created_At']) {
+          Format d'created_At invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="updated_At" class="font-medium">updated_At</label>
+    <input
+      id="updated_At"
+      name="updated_At"
+      type="date"
+      formControlName="updated_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['updated_At'].touched || submitted) && f['updated_At'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['updated_At']?.errors?.['required']) {
+          L'updated_At est obligatoire.
+        }
+        @if (f['updated_At']?.errors?.['updated_At']) {
+          Format d'updated_At invalide.
+        }
+      </p>
+    }
+  </div>
+
+
+         <div class="flex flex-col gap-1">
+    <label for="automatique" class="font-medium">automatique</label>
+    <input
+      id="automatique"
+      name="automatique"
+      type="text"
+      formControlName="automatique"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if ((f['automatique'].touched || submitted) && f['automatique'].errors) {
+      <p class="text-sm text-red-600">
+        @if (f['automatique']?.errors?.['required']) {
+          L'automatique est obligatoire.
+        }
+        @if (f['automatique']?.errors?.['automatique']) {
+          Format d'automatique invalide.
+        }
+      </p>
+    }
+  </div>
+
+@if (submitted && form.invalid) {
+    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  }
+
+  <button
+    type="submit"
+    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
+  >
+    Se connecter
+  </button>
+</form>
+ 

@@ -1,0 +1,53 @@
+<div class="panel-tool-bar">
+  <div class="flex items-center justify-between gap-4">
+    <input type="checkbox" name="ckeck-all" id="ckeck-all" />
+    <div>
+      <span>{{ title() }}</span>
+      <span>{{ quantity() }}</span>
+    </div>
+  </div>
+  <div class="flex items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span> Filtrer par :</span>
+      <img
+        (click)="toggleList()"
+        class="hover:cursor-pointer hover:border hover:rounded-md"
+        src="assets/svg/rocket.png"
+        width="30"
+        height="30"
+      />
+      <span class="hover:cursor-pointer hover:border hover:rounded-md"> Fin </span>
+      <select name="filter" id="filter">
+        <option value="a">A</option>
+        <option value="b">B</option>
+        <option value="c">C</option>
+      </select>
+    </div>
+  </div>
+  <div class="flex items-center justify-between gap-4">
+    <input
+      class="border rounded-xs"
+      type="text"
+      name="search"
+      id="search"
+      placeholder="Rechercher"
+    />
+    <img class="hover:cursor-pointer" src="assets/svg/search.svg" width="20" height="20" />
+  </div>
+  <div class="flex items-center justify-between gap-4">
+    <img
+      (click)="toggleList()"
+      class="hover:cursor-pointer"
+      src="assets/svg/card-group.svg"
+      width="20"
+      height="20"
+    />
+    <img
+      (click)="toggleList()"
+      class="hover:cursor-pointer"
+      src="assets/svg/layout-list.svg"
+      width="20"
+      height="20"
+    />
+  </div>
+</div>

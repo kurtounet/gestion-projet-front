@@ -1,0 +1,50 @@
+.sidebar-header {
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #34495e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10px;
+}
+
+.sidebar-title {
+  display: flex;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  transition: opacity 0.5s ease;
+
+  &.hidden {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+  }
+}
+
+.close-btn {
+  background: none;
+  z-index: 1001;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #34495e;
+    z-index: 1002;
+  }
+}
+
+.desktop-only {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+// .hidden {
+//   opacity: 0;
+//   width: 0;
+//   overflow: hidden;
+// }

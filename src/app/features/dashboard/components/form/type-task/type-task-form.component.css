@@ -1,0 +1,15 @@
+
+    .type-task{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .type-task_input{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .type-task_input input{
+      width: 100%;
+    }
+    

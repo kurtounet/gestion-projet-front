@@ -1,0 +1,7 @@
+app-view-tool-bar {
+  @apply card w-full;
+}
+
+.panel-tool-bar {
+  @apply w-full flex items-center justify-between gap-4 p-2;
+}

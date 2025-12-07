@@ -1,0 +1,15 @@
+
+    .est{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .est_input{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .est_input input{
+      width: 100%;
+    }
+    

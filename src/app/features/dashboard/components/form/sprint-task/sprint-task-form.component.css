@@ -1,0 +1,15 @@
+
+    .sprint-task{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sprint-task_input{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .sprint-task_input input{
+      width: 100%;
+    }
+    

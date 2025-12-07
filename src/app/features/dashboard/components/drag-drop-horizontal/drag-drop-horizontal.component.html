@@ -1,0 +1,10 @@
+<div
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  class="example-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  @for (component of componentFactoryService; track component) {
+  <div class="example-box" cdkDrag>{{ component }}</div>
+  }
+</div>

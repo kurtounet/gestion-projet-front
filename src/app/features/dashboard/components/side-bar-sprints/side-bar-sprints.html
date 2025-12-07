@@ -1,0 +1,14 @@
+<div
+  cdkDropList
+  cdkDropListOrientation="vertical"
+  class="w-[250px] flex flex-col mt-0 mr-1"
+  (cdkDropListDropped)="drop($event)"
+>
+  <ul class="sprints-container flex flex-col gap-1 hover:cursor-pointer">
+    @for (sprint of sprints(); track sprint.id) {
+      <li (click)="selectedSprint(sprint.id)" cdkDrag>
+        <app-side-bar-card-sprint [sprint]="sprint" />
+      </li>
+    }
+  </ul>
+</div>

@@ -1,0 +1,15 @@
+
+    .task-template{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .task-template_input{
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .task-template_input input{
+      width: 100%;
+    }
+    

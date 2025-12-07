@@ -1,0 +1,36 @@
+<div
+  class="card mt-6 w-[300px] rounded-md gap-4 flex flex-col cursor-pointer hover:shadow-lg hover:scale-102 hover:transition-shadow hover:duration-500"
+  [routerLink]="['/admin/project', project()?.id]"
+  routerLinkActive="active-link"
+>
+  <div class="flex-col header-card">
+    <div class="text-sm my-2 flex items-center justify-between">
+      <p class="rounded">Début : {{ project()?.startDate | date: 'd/M/yyyy' }}</p>
+      <p class="h-5 w-5 rounded-2xl bg-[{{ project()?.color }}]">status</p>
+      <p class="rounded">Fin : {{ project()?.endDate | date: 'd/M/yyyy' }}</p>
+    </div>
+    <h3 class="text-xl py-1 font-bold text-gray-900">
+      {{ project()?.name }}
+    </h3>
+    <ul>
+      @for (p of progress; track $index) {
+        <li><app-progress-bar [progress]="p" /></li>
+      }
+    </ul>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <img ngSrc="./assets/svg/chevron-right.svg" width="20" height="20" />
+    <img ngSrc="./assets/svg/chevron-right.svg" width="20" height="20" class="object-containe" />
+    <img ngSrc="./assets/svg/chevron-right.svg" width="20" height="20" class="object-containe" />
+    <img ngSrc="./assets/svg/chevron-right.svg" width="20" height="20" class="object-containe" />
+    <img ngSrc="./assets/svg/chevron-right.svg" width="20" height="20" class="object-containe" />
+    <img
+      id="project-favorit"
+      ngSrc="./assets/svg/star-favorit.svg"
+      width="20"
+      height="20"
+      class="object-containe"
+    />
+  </div>
+</div>

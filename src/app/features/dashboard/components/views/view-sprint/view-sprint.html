@@ -1,0 +1,24 @@
+<!-- <section class="card w-full flex flex-col py-2 mx-auto mt-1 gap-2">
+  <h1 class="text-xl font-bold">Liste des tâches</h1>
+  <app-tool-bar-liste-type-view />
+  <div class="w-full flex items-start gap-2">
+    <app-side-bar-sprints id="side-bar-sprints" class="container-type-view" [sprints]="sprints" />
+    <div id="content-view" class="w-full flex flex-col items-start gap-2">
+      <app-view-tool-bar class="w-full" />
+      <ul class="w-full flex flex-col justify-between gap-2">
+        @for ( task of tasks; track $index) {
+        <li>
+          <app-card-task [task]="task"></app-card-task>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section> -->
+<h1 class="text-2xl p-2">(view-sprint) Liste des sprints</h1>
+<app-tool-bar-liste-type-view (selectedComponent)="onComponentChange($event)" />
+<div id="container-type-view" class="container-dashboard flex items-start justify-start">
+  <div id="content-type-view" class="w-full">
+    <ng-container *ngComponentOutlet="selectedComponent"></ng-container>
+  </div>
+</div>
