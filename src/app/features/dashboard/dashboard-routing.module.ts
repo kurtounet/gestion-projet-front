@@ -7,6 +7,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ProjetComponent } from './pages/projet/projet.component';
 import { ProjetListComponent } from './pages/projet-list/projet-list.component';
+import { authGuard } from '../auth/guard/auth-guard';
 
 // Import des composants du dashboard
 
@@ -17,6 +18,7 @@ import { ProjetListComponent } from './pages/projet-list/projet-list.component';
 const routes: Routes = [
   {
     path: '',
+    canActivate: [authGuard],
     component: DashboardComponent, // Layout principal avec sidebar
     children: [
       {
