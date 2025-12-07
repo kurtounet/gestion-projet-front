@@ -2,9 +2,12 @@ import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
-import { ILogin } from '../../models/login.model';
+import { ICredentials, IToken } from '../../models/login.model';
 import { form, Field, schema, required, minLength, email, validate, customError, submit } from '@angular/forms/signals';
 import z from 'zod';
+import { I } from '@angular/cdk/keycodes';
+import { StorageService } from '../../services/storage.service';
+import { Router } from '@angular/router';
 export const loginZodSchema = z.object({
   email: z.email(),
   password: z.string().min(8),
@@ -21,6 +24,10 @@ type TLogin = z.infer<typeof loginZodSchema>;
 export class LoginComponent {
 
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly storageService = inject(StorageService);
+
+
 
   defaultLogin = {email: '', password: ''};
 
@@ -33,7 +40,7 @@ export class LoginComponent {
     minLength(credentials.password, 8 , { message: 'Password must be at least 8 characters long' });
   });
 
-  private readonly credentials =  signal<ILogin>(this.defaultLogin);
+  private readonly credentials =  signal<ICredentials>(this.defaultLogin);
   protected readonly loginForm = form(this.credentials, this.credentialSchema);
 
 
@@ -41,9 +48,22 @@ export class LoginComponent {
     event.preventDefault();
     submit(this.loginForm, async () => {
       const credentials = this.loginForm().value();
-      // In a real app, this would be async:
-      this.authService.login(credentials);
-      console.log('Logging in with:', credentials.email, credentials.password);
+     this.authService.login(credentials).subscribe({
+           next: (token: IToken) => {
+            if (token?.token) {
+              if(this.authService.isLogged()){
+                console.log(token.token);
+                this.router.navigateByUrl("admin");
+              };
+            }else{
+              this.router.navigate(["/auth/login"]);
+            }          },
+        error: (error) => {
+          // this.serverErrorMessages = error.error.message;
+           console.error('Login failed', error.error.message);
+        }
+    });
+
     });
   }
 }
