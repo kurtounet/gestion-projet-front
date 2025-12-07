@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
-import { INotification3 } from '../models/notification-3.model';
+import { INotification } from '../models/notification.model';
 export interface IHydraCollection<T> {
     'hydra:member': T[];
     'hydra:totalItems': number;
@@ -19,8 +19,8 @@ export class Notification3Service {
     constructor() { }
 
     // Get all Notification3
-    getAllNotification3(): Observable<INotification3[]> {
-        return this.httpClient.get<IHydraCollection<INotification3>>(this.routeApi).pipe(
+    getAllNotification3(): Observable<INotification[]> {
+        return this.httpClient.get<IHydraCollection<INotification>>(this.routeApi).pipe(
             map(response => {
                 return response['hydra:member'];
             })
@@ -28,20 +28,20 @@ export class Notification3Service {
     }
 
     // Get Notification3 by ID
-    getNotification3ById(id: string): Observable<INotification3> {
-        return this.httpClient.get<INotification3>(`${this.routeApi}/${id}`);
+    getNotification3ById(id: string): Observable<INotification> {
+        return this.httpClient.get<INotification>(`${this.routeApi}/${id}`);
     }
 
     // Create a new Notification3
-    createNotification3(body: INotification3): Observable<INotification3> {
+    createNotification3(body: INotification): Observable<INotification> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.httpClient.post<INotification3>(this.routeApi, body, { headers });
+        return this.httpClient.post<INotification>(this.routeApi, body, { headers });
     }
 
     // Update Notification3 by ID
-    updateNotification3(id: string, body: INotification3): Observable<INotification3> {
+    updateNotification3(id: string, body: INotification): Observable<INotification> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.httpClient.patch<INotification3>(`${this.routeApi}/${id}`, body, { headers });
+        return this.httpClient.patch<INotification>(`${this.routeApi}/${id}`, body, { headers });
     }
 
     // Delete Notification3
