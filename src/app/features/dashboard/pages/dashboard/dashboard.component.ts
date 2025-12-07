@@ -5,19 +5,14 @@ import { SidebarComponent } from '../../components/side-bar/side-bar.component';
 import { HeaderComponent } from "../../components/header/header.component";
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ProjectInstantStore } from '../../stores/project-instant.store';
-import { IProjectInstance } from '../../models/project-instance.model';
-import { InitAppService } from '../../services/init-app.service';
-
-
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     RouterOutlet,
     SidebarComponent,
-
-
-  ],
+    HeaderComponent
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
