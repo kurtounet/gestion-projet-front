@@ -10,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    canMatch: [authMatchGuard],
+    // canMatch: [authMatchGuard],
     loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
