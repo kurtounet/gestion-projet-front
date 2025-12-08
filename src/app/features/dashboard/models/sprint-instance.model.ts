@@ -10,7 +10,7 @@ export interface ISprintInstance {
   start_date: Date;
   end_date: Date;
   status_id: number;
-  order: number;
+  position: number;
   comment_id: number;
   created_At: Date;
   updated_At: Date;

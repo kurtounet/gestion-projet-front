@@ -1,18 +1,28 @@
-import { Component, inject, signal } from '@angular/core';
-import { CardProject } from "../../components/card-project/card-project";
+import { Component, computed, inject, signal } from '@angular/core';
+import { CardProject } from '../../components/card-project/card-project';
 
-import { Router, RouterLink } from '@angular/router';
-import { ProjectInstanceService } from '../../services/project-instance.service';
-import { AsyncPipe } from '@angular/common';
 import { IProjectInstance } from '../../models/project-instance.model';
 import { ProjectInstantStore } from '../../stores/project-instant.store';
+import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-projet-list',
-  imports: [CardProject],
+  imports: [CardProject, CdkDrag, CdkDropList],
   templateUrl: './projet-list.component.html',
-  styleUrl: './projet-list.component.scss'
+  styleUrl: './projet-list.component.scss',
 })
 export class ProjetListComponent {
-readonly projectInstanceStore = inject(ProjectInstantStore);
+  readonly projectInstanceStore = inject(ProjectInstantStore);
+
+  items = computed(() =>
+    this.projectInstanceStore.projects().sort((a, b) => a.position - b.position),
+  );
+
+  drop(event: CdkDragDrop<IProjectInstance[]>) {
+    moveItemInArray(this.items(), event.previousIndex, event.currentIndex);
+
+    queueMicrotask(() => {
+      this.projectInstanceStore.updateProjectOrder(this.items());
+    });
+  }
 }

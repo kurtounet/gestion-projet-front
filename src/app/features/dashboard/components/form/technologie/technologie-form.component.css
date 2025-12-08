@@ -1,15 +1,13 @@
-
-    .technologie{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .technologie_input{
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .technologie_input input{
-      width: 100%;
-    }
-    
+.technologie {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.technologie_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.technologie_input input {
+  width: 100%;
+}

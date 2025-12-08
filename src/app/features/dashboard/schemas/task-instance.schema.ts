@@ -1,7 +1,7 @@
-import z from "zod";
+import z from 'zod';
 
 export const TaskInstanceSchema = z.object({
-      id: z.number(),
+  id: z.number(),
   userId: z.number().nullable(),
   taskTemplateId: z.number().nullable(),
   sprintInstanceId: z.number().nullable(),
@@ -18,16 +18,14 @@ export const TaskInstanceSchema = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
   commentId: z.number(),
-})
+});
 
-export const insertTaskInstanceSchema = TaskInstanceSchema.omit(
-    {
-        id: true,
-        //createdAt: true,
-        //updatedAt: true
-    }
-)
-export const updateTaskInstanceSchema = TaskInstanceSchema.partial()
+export const insertTaskInstanceSchema = TaskInstanceSchema.omit({
+  id: true,
+  //createdAt: true,
+  //updatedAt: true
+});
+export const updateTaskInstanceSchema = TaskInstanceSchema.partial();
 
 export type ZTaskInstance = z.infer<typeof TaskInstanceSchema>;
 export type ZTaskInstanceInsert = z.infer<typeof insertTaskInstanceSchema>;

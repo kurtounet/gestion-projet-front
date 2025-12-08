@@ -1,14 +1,17 @@
 <div
   cdkDropList
+  [cdkDropListData]="items()"
   cdkDropListOrientation="vertical"
-  class="w-[250px] flex flex-col mt-0 mr-1"
+  class="w-[255px] flex flex-col mt-0 mr-1"
   (cdkDropListDropped)="drop($event)"
 >
-  <ul class="sprints-container flex flex-col gap-1 hover:cursor-pointer">
-    @for (sprint of sprints(); track sprint.id) {
-      <li (click)="selectedSprint(sprint.id)" cdkDrag>
-        <app-side-bar-card-sprint [sprint]="sprint" />
-      </li>
-    }
-  </ul>
+  @if (items().length > 0) {
+    <ul class="sprints-container flex flex-col gap-1">
+      @for (sprint of items(); track sprint.id) {
+        <li (click)="selectedSprint(sprint)" cdkDrag>
+          <app-side-bar-card-sprint [sprint]="sprint" />
+        </li>
+      }
+    </ul>
+  }
 </div>

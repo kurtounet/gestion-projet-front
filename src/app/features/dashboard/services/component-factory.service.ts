@@ -11,15 +11,14 @@ import { ViewFrameworks } from '../components/views/view-frameworks/view-framewo
 import { ViewDatabase } from '../components/views/view-database/view-database';
 import { ViewStatistics } from '../components/views/view-statistics/view-statistics';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ComponentFactoryService {
   private readonly componentMap = new Map<string, Type<any>>();
 
   constructor() {
-     this.setcomponentMap();
+    this.setcomponentMap();
   }
 
   setcomponentMap() {

@@ -8,9 +8,8 @@ describe('EstFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EstFormComponent]
-    })
-    .compileComponents();
+      imports: [EstFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EstFormComponent);
     component = fixture.componentInstance;

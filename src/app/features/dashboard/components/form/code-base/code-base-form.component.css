@@ -1,15 +1,13 @@
-
-    .code-base{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .code-base_input{
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .code-base_input input{
-      width: 100%;
-    }
-    
+.code-base {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.code-base_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.code-base_input input {
+  width: 100%;
+}

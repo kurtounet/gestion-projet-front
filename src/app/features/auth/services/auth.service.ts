@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, Observable, throwError } from 'rxjs';
-import { ICredentials,  IToken } from '../models/login.model';
+import { ICredentials, IToken } from '../models/login.model';
 import { environment } from '@env/environment.development';
 import { IAuthResponse } from '../models/auth-response.model';
 import { Router } from '@angular/router';
@@ -9,27 +9,24 @@ import { jwtDecode } from 'jwt-decode';
 import { StorageService } from './storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private readonly router = inject(Router);
   private readonly storageService = inject(StorageService);
   private readonly http = inject(HttpClient);
 
-  private readonly pathLogin = "auth/login";
+  private readonly pathLogin = 'auth/login';
   private readonly baseUrl = `${environment.baseApiUrl}`;
   isLoggedIn: boolean = false;
   public roles: Array<string> = [];
 
-
   login(credentials: ICredentials): Observable<IToken> {
     return this.http.post<IToken>(`${this.baseUrl}/login_check`, credentials).pipe(
-      map(
-        response => {
+      map((response) => {
         this.storageService.setLocalStorageToken(response.token);
-        return response
-    })
+        return response;
+      }),
     );
   }
 
@@ -42,8 +39,7 @@ export class AuthService {
   }
   isLogged(): boolean {
     const token = this.storageService.getLocalStorageToken();
-    if (!token)
-      return false;
+    if (!token) return false;
     try {
       const decodedToken = jwtDecode<IToken>(token);
       // this.userService.setUserRoles(decodedToken.roles);
@@ -53,17 +49,16 @@ export class AuthService {
     }
   }
   logOut() {
-     localStorage.removeItem('token');
+    localStorage.removeItem('token');
     // this.userService.setUserRoles([]);
     this.router.navigate([this.pathLogin]);
   }
   private handleLoginError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      console.error('Une erreur s\'est produite:', error.error);
+      console.error("Une erreur s'est produite:", error.error);
     } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
+      console.error(`Backend returned code ${error.status}, body was: `, error.error);
     }
-    return throwError(() => new ErrorEvent(error.error["message"]));
+    return throwError(() => new ErrorEvent(error.error['message']));
   }
 }

@@ -1,8 +1,7 @@
- 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
   <h1>CodeBase</h1>
 
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="id" class="font-medium">id</label>
     <input
       id="id"
@@ -25,8 +24,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="label" class="font-medium">label</label>
     <input
       id="label"
@@ -49,8 +47,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="code" class="font-medium">code</label>
     <input
       id="code"
@@ -73,8 +70,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="path_file" class="font-medium">path_file</label>
     <input
       id="path_file"
@@ -97,8 +93,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="feature" class="font-medium">feature</label>
     <input
       id="feature"
@@ -121,15 +116,11 @@
     }
   </div>
 
-@if (submitted && form.invalid) {
+  @if (submitted && form.invalid) {
     <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
   }
 
-  <button
-    type="submit"
-    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
-  >
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
     Se connecter
   </button>
 </form>
- 

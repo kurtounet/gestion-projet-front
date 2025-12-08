@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,17 +7,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './priority-form.component.html',
   styleUrl: './priority-form.component.css',
 })
-export class PriorityFormComponent { 
+export class PriorityFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       priority_id: ['', [Validators.required, Validators.minLength(8)]],
-  priority_label: ['', [Validators.required, Validators.minLength(8)]],
-  priority_number: ['', [Validators.required, Validators.minLength(8)]],
-  created_At: ['', [Validators.required, Validators.minLength(8)]],
-  updated_At: ['', [Validators.required, Validators.minLength(8)]],      
+      priority_label: ['', [Validators.required, Validators.minLength(8)]],
+      priority_number: ['', [Validators.required, Validators.minLength(8)]],
+      created_At: ['', [Validators.required, Validators.minLength(8)]],
+      updated_At: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -37,4 +36,3 @@ export class PriorityFormComponent {
     console.log(this.form.value);
   }
 }
-

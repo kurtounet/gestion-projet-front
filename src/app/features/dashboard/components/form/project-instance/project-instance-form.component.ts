@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,23 +7,23 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './project-instance-form.component.html',
   styleUrl: './project-instance-form.component.css',
 })
-export class ProjectInstanceFormComponent { 
+export class ProjectInstanceFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       id: ['', [Validators.required, Validators.minLength(8)]],
-  status_id: ['', [Validators.required, Validators.minLength(8)]],
-  priority_id: ['', [Validators.required, Validators.minLength(8)]],
-  project_template_id: ['', [Validators.required, Validators.minLength(8)]],
-  comment_id: ['', [Validators.required, Validators.minLength(8)]],
-  name: ['', [Validators.required, Validators.minLength(8)]],
-  description: ['', [Validators.required, Validators.minLength(8)]],
-  start_date: ['', [Validators.required, Validators.minLength(8)]],
-  end_date: ['', [Validators.required, Validators.minLength(8)]],
-  created_At: ['', [Validators.required, Validators.minLength(8)]],
-  updated_At: ['', [Validators.required, Validators.minLength(8)]],      
+      status_id: ['', [Validators.required, Validators.minLength(8)]],
+      priority_id: ['', [Validators.required, Validators.minLength(8)]],
+      project_template_id: ['', [Validators.required, Validators.minLength(8)]],
+      comment_id: ['', [Validators.required, Validators.minLength(8)]],
+      name: ['', [Validators.required, Validators.minLength(8)]],
+      description: ['', [Validators.required, Validators.minLength(8)]],
+      start_date: ['', [Validators.required, Validators.minLength(8)]],
+      end_date: ['', [Validators.required, Validators.minLength(8)]],
+      created_At: ['', [Validators.required, Validators.minLength(8)]],
+      updated_At: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -43,4 +42,3 @@ export class ProjectInstanceFormComponent {
     console.log(this.form.value);
   }
 }
-

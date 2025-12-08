@@ -1,13 +1,10 @@
 import { Component, inject, input } from '@angular/core';
 
+import { CardStat } from '../card-stat/card-stat';
 
-import { CardStat } from "../card-stat/card-stat";
-
-import { NgOptimizedImage } from "@angular/common";
+import { NgOptimizedImage } from '@angular/common';
 import { StatisticService } from '../../../services/statistic.service';
 import { ICardStat } from '../../../models/components/static.model';
-
-
 
 @Component({
   selector: 'app-panel-statistic',
@@ -22,5 +19,4 @@ export class PanelStatistic {
   toggleVisible() {
     this.isVisible = !this.isVisible;
   }
-
 }

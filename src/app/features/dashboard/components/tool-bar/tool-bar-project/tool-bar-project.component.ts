@@ -5,18 +5,18 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-tool-bar-project',
   imports: [CdkDropList, CdkDrag],
   templateUrl: './tool-bar-project.component.html',
-  styleUrl: './tool-bar-project.component.scss'
+  styleUrl: './tool-bar-project.component.scss',
 })
 export class ToolBarProjectComponent {
-  defaultView:string = 'view-list';
+  defaultView: string = 'view-list';
 
   @Output() selectedComponent: EventEmitter<string> = new EventEmitter();
 
   viewTypes = [
-    { view: 'view-sprint' ,label: 'Sprint/Tâches', icon: '📋' },
+    { view: 'view-sprint', label: 'Sprint/Tâches', icon: '📋' },
     { view: 'view-project', label: 'Géneral', icon: '📊' },
-    { view: 'view-frameworks', label:'Frameworks', icon: '📊' },
-    { view: 'view-database', label:'database', icon: '📊' },
+    { view: 'view-frameworks', label: 'Frameworks', icon: '📊' },
+    { view: 'view-database', label: 'database', icon: '📊' },
     { view: 'view-file', label: 'Fichiers', icon: '📊' },
     { view: 'view-statistics', label: 'Statistique', icon: '📊' },
   ];

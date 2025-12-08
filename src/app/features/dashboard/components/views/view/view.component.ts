@@ -1,4 +1,4 @@
-import { Component, ComponentRef,Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, ComponentRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
 
 import { ViewKanbanComponent } from '../view-kanban/view-kanban.component';
 
@@ -8,7 +8,7 @@ import { ViewKanbanComponent } from '../view-kanban/view-kanban.component';
     // ViewKanbanComponent,
   ],
   templateUrl: './view.component.html',
-  styleUrl: './view.component.scss'
+  styleUrl: './view.component.scss',
 })
 export class ViewComponent {
   @ViewChild('dynamicHost', { read: ViewContainerRef })
@@ -37,7 +37,7 @@ export class ViewComponent {
       this.currentComponentRef.destroy();
     }
   }
-/*
+  /*
   vrc = inject(ViewContainerRef);
   viewType!: string;
   ngOnInit() {

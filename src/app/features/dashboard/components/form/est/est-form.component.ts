@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,14 +7,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './est-form.component.html',
   styleUrl: './est-form.component.css',
 })
-export class EstFormComponent { 
+export class EstFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-          
-    });
+    this.form = this.fb.group({});
   }
 
   get f() {
@@ -33,4 +30,3 @@ export class EstFormComponent {
     console.log(this.form.value);
   }
 }
-

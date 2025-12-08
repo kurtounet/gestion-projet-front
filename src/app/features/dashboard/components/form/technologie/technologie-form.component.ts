@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,14 +7,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './technologie-form.component.html',
   styleUrl: './technologie-form.component.css',
 })
-export class TechnologieFormComponent { 
+export class TechnologieFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       id: ['', [Validators.required, Validators.minLength(8)]],
-  label: ['', [Validators.required, Validators.minLength(8)]],      
+      label: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -34,4 +33,3 @@ export class TechnologieFormComponent {
     console.log(this.form.value);
   }
 }
-

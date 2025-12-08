@@ -4,19 +4,16 @@ import { form, Field, FieldTree } from '@angular/forms/signals';
 import { ModalService } from '../../services/modal.service';
 import { ITaskInstance } from '../../models/task-instance.model';
 
-
 @Component({
   selector: 'app-card-task',
   imports: [NgOptimizedImage],
   templateUrl: './card-task.component.html',
-  styleUrl: './card-task.component.scss'
+  styleUrl: './card-task.component.scss',
 })
 export class CardTaskComponent {
-
   modalService = inject(ModalService);
- // 1) Input venant du parent
+  // 1) Input venant du parent
   task = input.required<ITaskInstance>();
-
 
   // 2) WritableSignal interne qui servira de "model" au form()
   // private taskModel: WritableSignal<ITaskInstance> = signal<ITaskInstance>({} as ITaskInstance);
@@ -33,12 +30,10 @@ export class CardTaskComponent {
   //   });
   // }
 
-    editTask(id: number) {
-
+  editTask(id: number) {
     this.modalService.open(`Edit task`, 'edit', 'task', id);
   }
-    deleteTask(id: number) {
-
+  deleteTask(id: number) {
     this.modalService.open(`Supprimer task ${id}`, 'delete', 'task', id);
   }
   /*

@@ -8,9 +8,8 @@ describe('ContextStatusFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContextStatusFormComponent]
-    })
-    .compileComponents();
+      imports: [ContextStatusFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ContextStatusFormComponent);
     component = fixture.componentInstance;

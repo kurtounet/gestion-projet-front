@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,17 +7,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './sprint-task-form.component.html',
   styleUrl: './sprint-task-form.component.css',
 })
-export class SprintTaskFormComponent { 
+export class SprintTaskFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       sprint_template_id: ['', [Validators.required, Validators.minLength(8)]],
-  task_template_id: ['', [Validators.required, Validators.minLength(8)]],
-  task_order: ['', [Validators.required, Validators.minLength(8)]],
-  created_At: ['', [Validators.required, Validators.minLength(8)]],
-  updated_At: ['', [Validators.required, Validators.minLength(8)]],      
+      task_template_id: ['', [Validators.required, Validators.minLength(8)]],
+      task_order: ['', [Validators.required, Validators.minLength(8)]],
+      created_At: ['', [Validators.required, Validators.minLength(8)]],
+      updated_At: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -37,4 +36,3 @@ export class SprintTaskFormComponent {
     console.log(this.form.value);
   }
 }
-

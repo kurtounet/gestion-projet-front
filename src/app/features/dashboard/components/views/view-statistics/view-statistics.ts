@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { PanelStatistic } from "../../statistic/panel-statistic/panel-statistic";
+import { PanelStatistic } from '../../statistic/panel-statistic/panel-statistic';
 import { ProjectInstantStore } from '@app/features/dashboard/stores/project-instant.store';
 
 @Component({
@@ -9,6 +9,6 @@ import { ProjectInstantStore } from '@app/features/dashboard/stores/project-inst
   styleUrl: './view-statistics.css',
 })
 export class ViewStatistics {
-projectInstantStore = inject(ProjectInstantStore);
-statistics = this.projectInstantStore.getStatisticsCurrentProject();
+  projectInstantStore = inject(ProjectInstantStore);
+  statistics = this.projectInstantStore.getStatisticsCurrentProject();
 }

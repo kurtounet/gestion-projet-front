@@ -16,15 +16,14 @@ import { FormDatabase } from '../components/form/form-database/form-database';
 import { FormTask } from '../components/form/form-task/form-task';
 import { FormFile } from '../components/form/form-file/form-file';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FormFactoryService {
   private readonly formMap = new Map<string, Type<any>>();
 
   constructor() {
-     this.setformMap();
+    this.setformMap();
   }
 
   setformMap() {
@@ -36,7 +35,6 @@ export class FormFactoryService {
     this.formMap.set('database', FormDatabase);
     this.formMap.set('task', FormTask);
     this.formMap.set('file', FormFile);
-
   }
   getForm(formName: string): Type<any> | null {
     return this.formMap.get(formName) || null;

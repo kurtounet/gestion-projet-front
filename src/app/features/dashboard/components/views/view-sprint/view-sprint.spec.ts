@@ -8,9 +8,8 @@ describe('ViewSprint', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewSprint]
-    })
-    .compileComponents();
+      imports: [ViewSprint],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewSprint);
     component = fixture.componentInstance;

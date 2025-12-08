@@ -8,9 +8,8 @@ describe('ViewTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewTableComponent]
-    })
-    .compileComponents();
+      imports: [ViewTableComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewTableComponent);
     component = fixture.componentInstance;

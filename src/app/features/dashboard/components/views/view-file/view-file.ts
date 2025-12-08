@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './view-file.html',
   styleUrl: './view-file.css',
 })
-export class ViewFile {
-
-}
+export class ViewFile {}

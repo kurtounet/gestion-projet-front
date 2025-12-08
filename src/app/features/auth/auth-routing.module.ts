@@ -5,9 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ForgotComponent } from './pages/forgot/forgot.component';
 import { LoginComponent } from './pages/login/login.component';
 
-
 // Import des composants du dashboard
-
 
 // Import des guards si nécessaire
 // import { AuthGuard } from '../guards/auth.guard';
@@ -20,25 +18,23 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
       },
       {
         path: 'forgot',
-        component: ForgotComponent
+        component: ForgotComponent,
       },
       {
         path: 'register',
-        component: RegisterComponent
-      }
-    ]
+        component: RegisterComponent,
+      },
+    ],
   },
-]
+];
 // canActivate: [AuthGuard] // Si vous avez un guard d'authentification
-
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AuthRoutingModule { }
+export class AuthRoutingModule {}

@@ -1,16 +1,20 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, inject, input, Input, signal } from '@angular/core';
+import { ProjectInstantStore } from '@app/features/dashboard/stores/project-instant.store';
 
 @Component({
   selector: 'app-view-tool-bar',
   imports: [],
   templateUrl: './view-tool-bar.component.html',
-  styleUrl: './view-tool-bar.component.scss'
+  styleUrl: './view-tool-bar.component.scss',
 })
 export class ViewToolBarComponent {
- title = input<string>('');
- quantity = input<number>(0);
- layoutList: boolean = true;
+  projectInstanceStore = inject(ProjectInstantStore);
+
+  title = input<string>('');
+
+  layoutList: boolean = true;
+
   toggleList() {
-    this.layoutList = !this.layoutList
+    this.layoutList = !this.layoutList;
   }
 }

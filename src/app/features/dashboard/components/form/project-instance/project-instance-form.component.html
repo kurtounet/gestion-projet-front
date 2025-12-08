@@ -1,8 +1,7 @@
- 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
   <h1>ProjectInstance</h1>
 
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="id" class="font-medium">id</label>
     <input
       id="id"
@@ -25,8 +24,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="status_id" class="font-medium">status_id</label>
     <input
       id="status_id"
@@ -49,8 +47,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="priority_id" class="font-medium">priority_id</label>
     <input
       id="priority_id"
@@ -73,8 +70,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="project_template_id" class="font-medium">project_template_id</label>
     <input
       id="project_template_id"
@@ -97,8 +93,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="comment_id" class="font-medium">comment_id</label>
     <input
       id="comment_id"
@@ -121,8 +116,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="name" class="font-medium">name</label>
     <input
       id="name"
@@ -145,8 +139,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="description" class="font-medium">description</label>
     <input
       id="description"
@@ -169,8 +162,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="start_date" class="font-medium">start_date</label>
     <input
       id="start_date"
@@ -193,8 +185,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="end_date" class="font-medium">end_date</label>
     <input
       id="end_date"
@@ -217,8 +208,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="created_At" class="font-medium">created_At</label>
     <input
       id="created_At"
@@ -241,8 +231,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="updated_At" class="font-medium">updated_At</label>
     <input
       id="updated_At"
@@ -265,15 +254,11 @@
     }
   </div>
 
-@if (submitted && form.invalid) {
+  @if (submitted && form.invalid) {
     <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
   }
 
-  <button
-    type="submit"
-    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
-  >
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
     Se connecter
   </button>
 </form>
- 

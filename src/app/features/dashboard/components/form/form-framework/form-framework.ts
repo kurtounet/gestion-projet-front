@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './form-framework.html',
   styleUrl: './form-framework.css',
 })
-export class FormFramework {
-
-}
+export class FormFramework {}

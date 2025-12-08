@@ -8,9 +8,8 @@ describe('StatusFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StatusFormComponent]
-    })
-    .compileComponents();
+      imports: [StatusFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(StatusFormComponent);
     component = fixture.componentInstance;

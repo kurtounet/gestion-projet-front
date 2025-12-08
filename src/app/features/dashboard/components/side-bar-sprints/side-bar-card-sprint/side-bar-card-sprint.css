@@ -24,11 +24,11 @@
 }
 
 .sprint-active {
-  background-color: #dbd9e9bd;
+  background-color: #fefdffbd;
   border: 1px solid #818181;
 }
 .sprint-active-bar {
-  background-color: #1900ff;
+  background-color: #ad0e0e;
   padding: 2px;
   margin: 0px;
   border-right: 2px;

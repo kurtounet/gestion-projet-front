@@ -1,15 +1,13 @@
-
-    .notification-3{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .notification-3_input{
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .notification-3_input input{
-      width: 100%;
-    }
-    
+.notification-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.notification-3_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.notification-3_input input {
+  width: 100%;
+}

@@ -5,50 +5,57 @@ import { map } from 'rxjs/operators';
 
 import { IProjectInstance } from '../models/project-instance.model';
 import { environment } from '../../../../environments/environment.development';
-
+import { IPayloadItemOrder } from '../models/payload-item-order.model';
 
 export interface IHydraCollection<T> {
-    'member': T[];
-    'totalItems': number;
+  member: T[];
+  totalItems: number;
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProjectInstanceService {
-    private routeApi = `${environment.baseApiUrl}/project_instances`;
-    private httpClient = inject(HttpClient);
+  private routeApi = `${environment.baseApiUrl}/project_instances`;
+  private routeCustom = `${environment.baseCustomUrl}/project_instances`;
+  private httpClient = inject(HttpClient);
 
-    constructor() { }
+  constructor() {}
 
-    // Get all ProjectInstance
-    getAllProjectInstance(): Observable< IProjectInstance[]> {
-        return this.httpClient.get<IHydraCollection<IProjectInstance>>(this.routeApi).pipe(
-            map(response => {
-                return response ['member'];
-            })
-        );
-    }
+  // Get all ProjectInstance
+  getAllProjectInstance(): Observable<IProjectInstance[]> {
+    return this.httpClient.get<IHydraCollection<IProjectInstance>>(this.routeApi).pipe(
+      map((response) => {
+        return response['member'];
+      }),
+    );
+  }
 
-    // Get ProjectInstance by ID
-    getProjectInstanceById(id: number): Observable<IProjectInstance> {
-        return this.httpClient.get<IProjectInstance>(`${this.routeApi}/${id}`);
-    }
+  // Get ProjectInstance by ID
+  getProjectInstanceById(id: number): Observable<IProjectInstance> {
+    return this.httpClient.get<IProjectInstance>(`${this.routeApi}/${id}`);
+  }
 
-    // Create a new ProjectInstance
-    createProjectInstance(body: IProjectInstance): Observable<IProjectInstance> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.httpClient.post<IProjectInstance>(this.routeApi, body, { headers });
-    }
+  // Create a new ProjectInstance
+  createProjectInstance(body: IProjectInstance): Observable<IProjectInstance> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<IProjectInstance>(this.routeApi, body, { headers });
+  }
 
-    // Update ProjectInstance by ID
-    updateProjectInstance(id: string, body: IProjectInstance): Observable<IProjectInstance> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.httpClient.patch<IProjectInstance>(`${this.routeApi}/${id}`, body, { headers });
-    }
+  // Update ProjectInstance by ID
+  updateProjectInstance(id: string, body: IProjectInstance): Observable<IProjectInstance> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch<IProjectInstance>(`${this.routeApi}/${id}`, body, { headers });
+  }
 
-    // Delete ProjectInstance
-    deleteProjectInstance(id: string): Observable<void> {
-        return this.httpClient.delete<void>(`${this.routeApi}/${id}`);
-    }
+  // Delete ProjectInstance
+  deleteProjectInstance(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.routeApi}/${id}`);
+  }
+
+  updateProjectOrder(newOrder: IPayloadItemOrder) {
+    console.log(newOrder);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
+    return this.httpClient.patch<void>(`${this.routeCustom}/order`, newOrder, { headers });
+  }
 }

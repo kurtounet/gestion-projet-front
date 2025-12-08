@@ -1,7 +1,7 @@
 export interface ITask {
   id: number;
   title: string;
-  description?: string
+  description?: string;
   assignedTo: string;
   tags: string[];
   dueDate: string;

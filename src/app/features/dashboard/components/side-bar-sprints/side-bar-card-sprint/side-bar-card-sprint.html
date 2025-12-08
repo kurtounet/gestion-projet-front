@@ -1,7 +1,7 @@
 <div
   (click)="selectedSprint()"
-  class="card flex justify-between hover:bg-gray-50"
-  [class.sprint-active]="projectInstanceStore.selectedSprint() === sprint()?.id"
+  class="card flex justify-between hover:bg-gray-50 hover:cursor-pointer"
+  [class.sprint-active]="projectInstanceStore.selectedSprintId() === sprint()?.id"
 >
   <div class="w-full pr-2 flex flex-col">
     <div class="w-full flex items-center justify-start gap-2">
@@ -45,5 +45,5 @@
       height="20"
     />
   </div>
-  <div [class.sprint-active-bar]="projectInstanceStore.selectedSprint() === sprint()?.id"></div>
+  <div [class.sprint-active-bar]="projectInstanceStore.selectedSprintId() === sprint()?.id"></div>
 </div>

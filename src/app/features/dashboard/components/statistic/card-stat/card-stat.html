@@ -1,8 +1,8 @@
 <div class="card-stat">
   <div class="flex items-center justify-between mb-4">
     <div [ngClass]="getColorClass(cardStat().color || '')" class="icon-container">
-      @if(cardStat().icon != ''){
-      <img [ngSrc]="cardStat().icon" width="20" height="20" />
+      @if (cardStat().icon != '') {
+        <img [ngSrc]="cardStat().icon" width="20" height="20" />
       }
       <!-- <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -21,11 +21,11 @@
   <h3 class="title">
     {{ cardStat().title }}
   </h3>
-  @if(cardStat().progress){
-  <ul>
-    @for (p of cardStat().progress; track $index){
-    <li><app-progress-bar [progress]="p" /></li>
-    }
-  </ul>
+  @if (cardStat().progress) {
+    <ul>
+      @for (p of cardStat().progress; track $index) {
+        <li><app-progress-bar [progress]="p" /></li>
+      }
+    </ul>
   }
 </div>

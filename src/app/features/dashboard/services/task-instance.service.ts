@@ -4,67 +4,74 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { ITaskInstance } from '../models/task-instance.model';
+import { IPayloadItemOrder } from '../models/payload-item-order.model';
 export interface IHydraCollection<T> {
-    'member': T[];
-    'totalItems': number;
+  member: T[];
+  totalItems: number;
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class TaskInstanceService {
-    private routeApi = `${environment.baseApiUrl}/task_instances`;
-    private httpClient = inject(HttpClient);
+  private routeApi = `${environment.baseApiUrl}/task_instances`;
+  private routeCustom = `${environment.baseCustomUrl}/task_instances`;
+  private httpClient = inject(HttpClient);
 
-    tasks: ITaskInstance[] = [];
+  tasks: ITaskInstance[] = [];
 
-    constructor() { }
+  constructor() {}
 
-    // Get all TaskInstance
-    getAllTaskInstance(): Observable<ITaskInstance[]> {
-        return this.httpClient.get<IHydraCollection<ITaskInstance>>(this.routeApi).pipe(
-            map(response => {
-                return response['member'];
-            })
-        );
-    }
-    getAllTaskBySprintInstance(id: number): Observable<ITaskInstance[]> {
-        return this.httpClient.get<IHydraCollection<ITaskInstance>>(`${this.routeApi}?sprintInstance.id=${id}`).pipe(
-            map(response => {
-              console.log(response);
-                return response['member'];
-            })
-        );
-    }
+  // Get all TaskInstance
+  getAllTaskInstance(): Observable<ITaskInstance[]> {
+    return this.httpClient.get<IHydraCollection<ITaskInstance>>(this.routeApi).pipe(
+      map((response) => {
+        return response['member'];
+      }),
+    );
+  }
+  getAllTaskBySprintInstance(id: number): Observable<ITaskInstance[]> {
+    return this.httpClient
+      .get<IHydraCollection<ITaskInstance>>(`${this.routeApi}?sprintInstance.id=${id}`)
+      .pipe(
+        map((response) => {
+          return response['member'];
+        }),
+      );
+  }
 
-    // Get TaskInstance by ID
-    getTaskInstanceById(id: number): Observable<ITaskInstance> {
-        return this.httpClient.get<ITaskInstance>(`${this.routeApi}/${id}`);
-    }
+  // Get TaskInstance by ID
+  getTaskInstanceById(id: number): Observable<ITaskInstance> {
+    return this.httpClient.get<ITaskInstance>(`${this.routeApi}/${id}`);
+  }
 
-    // Create a new TaskInstance
-    createTaskInstance(body: ITaskInstance): Observable<ITaskInstance> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.httpClient.post<ITaskInstance>(this.routeApi, body, { headers });
-    }
+  // Create a new TaskInstance
+  createTaskInstance(body: ITaskInstance): Observable<ITaskInstance> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.post<ITaskInstance>(this.routeApi, body, { headers });
+  }
 
-    // Update TaskInstance by ID
-    updateTaskInstance(id: number, body: ITaskInstance): Observable<ITaskInstance> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.httpClient.patch<ITaskInstance>(`${this.routeApi}/${id}`, body, { headers });
-    }
+  // Update TaskInstance by ID
+  updateTaskInstance(id: number, body: ITaskInstance): Observable<ITaskInstance> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpClient.patch<ITaskInstance>(`${this.routeApi}/${id}`, body, { headers });
+  }
 
-    // Delete TaskInstance
-    deleteTaskInstance(id: string): Observable<void> {
-        return this.httpClient.delete<void>(`${this.routeApi}/${id}`);
-    }
+  // Delete TaskInstance
+  deleteTaskInstance(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.routeApi}/${id}`);
+  }
 
+  getAllCompletedStatus(): string[] {
+    return ['To Do', 'In Progress', 'Done'];
+  }
 
-    getAllCompletedStatus(): string[] {
-        return ['To Do', 'In Progress', 'Done'];
-    }
+  filtersByCompleted(completed: string): ITaskInstance[] {
+    return this.tasks.filter((task) => task.completed === completed);
+  }
 
-    filtersByCompleted(completed: string): ITaskInstance[] {
-        return this.tasks.filter(task => task.completed === completed);
-    }
+  updateTaskOrder(newOrder: IPayloadItemOrder) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
+    return this.httpClient.patch<void>(`${this.routeCustom}/order`, newOrder, { headers });
+  }
 }

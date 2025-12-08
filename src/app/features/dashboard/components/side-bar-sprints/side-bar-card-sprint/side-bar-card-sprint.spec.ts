@@ -8,9 +8,8 @@ describe('SideBarcardSprint', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SideBarcardSprint]
-    })
-    .compileComponents();
+      imports: [SideBarcardSprint],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SideBarcardSprint);
     component = fixture.componentInstance;

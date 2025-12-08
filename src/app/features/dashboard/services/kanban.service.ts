@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KanbanService {
-private readonly http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   saveColumns(columns: any[]) {
     return this.http.put('/api/kanban/columns', { columns });

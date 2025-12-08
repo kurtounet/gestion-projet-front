@@ -8,9 +8,8 @@ describe('PriorityFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PriorityFormComponent]
-    })
-    .compileComponents();
+      imports: [PriorityFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PriorityFormComponent);
     component = fixture.componentInstance;

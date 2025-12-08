@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,17 +7,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './notification-3-form.component.html',
   styleUrl: './notification-3-form.component.css',
 })
-export class Notification3FormComponent { 
+export class Notification3FormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       id: ['', [Validators.required, Validators.minLength(8)]],
-  user_id: ['', [Validators.required, Validators.minLength(8)]],
-  message: ['', [Validators.required, Validators.minLength(8)]],
-  date: ['', [Validators.required, Validators.minLength(8)]],
-  type: ['', [Validators.required, Validators.minLength(8)]],      
+      user_id: ['', [Validators.required, Validators.minLength(8)]],
+      message: ['', [Validators.required, Validators.minLength(8)]],
+      date: ['', [Validators.required, Validators.minLength(8)]],
+      type: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -37,4 +36,3 @@ export class Notification3FormComponent {
     console.log(this.form.value);
   }
 }
-

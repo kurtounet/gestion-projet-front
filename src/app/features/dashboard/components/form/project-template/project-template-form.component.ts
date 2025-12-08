@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,18 +7,18 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './project-template-form.component.html',
   styleUrl: './project-template-form.component.css',
 })
-export class ProjectTemplateFormComponent { 
+export class ProjectTemplateFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       project_template_id: ['', [Validators.required, Validators.minLength(8)]],
-  name: ['', [Validators.required, Validators.minLength(8)]],
-  description: ['', [Validators.required, Validators.minLength(8)]],
-  duration: ['', [Validators.required, Validators.minLength(8)]],
-  created_At: ['', [Validators.required, Validators.minLength(8)]],
-  updated_At: ['', [Validators.required, Validators.minLength(8)]],      
+      name: ['', [Validators.required, Validators.minLength(8)]],
+      description: ['', [Validators.required, Validators.minLength(8)]],
+      duration: ['', [Validators.required, Validators.minLength(8)]],
+      created_At: ['', [Validators.required, Validators.minLength(8)]],
+      updated_At: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -38,4 +37,3 @@ export class ProjectTemplateFormComponent {
     console.log(this.form.value);
   }
 }
-

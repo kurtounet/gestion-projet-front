@@ -8,9 +8,8 @@ describe('FormDatabase', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormDatabase]
-    })
-    .compileComponents();
+      imports: [FormDatabase],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FormDatabase);
     component = fixture.componentInstance;

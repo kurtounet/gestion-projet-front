@@ -1,8 +1,7 @@
- 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
   <h1>TaskInstance</h1>
 
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="id" class="font-medium">id</label>
     <input
       id="id"
@@ -25,8 +24,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="user_id" class="font-medium">user_id</label>
     <input
       id="user_id"
@@ -49,8 +47,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="task_template_id" class="font-medium">task_template_id</label>
     <input
       id="task_template_id"
@@ -73,8 +70,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="sprint_instance_id" class="font-medium">sprint_instance_id</label>
     <input
       id="sprint_instance_id"
@@ -97,8 +93,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="priority_id" class="font-medium">priority_id</label>
     <input
       id="priority_id"
@@ -121,8 +116,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="status_id" class="font-medium">status_id</label>
     <input
       id="status_id"
@@ -145,8 +139,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="type_task_id" class="font-medium">type_task_id</label>
     <input
       id="type_task_id"
@@ -169,8 +162,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="name" class="font-medium">name</label>
     <input
       id="name"
@@ -193,8 +185,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="description" class="font-medium">description</label>
     <input
       id="description"
@@ -217,8 +208,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="start_date" class="font-medium">start_date</label>
     <input
       id="start_date"
@@ -241,8 +231,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="due_date" class="font-medium">due_date</label>
     <input
       id="due_date"
@@ -265,8 +254,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="order" class="font-medium">order</label>
     <input
       id="order"
@@ -289,8 +277,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="parent_task" class="font-medium">parent_task</label>
     <input
       id="parent_task"
@@ -313,8 +300,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="dependency_id" class="font-medium">dependency_id</label>
     <input
       id="dependency_id"
@@ -337,8 +323,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="created_At" class="font-medium">created_At</label>
     <input
       id="created_At"
@@ -361,8 +346,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="updated_At" class="font-medium">updated_At</label>
     <input
       id="updated_At"
@@ -385,8 +369,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="comment_id" class="font-medium">comment_id</label>
     <input
       id="comment_id"
@@ -409,15 +392,11 @@
     }
   </div>
 
-@if (submitted && form.invalid) {
+  @if (submitted && form.invalid) {
     <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
   }
 
-  <button
-    type="submit"
-    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
-  >
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
     Se connecter
   </button>
 </form>
- 

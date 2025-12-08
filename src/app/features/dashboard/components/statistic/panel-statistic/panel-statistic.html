@@ -15,7 +15,7 @@
     [class.hidden-card]="!isVisible"
   >
     @for (stat of cardStats(); track $index) {
-    <app-card-stat [cardStat]="stat" />
+      <app-card-stat [cardStat]="stat" />
     }
   </div>
 </div>

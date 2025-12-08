@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,17 +7,17 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './status-form.component.html',
   styleUrl: './status-form.component.css',
 })
-export class StatusFormComponent { 
+export class StatusFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       status_id: ['', [Validators.required, Validators.minLength(8)]],
-  status_name: ['', [Validators.required, Validators.minLength(8)]],
-  status_context: ['', [Validators.required, Validators.minLength(8)]],
-  created_At: ['', [Validators.required, Validators.minLength(8)]],
-  updated_At: ['', [Validators.required, Validators.minLength(8)]],      
+      status_name: ['', [Validators.required, Validators.minLength(8)]],
+      status_context: ['', [Validators.required, Validators.minLength(8)]],
+      created_At: ['', [Validators.required, Validators.minLength(8)]],
+      updated_At: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -37,4 +36,3 @@ export class StatusFormComponent {
     console.log(this.form.value);
   }
 }
-

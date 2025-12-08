@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './view-database.html',
   styleUrl: './view-database.css',
 })
-export class ViewDatabase {
-
-}
+export class ViewDatabase {}

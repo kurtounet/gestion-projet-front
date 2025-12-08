@@ -1,7 +1,7 @@
-import z from "zod";
+import z from 'zod';
 
 export const SprintInstanceSchema = z.object({
-      id: z.number(),
+  id: z.number(),
   projectInstanceId: z.number().nullable(),
   priorityId: z.number(),
   sprintTemplateId: z.number().nullable(),
@@ -14,16 +14,14 @@ export const SprintInstanceSchema = z.object({
   commentId: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
-})
+});
 
-export const insertSprintInstanceSchema = SprintInstanceSchema.omit(
-    {
-        id: true,
-        //createdAt: true,
-        //updatedAt: true
-    }
-)
-export const updateSprintInstanceSchema = SprintInstanceSchema.partial()
+export const insertSprintInstanceSchema = SprintInstanceSchema.omit({
+  id: true,
+  //createdAt: true,
+  //updatedAt: true
+});
+export const updateSprintInstanceSchema = SprintInstanceSchema.partial();
 
 export type ZSprintInstance = z.infer<typeof SprintInstanceSchema>;
 export type ZSprintInstanceInsert = z.infer<typeof insertSprintInstanceSchema>;

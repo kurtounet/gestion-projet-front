@@ -1,8 +1,7 @@
- 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
   <h1>User</h1>
 
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="user_id" class="font-medium">user_id</label>
     <input
       id="user_id"
@@ -25,8 +24,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="role" class="font-medium">role</label>
     <input
       id="role"
@@ -49,8 +47,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="first_name" class="font-medium">first_name</label>
     <input
       id="first_name"
@@ -73,8 +70,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="last_name" class="font-medium">last_name</label>
     <input
       id="last_name"
@@ -97,8 +93,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="email" class="font-medium">email</label>
     <input
       id="email"
@@ -121,8 +116,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="password" class="font-medium">password</label>
     <input
       id="password"
@@ -145,8 +139,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="created_At" class="font-medium">created_At</label>
     <input
       id="created_At"
@@ -169,8 +162,7 @@
     }
   </div>
 
-
-         <div class="flex flex-col gap-1">
+  <div class="flex flex-col gap-1">
     <label for="updated_At" class="font-medium">updated_At</label>
     <input
       id="updated_At"
@@ -193,15 +185,11 @@
     }
   </div>
 
-@if (submitted && form.invalid) {
+  @if (submitted && form.invalid) {
     <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
   }
 
-  <button
-    type="submit"
-    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
-  >
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
     Se connecter
   </button>
 </form>
- 

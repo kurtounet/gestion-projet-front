@@ -8,9 +8,8 @@ describe('DragDropHorizontalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DragDropHorizontalComponent]
-    })
-    .compileComponents();
+      imports: [DragDropHorizontalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DragDropHorizontalComponent);
     component = fixture.componentInstance;

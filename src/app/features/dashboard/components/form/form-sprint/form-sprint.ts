@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './form-sprint.html',
   styleUrl: './form-sprint.css',
 })
-export class FormSprint {
-
-}
+export class FormSprint {}

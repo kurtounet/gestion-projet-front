@@ -1,15 +1,13 @@
-
-    .user{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .user_input{
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .user_input input{
-      width: 100%;
-    }
-    
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.user_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.user_input input {
+  width: 100%;
+}

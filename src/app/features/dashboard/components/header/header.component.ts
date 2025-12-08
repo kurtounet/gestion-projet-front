@@ -5,11 +5,11 @@ import { AuthService } from '@app/features/auth/services/auth.service';
   selector: 'app-header',
   imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
   authService = inject(AuthService);
-logout() {
-  this.authService.logOut();
-}
+  logout() {
+    this.authService.logOut();
+  }
 }

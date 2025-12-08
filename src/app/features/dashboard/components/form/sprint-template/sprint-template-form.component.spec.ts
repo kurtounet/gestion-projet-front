@@ -8,9 +8,8 @@ describe('SprintTemplateFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SprintTemplateFormComponent]
-    })
-    .compileComponents();
+      imports: [SprintTemplateFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SprintTemplateFormComponent);
     component = fixture.componentInstance;

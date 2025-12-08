@@ -15,40 +15,30 @@ import { ProjectInstantStore } from '../../stores/project-instant.store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 
-
 @Component({
   selector: 'app-projet',
-  imports: [
-    CommonModule,
-    ToolBarProjectComponent,
-
-
-],
+  imports: [CommonModule, ToolBarProjectComponent],
   templateUrl: './projet.component.html',
   styleUrl: './projet.component.scss',
-
 })
 export class ProjetComponent {
   readonly route = inject(ActivatedRoute);
   readonly storeProjectInstance = inject(ProjectInstantStore);
   readonly componentFactory = inject(ComponentFactoryService);
 
-    // 🔁 projectId devient un signal
+  // 🔁 projectId devient un signal
   readonly projectIdSignal = toSignal(
-    this.route.params.pipe(map(params => Number(params['id']))),
-    { initialValue: 0 }
+    this.route.params.pipe(map((params) => Number(params['id']))),
+    { initialValue: 0 },
   );
 
   currentId: number | null = null;
-  defaultView : string = "view-sprint"
-
+  defaultView: string = 'view-sprint';
 
   componentNames: string[] = [];
   selectedComponent: Type<any> | null = null;
 
-
- readonly loadEffect = effect(() => {
-
+  readonly loadEffect = effect(() => {
     if (this.projectIdSignal() === this.currentId) {
       return;
     }
@@ -58,7 +48,6 @@ export class ProjetComponent {
 
     this.componentNames = this.componentFactory.getAllComponentNames();
     this.onComponentChange(this.defaultView);
-
   });
 
   onComponentChange(event: string) {

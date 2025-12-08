@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-icon',
   imports: [],
   templateUrl: './icon.component.html',
-  styleUrl: './icon.component.scss'
+  styleUrl: './icon.component.scss',
 })
-export class IconComponent {
-
-}
+export class IconComponent {}

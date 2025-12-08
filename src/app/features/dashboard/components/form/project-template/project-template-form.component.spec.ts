@@ -8,9 +8,8 @@ describe('ProjectTemplateFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProjectTemplateFormComponent]
-    })
-    .compileComponents();
+      imports: [ProjectTemplateFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectTemplateFormComponent);
     component = fixture.componentInstance;

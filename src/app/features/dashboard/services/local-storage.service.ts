@@ -4,23 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LocalStorageService {
-
   setItem(key: string, value: any) {
-    if(!key) return
+    if (!key) return;
     localStorage.setItem(key, JSON.stringify(value));
   }
   getItem(key: string): string | null {
-    if(!key) return null
+    if (!key) return null;
     return localStorage.getItem(key);
   }
   remove(key: string) {
-    if(!key) return
+    if (!key) return;
     localStorage.removeItem(key);
   }
   clear() {
     localStorage.clear();
   }
-  keyName(index:number) {
+  keyName(index: number) {
     localStorage.key(index);
   }
   getCountKeys(): number {
@@ -28,7 +27,7 @@ export class LocalStorageService {
   }
   getAllKeys(): string[] {
     let keys: string[] = [];
-    for (let index = 0; index < localStorage.length; index++){
+    for (let index = 0; index < localStorage.length; index++) {
       keys.push(localStorage.key(index) as string);
     }
     return keys;

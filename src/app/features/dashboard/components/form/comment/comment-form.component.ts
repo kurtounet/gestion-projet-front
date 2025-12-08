@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,19 +7,19 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './comment-form.component.html',
   styleUrl: './comment-form.component.css',
 })
-export class CommentFormComponent { 
+export class CommentFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       id: ['', [Validators.required, Validators.minLength(8)]],
-  task_id: ['', [Validators.required, Validators.minLength(8)]],
-  user_id: ['', [Validators.required, Validators.minLength(8)]],
-  subject: ['', [Validators.required, Validators.minLength(8)]],
-  content: ['', [Validators.required, Validators.minLength(8)]],
-  created_at: ['', [Validators.required, Validators.minLength(8)]],
-  updated_at: ['', [Validators.required, Validators.minLength(8)]],      
+      task_id: ['', [Validators.required, Validators.minLength(8)]],
+      user_id: ['', [Validators.required, Validators.minLength(8)]],
+      subject: ['', [Validators.required, Validators.minLength(8)]],
+      content: ['', [Validators.required, Validators.minLength(8)]],
+      created_at: ['', [Validators.required, Validators.minLength(8)]],
+      updated_at: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -39,4 +38,3 @@ export class CommentFormComponent {
     console.log(this.form.value);
   }
 }
-

@@ -7,7 +7,6 @@ import { inject } from '@angular/core';
 // };
 
 export const authGuard: CanActivateFn = () => {
-
   const authService = inject(AuthService);
   const router = inject(Router);
   if (authService.isLogged()) {
@@ -18,11 +17,7 @@ export const authGuard: CanActivateFn = () => {
   }
 };
 
-
-export const authMatchGuard: CanMatchFn = (
-  route: Route,
-  segments: UrlSegment[]
-) => {
+export const authMatchGuard: CanMatchFn = (route: Route, segments: UrlSegment[]) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 

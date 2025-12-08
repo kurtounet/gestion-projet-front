@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './form-task.html',
   styleUrl: './form-task.css',
 })
-export class FormTask {
-
-}
+export class FormTask {}

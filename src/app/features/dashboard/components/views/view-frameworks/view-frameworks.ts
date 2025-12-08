@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './view-frameworks.html',
   styleUrl: './view-frameworks.css',
 })
-export class ViewFrameworks {
-
-}
+export class ViewFrameworks {}

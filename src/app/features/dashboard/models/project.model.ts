@@ -1,4 +1,4 @@
-import { ITask } from "./task.model";
+import { ITask } from './task.model';
 
 export interface IProject {
   id: number;

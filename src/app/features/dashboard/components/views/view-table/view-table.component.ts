@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-view-table',
   imports: [],
   templateUrl: './view-table.component.html',
-  styleUrl: './view-table.component.scss'
+  styleUrl: './view-table.component.scss',
 })
-export class ViewTableComponent {
-
-}
+export class ViewTableComponent {}

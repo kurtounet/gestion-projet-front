@@ -1,12 +1,12 @@
 export interface IProjectInstance {
-  "@id": string;
-  "@type": string;
+  '@id': string;
+  '@type': string;
   id: number;
   name: string;
   description: string;
-  icon: string
-  color: string,
-  position: number,
+  icon: string;
+  color: string;
+  position: number;
   startDate: Date;
   endDate: Date;
   status: number;
@@ -16,7 +16,7 @@ export interface IProjectInstance {
   sprintInstances: string[];
   createdAt: Date;
   updatedAt: Date;
-  favory: boolean
+  favory: boolean;
 }
 /*
        "@id": "/api/project_instances/1",

@@ -8,9 +8,8 @@ describe('FeatureFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FeatureFormComponent]
-    })
-    .compileComponents();
+      imports: [FeatureFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FeatureFormComponent);
     component = fixture.componentInstance;

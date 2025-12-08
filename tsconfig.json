@@ -14,31 +14,15 @@
     "module": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@app/*": [
-        "src/app/*"
-      ],
-      "@core/*": [
-        "src/app/core/*"
-      ],
-      "@features/dashboard/*": [
-        "src/app/features/dashboard/*"
-      ],
-      "@features/dashboard/components/*": [
-        "src/app/features/dashboard/components/*"
-      ],
-      "@features/*": [
-        "src/app/features/*"
-      ],
-      "@features/dashboard/models*": [
-        "src/app/features/dashboard/models/*"
-      ],
-      "@env/*": [
-        "src/environments/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-    },
+      "@app/*": ["src/app/*"],
+      "@core/*": ["src/app/core/*"],
+      "@features/dashboard/*": ["src/app/features/dashboard/*"],
+      "@features/dashboard/components/*": ["src/app/features/dashboard/components/*"],
+      "@features/*": ["src/app/features/*"],
+      "@features/dashboard/models*": ["src/app/features/dashboard/models/*"],
+      "@env/*": ["src/environments/*"],
+      "@assets/*": ["src/assets/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,14 +1,13 @@
 import { Component, inject, input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { IMenuGroups } from '../../../models/menu-item.model';
-import { NgOptimizedImage } from "@angular/common";
-
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-side-bar-section',
   imports: [RouterLink, NgOptimizedImage],
   templateUrl: './side-bar-section.component.html',
-  styleUrl: './side-bar-section.component.scss'
+  styleUrl: './side-bar-section.component.scss',
 })
 export class SideBarSectionComponent {
   private readonly router = inject(Router);
@@ -19,16 +18,14 @@ export class SideBarSectionComponent {
   isOpen = false;
 
   toggleCollapsed() {
-      this.isCollapsed = !this.isCollapsed;
+    this.isCollapsed = !this.isCollapsed;
   }
 
-  isActiveRoute(path: string): boolean {
+  isActiveRoute(path: string | null): boolean {
     return this.router.url === path;
   }
 
-
-
-/*
+  /*
   constructor(
     private readonly router: Router) {
     this.checkScreenSize();

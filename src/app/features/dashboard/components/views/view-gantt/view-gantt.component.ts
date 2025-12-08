@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-view-gantt',
   imports: [],
   templateUrl: './view-gantt.component.html',
-  styleUrl: './view-gantt.component.scss'
+  styleUrl: './view-gantt.component.scss',
 })
-export class ViewGanttComponent {
-
-}
+export class ViewGanttComponent {}

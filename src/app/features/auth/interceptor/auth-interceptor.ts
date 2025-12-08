@@ -12,9 +12,10 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 
-
-export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
-  Observable<HttpEvent<unknown>> {
+export function authInterceptor(
+  req: HttpRequest<unknown>,
+  next: HttpHandlerFn,
+): Observable<HttpEvent<unknown>> {
   // Injection des services
   const authService = inject(AuthService);
   const router = inject(Router);
@@ -25,16 +26,16 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn):
   if (token) {
     // Ajout du token dans le header
     req = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}`, }
+      setHeaders: { Authorization: `Bearer ${token}` },
     });
   }
   return next(req).pipe(
-    catchError(error => {
+    catchError((error) => {
       // Si l'utilisateur n'est pas autorisé.
       if (error.status === 401) {
         authService.logOut();
       }
       return throwError(error);
-    })
+    }),
   );
 }

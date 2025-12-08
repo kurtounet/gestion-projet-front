@@ -8,9 +8,8 @@ describe('ViewListeTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewListeTypeComponent]
-    })
-    .compileComponents();
+      imports: [ViewListeTypeComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewListeTypeComponent);
     component = fixture.componentInstance;

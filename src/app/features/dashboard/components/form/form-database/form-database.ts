@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './form-database.html',
   styleUrl: './form-database.css',
 })
-export class FormDatabase {
-
-}
+export class FormDatabase {}

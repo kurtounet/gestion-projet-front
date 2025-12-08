@@ -8,9 +8,8 @@ describe('FormSprint', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormSprint]
-    })
-    .compileComponents();
+      imports: [FormSprint],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FormSprint);
     component = fixture.componentInstance;

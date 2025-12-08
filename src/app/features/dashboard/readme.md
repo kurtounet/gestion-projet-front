@@ -14,48 +14,48 @@ import { HelpComponent } from './components/help/help.component';
 // import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: DashboardComponent, // Layout principal avec sidebar
-    children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
-      {
-        path: 'home',
-        component: DashboardHomeComponent,
-        data: { title: 'Accueil' }
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        data: { title: 'Profil' }
-      },
-      {
-        path: 'settings',
-        component: SettingsComponent,
-        data: { title: 'Paramètres' }
-      },
-      {
-        path: 'messages',
-        component: MessagesComponent,
-        data: { title: 'Messages' }
-      },
-      {
-        path: 'help',
-        component: HelpComponent,
-        data: { title: 'Aide' }
-      }
-    ]
-    // canActivate: [AuthGuard] // Si vous avez un guard d'authentification
-  }
+{
+path: '',
+component: DashboardComponent, // Layout principal avec sidebar
+children: [
+{
+path: '',
+redirectTo: 'home',
+pathMatch: 'full'
+},
+{
+path: 'home',
+component: DashboardHomeComponent,
+data: { title: 'Accueil' }
+},
+{
+path: 'profile',
+component: ProfileComponent,
+data: { title: 'Profil' }
+},
+{
+path: 'settings',
+component: SettingsComponent,
+data: { title: 'Paramètres' }
+},
+{
+path: 'messages',
+component: MessagesComponent,
+data: { title: 'Messages' }
+},
+{
+path: 'help',
+component: HelpComponent,
+data: { title: 'Aide' }
+}
+]
+// canActivate: [AuthGuard] // Si vous avez un guard d'authentification
+}
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+imports: [RouterModule.forChild(routes)],
+exports: [RouterModule]
 })
 export class DashboardRoutingModule { }
 
@@ -79,21 +79,21 @@ import { HelpComponent } from './components/help/help.component';
 import { SidebarComponent } from '@shared/components/sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    DashboardHomeComponent,
-    ProfileComponent,
-    SettingsComponent,
-    MessagesComponent,
-    HelpComponent,
-    SidebarComponent // Si pas dans un module partagé
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DashboardRoutingModule // Import du routing en dernier
-  ]
+declarations: [
+DashboardComponent,
+DashboardHomeComponent,
+ProfileComponent,
+SettingsComponent,
+MessagesComponent,
+HelpComponent,
+SidebarComponent // Si pas dans un module partagé
+],
+imports: [
+CommonModule,
+FormsModule,
+ReactiveFormsModule,
+DashboardRoutingModule // Import du routing en dernier
+]
 })
 export class DashboardModule { }
 
@@ -101,74 +101,76 @@ export class DashboardModule { }
 import { Component } from '@angular/core';
 
 export interface MenuItem {
-  label: string;
-  path: string;
-  icon?: string;
+label: string;
+path: string;
+icon?: string;
 }
 
 @Component({
-  selector: 'app-dashboard',
-  template: `
-    <div class="dashboard-layout">
-      <app-sidebar 
-        [menuGroups]="menuGroups"
-        title="Dashboard">
-      </app-sidebar>
-      
+selector: 'app-dashboard',
+template: `
+<div class="dashboard-layout">
+<app-sidebar
+[menuGroups]="menuGroups"
+title="Dashboard">
+</app-sidebar>
+
       <main class="dashboard-content">
         <router-outlet></router-outlet>
       </main>
     </div>
-  `,
+
+`,
   styles: [`
-    .dashboard-layout {
-      display: flex;
-      min-height: 100vh;
-    }
-    
+.dashboard-layout {
+display: flex;
+min-height: 100vh;
+}
+
     .dashboard-content {
       flex: 1;
       padding: 2rem;
       margin-left: 250px; /* Largeur de la sidebar */
       transition: margin-left 0.3s ease;
     }
-    
+
     @media (max-width: 767px) {
       .dashboard-content {
         margin-left: 0;
         padding: 1rem;
       }
     }
-  `]
+
+`]
 })
 export class DashboardComponent {
-  menuGroups: MenuItem[] = [
-    { 
-      label: 'Accueil', 
-      path: '/dashboard/home', 
-      icon: '🏠' 
-    },
-    { 
-      label: 'Profil', 
-      path: '/dashboard/profile', 
-      icon: '👤' 
-    },
-    { 
-      label: 'Paramètres', 
-      path: '/dashboard/settings', 
-      icon: '⚙️' 
-    },
-    { 
-      label: 'Messages', 
-      path: '/dashboard/messages', 
-      icon: '💬' 
-    },
-    { 
-      label: 'Aide', 
-      path: '/dashboard/help', 
-      icon: '❓' 
-    }
-  ];
+menuGroups: MenuItem[] = [
+{
+label: 'Accueil',
+path: '/dashboard/home',
+icon: '🏠'
+},
+{
+label: 'Profil',
+path: '/dashboard/profile',
+icon: '👤'
+},
+{
+label: 'Paramètres',
+path: '/dashboard/settings',
+icon: '⚙️'
+},
+{
+label: 'Messages',
+path: '/dashboard/messages',
+icon: '💬'
+},
+{
+label: 'Aide',
+path: '/dashboard/help',
+icon: '❓'
+}
+];
 }
 
 // app-routing.module.ts (routing principal de l'application)
@@ -176,28 +178,28 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
-  },
-  {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-  },
-  {
-    path: '**',
-    redirectTo: '/dashboard'
-  }
+{
+path: '',
+redirectTo: '/dashboard',
+pathMatch: 'full'
+},
+{
+path: 'dashboard',
+loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+},
+{
+path: 'auth',
+loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+},
+{
+path: '**',
+redirectTo: '/dashboard'
+}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+imports: [RouterModule.forRoot(routes)],
+exports: [RouterModule]
 })
 export class AppRoutingModule { }
 
@@ -207,9 +209,8 @@ export class AppRoutingModule { }
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-dashboard-home',
-  template: `
-    <div class="dashboard-home">
+selector: 'app-dashboard-home',
+template: `     <div class="dashboard-home">
       <h1>Bienvenue sur le Dashboard</h1>
       <div class="stats-grid">
         <div class="stat-card">
@@ -227,18 +228,18 @@ import { Component } from '@angular/core';
       </div>
     </div>
   `,
-  styles: [`
-    .dashboard-home {
-      max-width: 1200px;
-    }
-    
+styles: [`
+.dashboard-home {
+max-width: 1200px;
+}
+
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-top: 2rem;
     }
-    
+
     .stat-card {
       background: white;
       padding: 1.5rem;
@@ -246,14 +247,15 @@ import { Component } from '@angular/core';
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       text-align: center;
     }
-    
+
     .stat-number {
       font-size: 2rem;
       font-weight: bold;
       color: #3498db;
       margin: 0.5rem 0;
     }
-  `]
+
+`]
 })
 export class DashboardHomeComponent { }
 
@@ -261,9 +263,8 @@ export class DashboardHomeComponent { }
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-profile',
-  template: `
-    <div class="profile">
+selector: 'app-profile',
+template: `     <div class="profile">
       <h1>Mon Profil</h1>
       <div class="profile-card">
         <div class="avatar">
@@ -277,24 +278,24 @@ import { Component } from '@angular/core';
       </div>
     </div>
   `,
-  styles: [`
-    .profile-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    
+styles: [`
+.profile-card {
+background: white;
+padding: 2rem;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+display: flex;
+align-items: center;
+gap: 2rem;
+margin-top: 2rem;
+}
+
     .avatar img {
       width: 100px;
       height: 100px;
       border-radius: 50%;
     }
-    
+
     .btn-primary {
       background: #3498db;
       color: white;
@@ -304,27 +305,28 @@ import { Component } from '@angular/core';
       cursor: pointer;
       margin-top: 1rem;
     }
-  `]
+
+`]
 })
 export class ProfileComponent { }
 
 // Structure des dossiers recommandée :
-/*
+/_
 src/
 ├── app/
-│   ├── dashboard/
-│   │   ├── components/
-│   │   │   ├── dashboard-home/
-│   │   │   ├── profile/
-│   │   │   ├── settings/
-│   │   │   ├── messages/
-│   │   │   └── help/
-│   │   ├── dashboard.component.ts
-│   │   ├── dashboard.module.ts
-│   │   └── dashboard-routing.module.ts
-│   ├── shared/
-│   │   └── components/
-│   │       └── sidebar/
-│   ├── app-routing.module.ts
-│   └── app.module.ts
-*/
+│ ├── dashboard/
+│ │ ├── components/
+│ │ │ ├── dashboard-home/
+│ │ │ ├── profile/
+│ │ │ ├── settings/
+│ │ │ ├── messages/
+│ │ │ └── help/
+│ │ ├── dashboard.component.ts
+│ │ ├── dashboard.module.ts
+│ │ └── dashboard-routing.module.ts
+│ ├── shared/
+│ │ └── components/
+│ │ └── sidebar/
+│ ├── app-routing.module.ts
+│ └── app.module.ts
+_/

@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core'; 
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -8,14 +7,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './feature-form.component.html',
   styleUrl: './feature-form.component.css',
 })
-export class FeatureFormComponent { 
+export class FeatureFormComponent {
   form: FormGroup;
   submitted = false;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       id: ['', [Validators.required, Validators.minLength(8)]],
-  label: ['', [Validators.required, Validators.minLength(8)]],      
+      label: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -34,4 +33,3 @@ export class FeatureFormComponent {
     console.log(this.form.value);
   }
 }
-

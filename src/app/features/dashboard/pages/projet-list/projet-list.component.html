@@ -1,16 +1,26 @@
-<section class="flex flex-col items-center">
+<section class="w-full p-8 flex flex-col items-center">
   <div>
     <h1 class="text-3xl font-bold">Listes de projets</h1>
   </div>
-  <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    @if (projectInstanceStore.projectsLoading()) {
-      <p>Chargement…</p>
-    } @else if (projectInstanceStore.projectsLoaded()) {
-      @for (project of projectInstanceStore.projects(); track project.id) {
-        <app-card-project [project]="project"></app-card-project>
+  <div
+    class="w-full"
+    cdkDropList
+    [cdkDropListData]="items()"
+    cdkDropListOrientation="vertical"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <ul>
+      @if (projectInstanceStore.projectsLoading()) {
+        <p>Chargement…</p>
+      } @else if (projectInstanceStore.projectsLoaded()) {
+        @for (project of items(); track project.id) {
+          <li cdkDrag>
+            <app-card-project [project]="project" />
+          </li>
+        }
+      } @else {
+        <p>Aucune donnée</p>
       }
-    } @else {
-      <p>Aucune donnée</p>
-    }
-  </ul>
+    </ul>
+  </div>
 </section>

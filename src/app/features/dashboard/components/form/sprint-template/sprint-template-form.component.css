@@ -1,15 +1,13 @@
-
-    .sprint-template{
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .sprint-template_input{
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .sprint-template_input input{
-      width: 100%;
-    }
-    
+.sprint-template {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sprint-template_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.sprint-template_input input {
+  width: 100%;
+}

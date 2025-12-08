@@ -1,15 +1,14 @@
-
 export const KANBAN_MOCK = [
   {
-    "id": 1,
-    "completed": "todo",
-  }, {
-
-    "id": 2,
-    "completed": "progress",
+    id: 1,
+    completed: 'todo',
   },
   {
-    "id": 3,
-    "completed": "done",
+    id: 2,
+    completed: 'progress',
+  },
+  {
+    id: 3,
+    completed: 'done',
   },
 ];

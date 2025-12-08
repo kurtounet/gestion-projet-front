@@ -8,9 +8,8 @@ describe('Notification3FormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Notification3FormComponent]
-    })
-    .compileComponents();
+      imports: [Notification3FormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Notification3FormComponent);
     component = fixture.componentInstance;

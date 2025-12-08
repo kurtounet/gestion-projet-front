@@ -1,11 +1,12 @@
 <div class="sidebar-header">
-  @if(!isMobile() && !isCollapsed()){
-  <span class="sidebar-title">
-    {{ title() }}
-  </span>
-  } @if(!isMobile()){
-  <button class="close-btn desktop-only" (click)="toggleSidebar()">
-    {{ isCollapsed() ? '→' : '←' }}
-  </button>
+  @if (!isMobile() && !isCollapsed()) {
+    <span class="sidebar-title">
+      {{ title() }}
+    </span>
+  }
+  @if (!isMobile()) {
+    <button class="close-btn desktop-only" (click)="toggleSidebar()">
+      {{ isCollapsed() ? '→' : '←' }}
+    </button>
   }
 </div>

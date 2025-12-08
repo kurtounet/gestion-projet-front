@@ -1,33 +1,42 @@
 <section class="panel-view">
   <!-- <app-tool-bar-liste-type-view /> -->
   <div class="w-full flex items-start gap-2">
-    <app-side-bar-sprints
-      id="side-bar-sprints"
-      class="container-type-view"
-      (selectedItemSprint)="selectedSprint($event)"
-    />
+    <app-side-bar-sprints id="side-bar-sprints" class="container-type-view" />
     <div id="content-view" class="w-full flex flex-col items-start gap-2">
-      <h2>Liste des tâches du sprint {{ sprintId }}</h2>
-      <app-view-tool-bar [title]="viewToolBarTitle" [quantity]="viewToolBarQuantity" />
+      <h2>
+        Liste des tâches de :
+        {{ projectInstanceStore.selectedSprint()?.name }}
+      </h2>
 
-      @if (!projectInstanceStore.taskLoading() && projectInstanceStore.currentTasks().length > 0) {
-        <ul class="w-full flex flex-col justify-between gap-0">
-          @for (task of projectInstanceStore.currentTasks(); track $index) {
-            <li>
-              <app-card-task [task]="task"></app-card-task>
-            </li>
-          }
-        </ul>
-      } @else {
-        <section class="w-full flex flex-col items-center gap-2">
-          @if (projectInstanceStore.taskLoading()) {
-            <h1>Chargement de la liste...</h1>
-            <app-loading-spinner />
-          } @else {
-            <h1>Séléctionnez un sprint</h1>
-          }
-        </section>
-      }
+      <app-view-tool-bar [title]="viewToolBarTitle" />
+      <div
+        class="w-full"
+        cdkDropList
+        [cdkDropListData]="items()"
+        cdkDropListOrientation="vertical"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @if (
+          !projectInstanceStore.taskLoading() && projectInstanceStore.currentTasks().length > 0
+        ) {
+          <ul class="w-full flex flex-col justify-between gap-0">
+            @for (task of items(); track $index) {
+              <li class="w-full hover:bg-gray-50 hover:cursor-pointer" cdkDrag>
+                <app-card-task [task]="task" />
+              </li>
+            }
+          </ul>
+        } @else {
+          <section class="w-full flex flex-col items-center gap-2">
+            @if (projectInstanceStore.taskLoading()) {
+              <h1>Chargement de la liste...</h1>
+              <app-loading-spinner />
+            } @else {
+              <h1>Séléctionnez un sprint</h1>
+            }
+          </section>
+        }
+      </div>
     </div>
   </div>
 </section>

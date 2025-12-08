@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './forgot.component.html',
-  styleUrls: ['./forgot.component.scss']
+  styleUrls: ['./forgot.component.scss'],
 })
 export class ForgotComponent implements OnInit {
   forgotForm!: FormGroup;
@@ -18,7 +18,7 @@ export class ForgotComponent implements OnInit {
 
   ngOnInit(): void {
     this.forgotForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
@@ -32,7 +32,7 @@ export class ForgotComponent implements OnInit {
         (error) => {
           console.error('Forgot password request failed', error);
           // Handle error
-        }
+        },
       );
     }
   }

@@ -9,7 +9,6 @@ import { ProjectInstantStore } from '@app/features/dashboard/stores/project-inst
   styleUrl: './view-project.css',
 })
 export class ViewProject {
-private readonly projectStore = inject(ProjectInstantStore);
-project = this.projectStore.currentProject; //
-
+  private readonly projectStore = inject(ProjectInstantStore);
+  project = this.projectStore.currentProject; //
 }
