@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { StatusService } from '../services/status.service';
 import { IStatus } from '../models/status.model';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { IStatus } from '../models/status.model';
 export class StatusStore {
 
   readonly statusService = inject(StatusService);
+  readonly localStorageService = inject(LocalStorageService);
   statusesLoading = signal<boolean>(false);
   statusesLoaded = signal<boolean>(false);
   statuses = signal<IStatus[]>([]);
@@ -20,6 +22,8 @@ export class StatusStore {
           this.statuses.set(data);
           this.statusesLoaded.set(true);
           this.statusesLoading.set(false);
+          this.localStorageService.setItem('statuses', data);
+
         }
       },
       error: (err) => {
