@@ -8,9 +8,9 @@ import { PriorityService } from '../services/priority.service';
 export class PriorityStore {
 
   readonly priorityService = inject(PriorityService);
-  readonly prioritiesLoading = signal<boolean>(false);
-  readonly prioritiesLoaded = signal<boolean>(false);
-  favoryProjectsLoading = signal(false);
+  prioritiesLoading = signal<boolean>(false);
+  prioritiesLoaded = signal<boolean>(false);
+
   priorities = signal<IPriority[]>([]);
 
 }
