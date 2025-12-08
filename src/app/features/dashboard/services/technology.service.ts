@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
-import { ITechnologie } from '../models/technologie.model';
+import { ITechnology } from '../models/technology.model';
 export interface IHydraCollection<T> {
   'hydra:member': T[];
   'hydra:totalItems': number;
@@ -12,15 +12,15 @@ export interface IHydraCollection<T> {
 @Injectable({
   providedIn: 'root',
 })
-export class TechnologieService {
+export class TechnologyService {
   private routeApi = `${environment.baseApiUrl}/technologie`;
   private httpClient = inject(HttpClient);
 
   constructor() {}
 
   // Get all Technologie
-  getAllTechnologie(): Observable<ITechnologie[]> {
-    return this.httpClient.get<IHydraCollection<ITechnologie>>(this.routeApi).pipe(
+  getAllTechnologie(): Observable<ITechnology[]> {
+    return this.httpClient.get<IHydraCollection<ITechnology>>(this.routeApi).pipe(
       map((response) => {
         return response['hydra:member'];
       }),
@@ -28,20 +28,20 @@ export class TechnologieService {
   }
 
   // Get Technologie by ID
-  getTechnologieById(id: string): Observable<ITechnologie> {
-    return this.httpClient.get<ITechnologie>(`${this.routeApi}/${id}`);
+  getTechnologieById(id: string): Observable<ITechnology> {
+    return this.httpClient.get<ITechnology>(`${this.routeApi}/${id}`);
   }
 
   // Create a new Technologie
-  createTechnologie(body: ITechnologie): Observable<ITechnologie> {
+  createTechnologie(body: ITechnology): Observable<ITechnology> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<ITechnologie>(this.routeApi, body, { headers });
+    return this.httpClient.post<ITechnology>(this.routeApi, body, { headers });
   }
 
   // Update Technologie by ID
-  updateTechnologie(id: string, body: ITechnologie): Observable<ITechnologie> {
+  updateTechnologie(id: string, body: ITechnology): Observable<ITechnology> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.patch<ITechnologie>(`${this.routeApi}/${id}`, body, { headers });
+    return this.httpClient.patch<ITechnology>(`${this.routeApi}/${id}`, body, { headers });
   }
 
   // Delete Technologie
