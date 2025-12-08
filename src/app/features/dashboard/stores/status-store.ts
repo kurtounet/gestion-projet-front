@@ -12,4 +12,22 @@ export class StatusStore {
   statusesLoaded = signal<boolean>(false);
   statuses = signal<IStatus[]>([]);
 
+  getAllStatus(): void {
+    this.statusesLoading.set(true);
+    this.statusService.getAllStatus().subscribe( {
+      next: (data) => {
+        if (data) {
+          this.statuses.set(data);
+          this.statusesLoaded.set(true);
+          this.statusesLoading.set(false);
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des statuts', err);
+        this.statusesLoading.set(false);
+      }
+
+    });
+  }
+
 }
