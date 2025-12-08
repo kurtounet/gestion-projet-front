@@ -12,4 +12,22 @@ export class TechnologyStore {
   technologyLoaded = signal<boolean>(false);
   technologies = signal<ITechnology[]>([]);
 
+  getAllTechnologies(): void {
+    this.technologyLoading.set(true);
+    this.technologyService.getAllTechnologie().subscribe({
+        next: (data) => {
+          if (data) {
+            this.technologies.set(data);
+            this.technologyLoaded.set(true);
+            this.technologyLoading.set(false);
+          }
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des technologies', err);
+          this.technologyLoading.set(false);
+        }
+      });
+  }
+
+
 }
