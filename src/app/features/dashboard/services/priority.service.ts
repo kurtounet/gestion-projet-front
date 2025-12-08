@@ -13,7 +13,7 @@ export interface IHydraCollection<T> {
   providedIn: 'root',
 })
 export class PriorityService {
-  private routeApi = `${environment.baseApiUrl}/priority`;
+  private routeApi = `${environment.baseApiUrl}/priorities`;
   private httpClient = inject(HttpClient);
 
   constructor() {}

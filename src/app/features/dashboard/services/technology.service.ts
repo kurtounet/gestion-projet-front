@@ -13,7 +13,7 @@ export interface IHydraCollection<T> {
   providedIn: 'root',
 })
 export class TechnologyService {
-  private routeApi = `${environment.baseApiUrl}/technologie`;
+  private routeApi = `${environment.baseApiUrl}/technologies`;
   private httpClient = inject(HttpClient);
 
   constructor() {}

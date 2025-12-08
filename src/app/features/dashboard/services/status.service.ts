@@ -13,7 +13,7 @@ export interface IHydraCollection<T> {
   providedIn: 'root',
 })
 export class StatusService {
-  private routeApi = `${environment.baseApiUrl}/status`;
+  private routeApi = `${environment.baseApiUrl}/statuses`;
   private httpClient = inject(HttpClient);
 
   constructor() {}

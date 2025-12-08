@@ -13,7 +13,7 @@ export interface IHydraCollection<T> {
   providedIn: 'root',
 })
 export class TypeTaskService {
-  private routeApi = `${environment.baseApiUrl}/typetask`;
+  private routeApi = `${environment.baseApiUrl}/type_tasks`;
   private httpClient = inject(HttpClient);
 
   constructor() {}
