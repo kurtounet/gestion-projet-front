@@ -13,4 +13,21 @@ export class TypeTaskStore {
 
   typeTasks = signal<ITypeTask[]>([]);
 
+getAllTypeTask(): void {
+    this.typeTasksLoading.set(true);
+    this.typeTaskService.getAllTypeTask().subscribe({
+      next: (data) => {
+        if (data) {
+          this.typeTasks.set(data);
+          this.typeTasksLoaded.set(true);
+          this.typeTasksLoading.set(false);
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des types de tâches', err);
+        this.typeTasksLoading.set(false);
+      }
+    });
+  }
+
 }
