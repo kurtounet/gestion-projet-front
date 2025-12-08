@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ITypeTask } from '../models/type-task.model';
 import { TypeTaskService } from '../services/type-task.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { TypeTaskService } from '../services/type-task.service';
 export class TypeTaskStore {
 
   readonly typeTaskService = inject(TypeTaskService);
+  readonly localStorageService = inject(LocalStorageService);
   typeTasksLoading = signal<boolean>(false);
   typeTasksLoaded = signal<boolean>(false);
 
@@ -21,6 +23,7 @@ getAllTypeTask(): void {
           this.typeTasks.set(data);
           this.typeTasksLoaded.set(true);
           this.typeTasksLoading.set(false);
+          this.localStorageService.setItem('type-tasks', data);
         }
       },
       error: (err) => {
