@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IPriority } from '../models/priority.model';
 import { PriorityService } from '../services/priority.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,7 @@ import { PriorityService } from '../services/priority.service';
 export class PriorityStore {
 
   readonly priorityService = inject(PriorityService);
+  readonly localStorageService = inject(LocalStorageService);
   prioritiesLoading = signal<boolean>(false);
   prioritiesLoaded = signal<boolean>(false);
 
@@ -21,6 +23,7 @@ export class PriorityStore {
           this.priorities.set(data);
           this.prioritiesLoaded.set(true);
           this.prioritiesLoading.set(false);
+          this.localStorageService.setItem('priorities', data);
         }
       },
       error: (err) => {
