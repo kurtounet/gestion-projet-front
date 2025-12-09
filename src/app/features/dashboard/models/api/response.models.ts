@@ -24,3 +24,11 @@ export interface ApiResponseview {
   previous: string;
   next: string;
 }
+
+export interface IApiResponseCollection<T> {
+  "@context": string,
+  "@id": string,
+  "@type": string,
+  totalItems: number,
+  member: T[]
+}
