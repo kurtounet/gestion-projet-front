@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 @Component({
   selector: 'app-notification-3-form',
   imports: [ReactiveFormsModule],
-  templateUrl: './notification-3-form.component.html',
-  styleUrl: './notification-3-form.component.css',
+  templateUrl: './notification-form.component.html',
+  styleUrl: './notification-form.component.css',
 })
-export class Notification3FormComponent {
+export class NotificationFormComponent {
   form: FormGroup;
   submitted = false;
 
