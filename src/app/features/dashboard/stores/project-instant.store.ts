@@ -205,4 +205,8 @@ export class ProjectInstantStore {
       },
     });
   }
+
+  getAllCompletedStatus() {
+    return this.taskInstanceService.getAllCompletedStatus();
+  }
 }
