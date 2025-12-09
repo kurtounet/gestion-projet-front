@@ -1,9 +1,18 @@
-<div class="flex flex-col justify-between gap-2">
+<div class="relative w-full flex flex-col justify-between gap-2">
   <!-- <img ngSrc="assets/svg/three-dots-vertical.svg" width="20" height="20" alt="" /> -->
   <!-- <input type="checkbox" name="task-{{ task()?.id }}" id="task-{{ task()?.id }}" /> -->
-  <div class="flex gap-2 justify-start">
-    <p class="">{{ task()?.priority_id }}</p>
-    <p class="">{{ task()?.start_date | date: 'd/M/yyyy' }}</p>
+  <div class="flex gap-2 justify-between">
+    <p class="">{{ task()?.priority }}</p>
+    <p class="">{{ task()?.startDate | date: 'd/M/yyyy' }}</p>
+
+    <img
+      (click)="editTask(task()?.id)"
+      ngSrc="assets/svg/edit.svg"
+      class="w-5 h-5 hover:cursor-pointer"
+      alt="supprimer"
+      width="20"
+      height="20"
+    />
   </div>
   <h3>{{ task()?.name }}</h3>
   <ul class="flex">
@@ -14,7 +23,7 @@
   <div class="flex gap-2">
     <p>{{ task()?.description }}</p>
   </div>
-
+  <!-- Footer -->
   <div class="w-full flex justify-between gap-2">
     <ul class="flex gap-2">
       <!-- {{ task()?.assignedTo }} -->
@@ -31,23 +40,50 @@
         <img src="https://avatar.iran.liara.run/username?username=Scott+Wilson" alt="" />
       </li>
     </ul>
-    <div class="flex justify-end gap-2">
-      <img
-        (click)="editTask(task()?.id)"
-        ngSrc="assets/svg/edit.svg"
-        class="w-5 h-5 hover:cursor-pointer"
-        alt="supprimer"
-        width="20"
-        height="20"
-      />
+    <div>
+      <app-context-menu
+        [items]="taskMenuItems"
+        (action)="onTaskMenuAction($event)"
+        [align]="'right'"
+      >
+        <img
+          trigger
+          ngSrc="assets/svg/three-dots-vertical.svg"
+          class="w-5 h-5 hover:cursor-pointer"
+          alt="options"
+          width="20"
+          height="20"
+        />
+      </app-context-menu>
+    </div>
+    <!-- <div class="flex justify-end gap-2">
       <img
         (click)="deleteTask(task()?.id)"
         ngSrc="assets/svg/trash.svg"
-        class="w-5 h-5 hover:cursor-pointer"
         alt="supprimer"
         width="20"
         height="20"
+        class="w-5 h-5 hover:cursor-pointer"
       />
-    </div>
+      <div class="relative">
+        <img
+          (click)="toogleMenu()"
+          ngSrc="assets/svg/three-dots-vertical.svg"
+          class="w-5 h-5 hover:cursor-pointer"
+          alt="options"
+          width="20"
+          height="20"
+        />
+        @if (menuIsVisible()) {
+          <div class="absolute right-0 mt-1 z-50 card p-2 rounded shadow-lg bg-white w-50">
+            @for (item of menuItems(); track $index) {
+              <p class="py-1 px-2 hover:bg-gray-100 cursor-pointer" (click)="onAction(item)">
+                {{ item.label }}
+              </p>
+            }
+          </div>
+        }
+      </div>
+    </div> -->
   </div>
 </div>

@@ -1,22 +1,25 @@
 .column-container {
-  background-color: rgb(190, 190, 234);
-  color: white;
+  background-color: rgb(241, 241, 241);
+  color: rgb(0, 0, 0);
   border-radius: 4px;
   font-size: 12px;
-  width: 250px;
+  min-width: 250px;
   max-width: 100%;
   margin: 10px 5px;
   padding: 10px 0px;
   display: inline-block;
   vertical-align: top;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  overflow: visible;
 }
 .column-title {
-  background-color: rgb(3, 3, 249);
   color: rgb(112, 103, 103);
   border: 1px solid rgb(112, 103, 103, 0.5);
   border-radius: 4px;
   font-size: 14px;
-  margin: 0px 0px 0px 5px;
+  margin: 5px;
   padding: 5px 5px;
 }
 .column-header {
@@ -27,7 +30,7 @@
   min-height: 24px;
 }
 .column-container-list {
-  background-color: rgb(190, 190, 234);
+  background-color: rgb(255, 255, 255);
   color: white;
   border-radius: 4px;
   font-size: 12px;
@@ -41,7 +44,6 @@
 .item-list {
   border: solid 1px #ccc;
   min-height: 60px;
-
   border-radius: 4px;
   overflow: hidden;
   display: block;
@@ -54,10 +56,6 @@
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   box-sizing: border-box;
   cursor: pointer;
   background: white;
@@ -86,7 +84,7 @@
 .btn-add-task {
   background: transparent;
   border-radius: 4px;
-  color: white;
+  color: rgb(0, 0, 0);
   border: none;
   cursor: pointer;
   width: 100%;

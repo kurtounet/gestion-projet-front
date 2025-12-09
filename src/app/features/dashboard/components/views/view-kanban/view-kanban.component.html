@@ -4,8 +4,8 @@
     <app-side-bar-sprints id="side-bar-sprints" class="container-type-view" />
     <div id="content-view" class="w-full flex flex-col items-start gap-2">
       <app-view-tool-bar [title]="viewToolBarTitle" />
-      <section>
-        @for (column of columns; track column.label) {
+      <section class="w-full flex gap-2">
+        @for (column of columns(); track column.label) {
           <div class="card column-container">
             <div class="column-header">
               <h2 class="column-title">{{ column.label.toUpperCase() }}</h2>
@@ -15,12 +15,12 @@
               cdkDropList
               [id]="column.label + 'List'"
               [cdkDropListData]="column.tasks"
-              [cdkDropListConnectedTo]="columnsList"
+              [cdkDropListConnectedTo]="columnsList()"
               class="item-list"
               (cdkDropListDropped)="drop($event)"
             >
               @for (task of column.tasks; track task.id) {
-                <div class="item-box" cdkDrag>
+                <div class="w-full item-box" cdkDrag>
                   <app-card-task-kanban [task]="task" />
                 </div>
               }

@@ -1,19 +1,45 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
-import { Component, effect, inject, input, signal, WritableSignal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal, WritableSignal } from '@angular/core';
 import { form, Field, FieldTree } from '@angular/forms/signals';
 import { ModalService } from '../../services/modal.service';
 import { ITaskInstance } from '../../models/task-instance.model';
+import { StatusStore } from '../../stores/status-store';
+import { PriorityStore } from '../../stores/priority-store';
 
 @Component({
   selector: 'app-card-task',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, DatePipe],
   templateUrl: './card-task.component.html',
   styleUrl: './card-task.component.scss',
 })
 export class CardTaskComponent {
-  modalService = inject(ModalService);
-  // 1) Input venant du parent
   task = input.required<ITaskInstance>();
+
+  modalService = inject(ModalService);
+  statuses = inject(StatusStore).statuses;
+  priorities = inject(PriorityStore).priorities;
+  isOpen = signal<boolean>(false);
+
+  statusName = computed(() => {
+  const status = this.statuses().find((status) => status['@id'] === this.task()?.status);
+  return status ? status.label : '';
+ });
+  priorityName = computed(() => {
+  const priority = this.priorities().find((priority) => priority['@id'] === this.task()?.priority);
+  return priority ? priority.label : '';
+ });
+  color = computed(() => {
+   return this.task()?.color;
+ });
+
+  toogleAction() {
+    this.isOpen.update((value) => !value);
+  }
+  toogleCompleted() {
+    this.task().completed = this.task().completed === 'true' ? 'false' : 'true';
+  }
+  // 1) Input venant du parent
+
 
   // 2) WritableSignal interne qui servira de "model" au form()
   // private taskModel: WritableSignal<ITaskInstance> = signal<ITaskInstance>({} as ITaskInstance);
@@ -30,40 +56,13 @@ export class CardTaskComponent {
   //   });
   // }
 
+
+
   editTask(id: number) {
     this.modalService.open(`Edit task`, 'edit', 'task', id);
   }
   deleteTask(id: number) {
     this.modalService.open(`Supprimer task ${id}`, 'delete', 'task', id);
   }
-  /*
- task = input<ITask>({
-  "id": 1,
-  "title": "Initialiser le moteur IA",
-  "description": "description",
-  "assignedTo": "Équipe IA",
-  "tags": ["configuration", "urgent"],
-  "dueDate": "2025-07-26",
-  "completed": "todo",
-  "position": 0,
-  "dependencies": [],
-  "subtasks": [
-    "Configurer l’environnement Python",
-    "Installer les dépendances ML",
-    "Vérifier les versions CUDA"
-  ],
-  "priority": 2
-});
-// WritableSignal interne basé sur l’input
-  taskSignal: WritableSignal<ITask> = signal<ITask>(this.task());
 
-  constructor() {
-    // si tu veux rester synchro avec les changements de l’input
-    effect(() => {
-      this.taskSignal.set(this.task());
-    });
-  }
-
-  taskForm = form(this.taskSignal); // ✅ ici on passe bien un WritableSignal
-*/
 }

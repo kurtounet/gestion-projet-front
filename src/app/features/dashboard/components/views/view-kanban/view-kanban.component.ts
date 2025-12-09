@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, computed, effect, signal } from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -15,9 +15,12 @@ import { ITaskInstance } from '../../../models/task-instance.model';
 import { TaskInstanceService } from '../../../services/task-instance.service';
 import { SprintInstanceService } from '../../../services/sprint-instance.service';
 import { ISprintInstance } from '../../../models/sprint-instance.model';
+import { ProjectInstantStore } from '@app/features/dashboard/stores/project-instant.store';
+import { StatusStore } from '@app/features/dashboard/stores/status-store';
 
 interface Column {
-  label: 'todo' | 'progress' | 'done';
+  label: string; //'todo' | 'progress' | 'done';
+  status: string;
   tasks: ITaskInstance[];
 }
 @Component({
@@ -27,110 +30,145 @@ interface Column {
   styleUrl: './view-kanban.component.scss',
 })
 export class ViewKanbanComponent {
-  taskInstanceService = inject(TaskInstanceService);
-  sprintInstanceService = inject(SprintInstanceService);
-  listCompletedStatus: string[] = [];
-  columns: { label: string; tasks: ITaskInstance[] }[] = [];
-  columnsList: string[] = [];
   sprintId = input<number>(0);
+  projectInstanceStore = inject(ProjectInstantStore);
+  statusStore = inject(StatusStore);
+  taskInstanceService = inject(TaskInstanceService);
 
-  tasks: ITaskInstance[] = [];
+
+
   // sprints: ISprintInstance[]=[];
   viewToolBarTitle = 'Nombre de tâches: ';
-  viewToolBarQuantity = 0;
+  // viewToolBarQuantity = 0;
 
-  ngOnInit() {
-    // this.sprintInstanceService.getAllSprintInstance().subscribe(data => this.sprints = data);
-    this.taskInstanceService.getAllTaskInstance().subscribe((data) => (this.tasks = data));
-    this.viewToolBarQuantity = this.tasks.length;
-    this.listCompletedStatus = this.taskInstanceService.getAllCompletedStatus();
-    this.columnsList = this.listCompletedStatus.map((completed) => `${completed}List`);
-    this.columns = this.listCompletedStatus.map((completed) => ({
-      label: completed,
-      tasks: this.taskInstanceService.filtersByCompleted(completed),
-    }));
+
+    // === Signaux dérivés depuis le store ===
+  tasks = computed(() => this.projectInstanceStore.currentTasks());
+  viewToolBarQuantity = computed(() => this.tasks().length);
+
+  // === État Kanban MUTABLE ===
+  columns = signal<Column[]>([]);
+  columnsList = computed(() => this.columns().map((c) => `${c.label}List`));
+
+  constructor() {
+    // Quand les tasks ou les statuses changent, on recalcule les colonnes
+    effect(() => {
+      const statuses = this.statusStore.statuses();
+      const tasks = this.tasks();
+
+      const cols: Column[] = statuses.map((status) => ({
+        label: status.label,
+        status: status['@id'],
+        tasks: this.taskInstanceService.filtersByStatus(status['@id'], tasks, 'asc'),
+        // si filtersByCompleted ne prend qu'un status, fais tasks.filter(...)
+      }));
+
+      this.columns.set(cols);
+
+    });
   }
-  // get columnsList() {
-  //   return this.columns.map(col => col.label + 'List');
-  // }
-
-  // Pour déplacer les colonnes
-  dropColumn(event: CdkDragDrop<any[]>) {
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-  }
-
-  drop(event: CdkDragDrop<ITaskInstance[], ITaskInstance[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-    // Sauvegarder après chaque modification
-    this.saveKanbanState();
-  }
-  // Méthode pour sauvegarder l'état du kanban
-  saveKanbanState() {
-    this.columns.forEach((column) => {
-      const modifiedTasks = column.tasks.filter((task) => {
-        let pos = column.tasks.findIndex((t) => t.id === task.id);
-        if (!task.completed.includes(column.label)) {
-          task.completed = column.label;
-          task.position = pos;
-        }
-        if (task.completed.includes(column.label) && task.position !== pos) {
-          task.position = pos;
-        }
-        this.taskInstanceService.updateTaskInstance(task.id, task).subscribe({
-          next: (response) => console.log('Sauvegarde réussie', response),
-          error: (error) => console.error('Erreur de sauvegarde', error),
-        });
-      });
-      // console.log(column.label);
-      // console.table(modifiedTasks);
-
-      // return false;.findIndex(t => t.id === task.id);
+   // Déplacement des colonnes (ordre des colonnes)
+  dropColumn(event: CdkDragDrop<Column[]>) {
+    this.columns.update((cols) => {
+      const clone = [...cols];
+      moveItemInArray(clone, event.previousIndex, event.currentIndex);
+      return clone;
     });
 
-    // this.taskService.updateTask(column.label, column.tasks.length, column.tasks);
-    // });
-    // Option 1: Sauvegarder dans localStorage
-    localStorage.setItem('kanbanColumns', JSON.stringify(this.columns));
-
-    // Option 2: Envoyer vers une API
-    // this.kanbanService.saveColumns(this.columns).subscribe({
-    //   next: (response) => console.log('Sauvegarde réussie', response),
-    //   error: (error) => console.error('Erreur de sauvegarde', error)
-    // });
-
-    console.log('État du kanban sauvegardé:', this.columns);
+    this.saveKanbanState();
   }
 
-  // Méthode pour charger l'état sauvegardé
+  // Déplacement des tâches entre colonnes
+  drop(event: CdkDragDrop<ITaskInstance[]>) {
+    this.columns.update((cols) => {
+      const clone = [...cols];
+
+      const sourceIndex = event.previousContainer.data === event.container.data
+        ? event.previousIndex // même colonne, mais on travaille sur clone
+        : clone.findIndex((c) => c.tasks === event.previousContainer.data);
+
+      const targetIndex = clone.findIndex((c) => c.tasks === event.container.data);
+
+      if (sourceIndex === -1 || targetIndex === -1) {
+        return cols;
+      }
+
+      const sourceCol = clone[sourceIndex];
+      const targetCol = clone[targetIndex];
+
+      if (event.previousContainer === event.container) {
+        moveItemInArray(targetCol.tasks, event.previousIndex, event.currentIndex);
+      } else {
+        transferArrayItem(
+          sourceCol.tasks,
+          targetCol.tasks,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
+
+      return clone;
+    });
+
+    this.saveKanbanState();
+  }
+
+  // Sauvegarde de l’état (localStorage + API)
+  saveKanbanState() {
+    const cols = this.columns();
+
+    cols.forEach((column) => {
+      column.tasks.forEach((task, index) => {
+        let needUpdate = false;
+
+        if (task.status !== column.status) {
+          task.status = column.status ; // adapter le type si nécessaire
+          task.completed = column.label ; // adapter le type si nécessaire
+          needUpdate = true;
+        }
+
+        if (task.position !== index) {
+          task.position = index;
+          needUpdate = true;
+        }
+
+        if (needUpdate) {
+          this.taskInstanceService.updateTaskInstance(task.id, task).subscribe({
+            next: (response) => console.log('Sauvegarde réussie', response),
+            error: (error) => console.error('Erreur de sauvegarde', error),
+          });
+        }
+      });
+    });
+
+    // localStorage
+    localStorage.setItem('kanbanColumns', JSON.stringify(cols));
+    console.log('État du kanban sauvegardé:', cols);
+  }
+
   loadKanbanState() {
     const savedColumns = localStorage.getItem('kanbanColumns');
-    if (savedColumns) {
-      this.columns = JSON.parse(savedColumns);
-      // Mettre à jour la liste des colonnes
-      this.columnsList = this.columns.map((column) => column.label + 'List');
+    if (!savedColumns) {
+      return;
+    }
+
+    try {
+      const parsed: Column[] = JSON.parse(savedColumns);
+      this.columns.set(parsed);
+    } catch (e) {
+      console.error('Erreur lors du chargement du Kanban depuis le localStorage', e);
     }
   }
 
-  // Méthode pour récupérer les données actuelles (utile pour debug)
   getCurrentState() {
+    const cols = this.columns();
     return {
-      columns: this.columns,
-      totalTasks: this.columns.reduce((total, column) => total + column.tasks.length, 0),
+      columns: cols,
+      totalTasks: cols.reduce((total, column) => total + column.tasks.length, 0),
     };
   }
 
   addTask() {
-    console.log('ADD column');
-    // const nextId = this.columns.flatMap(c => c.tasks).length + 1;
-    // column.tasks.push({ id: nextId, title: `Nouvelle tâche ${nextId}` });
+    console.log('ADD column / task – à implémenter');
   }
 }
