@@ -5,11 +5,9 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { ISprintInstance } from '../models/sprint-instance.model';
 import { IPayloadItemOrder } from '../models/payload-item-order.model';
+import { IApiResponseCollection } from '../models/api/response.models';
 
-export interface IHydraCollection<T> {
-  member: T[];
-  totalItems: number;
-}
+
 
 @Injectable({
   providedIn: 'root',
@@ -25,13 +23,13 @@ export class SprintInstanceService {
   getAllSprintInstance(): Observable<ISprintInstance[]> {
     return this.httpClient.get<ISprintInstance>(this.routeApi).pipe(
       map((response) => {
-        return []; //response['hydra:member'];
+        return []; //response['member'];
       }),
     );
   }
   getAllSprintProjectInstance(id: number): Observable<ISprintInstance[]> {
     return this.httpClient
-      .get<IHydraCollection<ISprintInstance>>(`${this.routeApi}?projectInstance.id=${id}`)
+      .get<IApiResponseCollection<ISprintInstance>>(`${this.routeApi}?projectInstance.id=${id}`)
       .pipe(
         map((response) => {
           return response['member'];

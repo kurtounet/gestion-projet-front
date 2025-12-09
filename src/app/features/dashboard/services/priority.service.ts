@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { IPriority } from '../models/priority.model';
+import { IApiResponseCollection } from '../models/api/response.models';
 export interface IHydraCollection<T> {
   'hydra:member': T[];
   'hydra:totalItems': number;
@@ -20,9 +21,9 @@ export class PriorityService {
 
   // Get all Priority
   getAllPriority(): Observable<IPriority[]> {
-    return this.httpClient.get<IHydraCollection<IPriority>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<IPriority>>(this.routeApi).pipe(
       map((response) => {
-        return response['hydra:member'];
+        return response['member'];
       }),
     );
   }

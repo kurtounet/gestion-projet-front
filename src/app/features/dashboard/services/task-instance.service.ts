@@ -5,10 +5,8 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { ITaskInstance } from '../models/task-instance.model';
 import { IPayloadItemOrder } from '../models/payload-item-order.model';
-export interface IHydraCollection<T> {
-  member: T[];
-  totalItems: number;
-}
+import { IApiResponseCollection } from '../models/api/response.models';
+
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +22,7 @@ export class TaskInstanceService {
 
   // Get all TaskInstance
   getAllTaskInstance(): Observable<ITaskInstance[]> {
-    return this.httpClient.get<IHydraCollection<ITaskInstance>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<ITaskInstance>>(this.routeApi).pipe(
       map((response) => {
         return response['member'];
       }),
@@ -32,7 +30,7 @@ export class TaskInstanceService {
   }
   getAllTaskBySprintInstance(id: number): Observable<ITaskInstance[]> {
     return this.httpClient
-      .get<IHydraCollection<ITaskInstance>>(`${this.routeApi}?sprintInstance.id=${id}`)
+      .get<IApiResponseCollection<ITaskInstance>>(`${this.routeApi}?sprintInstance.id=${id}`)
       .pipe(
         map((response) => {
           return response['member'];
@@ -53,7 +51,7 @@ export class TaskInstanceService {
 
   // Update TaskInstance by ID
   updateTaskInstance(id: number, body: ITaskInstance): Observable<ITaskInstance> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
     return this.httpClient.patch<ITaskInstance>(`${this.routeApi}/${id}`, body, { headers });
   }
 
@@ -63,11 +61,20 @@ export class TaskInstanceService {
   }
 
   getAllCompletedStatus(): string[] {
-    return ['To Do', 'In Progress', 'Done'];
+    return ['À faire', 'En cours','En attente', 'Terminé', 'Annulé'];
   }
 
   filtersByCompleted(completed: string): ITaskInstance[] {
     return this.tasks.filter((task) => task.completed === completed);
+  }
+  filtersByStatus(status: string, tasks: ITaskInstance[], order: string): ITaskInstance[] {
+    return this.positionOrder(tasks.filter((task) => task.status === status), order);
+  }
+  positionOrder(tasks: ITaskInstance[], order: string = 'asc' ): ITaskInstance[] {
+    if (order === 'desc') {
+      return tasks.sort((a, b) => b.position - a.position);
+    }
+    return tasks.sort((a, b) => a.position - b.position);
   }
 
   updateTaskOrder(newOrder: IPayloadItemOrder) {

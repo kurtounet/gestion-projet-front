@@ -4,10 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { IUser } from '../models/user.model';
-export interface IHydraCollection<T> {
-  'hydra:member': T[];
-  'hydra:totalItems': number;
-}
+import { IApiResponseCollection } from '../models/api/response.models';
+
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +18,9 @@ export class UserService {
 
   // Get all User
   getAllUser(): Observable<IUser[]> {
-    return this.httpClient.get<IHydraCollection<IUser>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<IUser>>(this.routeApi).pipe(
       map((response) => {
-        return response['hydra:member'];
+        return response['member'];
       }),
     );
   }

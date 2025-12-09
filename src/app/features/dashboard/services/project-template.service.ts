@@ -4,10 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { IProjectTemplate } from '../models/project-template.model';
-export interface IHydraCollection<T> {
-  'hydra:member': T[];
-  'hydra:totalItems': number;
-}
+import { IApiResponseCollection } from '../models/api/response.models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +17,9 @@ export class ProjectTemplateService {
 
   // Get all ProjectTemplate
   getAllProjectTemplate(): Observable<IProjectTemplate[]> {
-    return this.httpClient.get<IHydraCollection<IProjectTemplate>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<IProjectTemplate>>(this.routeApi).pipe(
       map((response) => {
-        return response['hydra:member'];
+        return response['member'];
       }),
     );
   }

@@ -4,10 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { ITechnology } from '../models/technology.model';
-export interface IHydraCollection<T> {
-  'hydra:member': T[];
-  'hydra:totalItems': number;
-}
+import { IApiResponseCollection } from '../models/api/response.models';
+
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +18,9 @@ export class TechnologyService {
 
   // Get all Technologie
   getAllTechnologie(): Observable<ITechnology[]> {
-    return this.httpClient.get<IHydraCollection<ITechnology>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<ITechnology>>(this.routeApi).pipe(
       map((response) => {
-        return response['hydra:member'];
+        return response['member'];
       }),
     );
   }

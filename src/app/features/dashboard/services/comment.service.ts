@@ -4,10 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { IComment } from '../models/comment.model';
-export interface IHydraCollection<T> {
-  'hydra:member': T[];
-  'hydra:totalItems': number;
-}
+import { IApiResponseCollection } from '../models/api/response.models';
+
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +18,9 @@ export class CommentService {
 
   // Get all Comment
   getAllComment(): Observable<IComment[]> {
-    return this.httpClient.get<IHydraCollection<IComment>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<IComment>>(this.routeApi).pipe(
       map((response) => {
-        return response['hydra:member'];
+        return response['member'];
       }),
     );
   }

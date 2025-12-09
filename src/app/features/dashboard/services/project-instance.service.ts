@@ -6,11 +6,9 @@ import { map } from 'rxjs/operators';
 import { IProjectInstance } from '../models/project-instance.model';
 import { environment } from '../../../../environments/environment.development';
 import { IPayloadItemOrder } from '../models/payload-item-order.model';
+import { IApiResponseCollection } from '../models/api/response.models';
 
-export interface IHydraCollection<T> {
-  member: T[];
-  totalItems: number;
-}
+
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +22,7 @@ export class ProjectInstanceService {
 
   // Get all ProjectInstance
   getAllProjectInstance(): Observable<IProjectInstance[]> {
-    return this.httpClient.get<IHydraCollection<IProjectInstance>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<IProjectInstance>>(this.routeApi).pipe(
       map((response) => {
         return response['member'];
       }),

@@ -4,10 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment.development';
 import { IContext } from '../models/context.model';
-export interface IHydraCollection<T> {
-  'hydra:member': T[];
-  'hydra:totalItems': number;
-}
+import { IApiResponseCollection } from '../models/api/response.models';
 
 @Injectable({
   providedIn: 'root',
@@ -20,9 +17,9 @@ export class ContextService {
 
   // Get all Context
   getAllContext(): Observable<IContext[]> {
-    return this.httpClient.get<IHydraCollection<IContext>>(this.routeApi).pipe(
+    return this.httpClient.get<IApiResponseCollection<IContext>>(this.routeApi).pipe(
       map((response) => {
-        return response['hydra:member'];
+        return response['member'];
       }),
     );
   }
