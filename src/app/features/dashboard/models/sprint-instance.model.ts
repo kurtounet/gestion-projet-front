@@ -1,17 +1,21 @@
 export interface ISprintInstance {
+  '@id': string;
+  '@type': string;
   id: number;
-  project_instance_id: number;
-  priority_id: number;
-  sprint_template_id: number;
-  sprint_dependency_id: number;
+  projectInstance: string;
+  priority: string;
+  sprintTtemplate: string;
+  sprintDependency: string;
   name: string;
   description: string;
+  color: string;
   icon: string;
-  start_date: Date;
-  end_date: Date;
-  status_id: number;
+  startDate: Date;
+  endDate: Date;
+  status: string;
   position: number;
-  comment_id: number;
-  created_At: Date;
-  updated_At: Date;
+  comment: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
+
