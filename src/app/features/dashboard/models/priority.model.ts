@@ -1,7 +1,9 @@
 export interface IPriority {
-  priority_id: number;
-  priority_label: string;
-  priority_number: number;
-  created_At: Date;
-  updated_At: Date;
+  '@id': string;
+  '@type': string;
+  id: number;
+  label: string;
+  priorityNumber: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
