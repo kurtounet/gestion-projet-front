@@ -6,16 +6,21 @@
   <div class="w-full pr-2 flex flex-col">
     <div class="w-full flex items-center justify-start gap-2">
       <img [src]="'assets/svg/man-sprinting.svg'" width="20" height="20" alt="" />
-      <h4 class="sprint-name text-sm font-semibold">{{ sprint()?.name }}</h4>
+      <h4 class="text-md font-semibold">{{ sprint()?.name }}</h4>
     </div>
     <div class="flex items-center justify-between">
-      <p class="text-xs">D:{{ sprint()?.start_date | date: 'd/M/yyyy' }}</p>
-      <p class="text-xs">F:{{ sprint()?.end_date | date: 'd/M/yyyy' }}</p>
+      <p class="text-xs">D:{{ sprint()?.startDate | date: 'd/M/yyyy' }}</p>
+      <p class="text-xs">F:{{ sprint()?.endDate | date: 'd/M/yyyy' }}</p>
     </div>
 
     <div class="flex items-center justify-between">
-      <p class="sprint-status text-xs font-semibold">Statut : {{ sprint()?.status_id }}</p>
-      <p class="sprint-status text-xs font-semibold">Color : {{ sprint()?.status_id }}</p>
+      <p class="sprint-status text-xs font-semibold py-2">Statut : {{ statusName() }}</p>
+      <p class="sprint-status text-xs font-semibold py-2">
+        Priorité :
+        <span [style.backgroundColor]="sprint()?.color" class="p-1 rounded-2xl">{{
+          priorityName()
+        }}</span>
+      </p>
     </div>
     <div
       class="flex items-center justify-between pt-2"
