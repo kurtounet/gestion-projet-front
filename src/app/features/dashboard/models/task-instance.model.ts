@@ -9,7 +9,7 @@ export interface ITaskInstance {
   priority: string;
   status: string;
   color: string;
-  typeTask:string;
+  typeTask: string;
   name: string;
   description: string;
   startDate: Date;

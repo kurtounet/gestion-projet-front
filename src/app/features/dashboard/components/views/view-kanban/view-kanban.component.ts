@@ -35,14 +35,11 @@ export class ViewKanbanComponent {
   statusStore = inject(StatusStore);
   taskInstanceService = inject(TaskInstanceService);
 
-
-
   // sprints: ISprintInstance[]=[];
   viewToolBarTitle = 'Nombre de tâches: ';
   // viewToolBarQuantity = 0;
 
-
-    // === Signaux dérivés depuis le store ===
+  // === Signaux dérivés depuis le store ===
   tasks = computed(() => this.projectInstanceStore.currentTasks());
   viewToolBarQuantity = computed(() => this.tasks().length);
 
@@ -64,10 +61,9 @@ export class ViewKanbanComponent {
       }));
 
       this.columns.set(cols);
-
     });
   }
-   // Déplacement des colonnes (ordre des colonnes)
+  // Déplacement des colonnes (ordre des colonnes)
   dropColumn(event: CdkDragDrop<Column[]>) {
     this.columns.update((cols) => {
       const clone = [...cols];
@@ -83,9 +79,10 @@ export class ViewKanbanComponent {
     this.columns.update((cols) => {
       const clone = [...cols];
 
-      const sourceIndex = event.previousContainer.data === event.container.data
-        ? event.previousIndex // même colonne, mais on travaille sur clone
-        : clone.findIndex((c) => c.tasks === event.previousContainer.data);
+      const sourceIndex =
+        event.previousContainer.data === event.container.data
+          ? event.previousIndex // même colonne, mais on travaille sur clone
+          : clone.findIndex((c) => c.tasks === event.previousContainer.data);
 
       const targetIndex = clone.findIndex((c) => c.tasks === event.container.data);
 
@@ -122,8 +119,8 @@ export class ViewKanbanComponent {
         let needUpdate = false;
 
         if (task.status !== column.status) {
-          task.status = column.status ; // adapter le type si nécessaire
-          task.completed = column.label ; // adapter le type si nécessaire
+          task.status = column.status; // adapter le type si nécessaire
+          task.completed = column.label; // adapter le type si nécessaire
           needUpdate = true;
         }
 

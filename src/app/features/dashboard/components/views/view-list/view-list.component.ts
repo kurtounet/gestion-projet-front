@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CardTaskComponent } from '../../card-task/card-task.component';
 import { SideBarSprints } from '../../side-bar-sprints/side-bar-sprints';
 import { ViewToolBarComponent } from '../../tool-bar/view-tool-bar/view-tool-bar.component';

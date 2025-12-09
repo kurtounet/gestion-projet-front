@@ -6,7 +6,6 @@ import { environment } from '../../../../environments/environment.development';
 import { ITechnology } from '../models/technology.model';
 import { IApiResponseCollection } from '../models/api/response.models';
 
-
 @Injectable({
   providedIn: 'root',
 })

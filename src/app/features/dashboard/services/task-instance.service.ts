@@ -7,7 +7,6 @@ import { ITaskInstance } from '../models/task-instance.model';
 import { IPayloadItemOrder } from '../models/payload-item-order.model';
 import { IApiResponseCollection } from '../models/api/response.models';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -61,16 +60,19 @@ export class TaskInstanceService {
   }
 
   getAllCompletedStatus(): string[] {
-    return ['À faire', 'En cours','En attente', 'Terminé', 'Annulé'];
+    return ['À faire', 'En cours', 'En attente', 'Terminé', 'Annulé'];
   }
 
   filtersByCompleted(completed: string): ITaskInstance[] {
     return this.tasks.filter((task) => task.completed === completed);
   }
   filtersByStatus(status: string, tasks: ITaskInstance[], order: string): ITaskInstance[] {
-    return this.positionOrder(tasks.filter((task) => task.status === status), order);
+    return this.positionOrder(
+      tasks.filter((task) => task.status === status),
+      order,
+    );
   }
-  positionOrder(tasks: ITaskInstance[], order: string = 'asc' ): ITaskInstance[] {
+  positionOrder(tasks: ITaskInstance[], order: string = 'asc'): ITaskInstance[] {
     if (order === 'desc') {
       return tasks.sort((a, b) => b.position - a.position);
     }

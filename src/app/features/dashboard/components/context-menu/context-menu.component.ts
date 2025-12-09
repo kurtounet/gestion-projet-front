@@ -16,7 +16,6 @@ import {
 import { NgClass, NgFor, NgIf, NgOptimizedImage } from '@angular/common';
 import { IContextMenuItem } from '../../models/components/context-menu-item.model';
 
-
 @Component({
   selector: 'app-context-menu',
   standalone: true,
@@ -38,7 +37,7 @@ export class ContextMenuComponent {
   toggle(event?: MouseEvent) {
     // évite que le clic remonte au document
     event?.stopPropagation();
-    this.open.update(v => !v);
+    this.open.update((v) => !v);
   }
 
   close() {
@@ -72,12 +71,9 @@ export class ContextMenuComponent {
   itemClasses(item: IContextMenuItem) {
     return {
       [this.baseItemClasses]: true,
-      'hover:bg-gray-100':
-        !item.danger && !item.disabled,
-      'hover:bg-red-50 text-red-600':
-        item.danger && !item.disabled,
-      'opacity-50 cursor-not-allowed':
-        item.disabled,
+      'hover:bg-gray-100': !item.danger && !item.disabled,
+      'hover:bg-red-50 text-red-600': item.danger && !item.disabled,
+      'opacity-50 cursor-not-allowed': item.disabled,
     };
   }
 }

@@ -21,16 +21,18 @@ export class CardTaskComponent {
   isOpen = signal<boolean>(false);
 
   statusName = computed(() => {
-  const status = this.statuses().find((status) => status['@id'] === this.task()?.status);
-  return status ? status.label : '';
- });
+    const status = this.statuses().find((status) => status['@id'] === this.task()?.status);
+    return status ? status.label : '';
+  });
   priorityName = computed(() => {
-  const priority = this.priorities().find((priority) => priority['@id'] === this.task()?.priority);
-  return priority ? priority.label : '';
- });
+    const priority = this.priorities().find(
+      (priority) => priority['@id'] === this.task()?.priority,
+    );
+    return priority ? priority.label : '';
+  });
   color = computed(() => {
-   return this.task()?.color;
- });
+    return this.task()?.color;
+  });
 
   toogleAction() {
     this.isOpen.update((value) => !value);
@@ -39,7 +41,6 @@ export class CardTaskComponent {
     this.task().completed = this.task().completed === 'true' ? 'false' : 'true';
   }
   // 1) Input venant du parent
-
 
   // 2) WritableSignal interne qui servira de "model" au form()
   // private taskModel: WritableSignal<ITaskInstance> = signal<ITaskInstance>({} as ITaskInstance);
@@ -56,13 +57,10 @@ export class CardTaskComponent {
   //   });
   // }
 
-
-
   editTask(id: number) {
     this.modalService.open(`Edit task`, 'edit', 'task', id);
   }
   deleteTask(id: number) {
     this.modalService.open(`Supprimer task ${id}`, 'delete', 'task', id);
   }
-
 }

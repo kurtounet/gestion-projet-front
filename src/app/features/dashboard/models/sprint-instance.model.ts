@@ -18,4 +18,3 @@ export interface ISprintInstance {
   createdAt: Date;
   updatedAt: Date;
 }
-

@@ -7,8 +7,6 @@ import { ISprintInstance } from '../models/sprint-instance.model';
 import { IPayloadItemOrder } from '../models/payload-item-order.model';
 import { IApiResponseCollection } from '../models/api/response.models';
 
-
-
 @Injectable({
   providedIn: 'root',
 })

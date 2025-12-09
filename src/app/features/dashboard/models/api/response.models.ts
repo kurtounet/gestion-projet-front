@@ -26,9 +26,9 @@ export interface ApiResponseview {
 }
 
 export interface IApiResponseCollection<T> {
-  "@context": string,
-  "@id": string,
-  "@type": string,
-  totalItems: number,
-  member: T[]
+  '@context': string;
+  '@id': string;
+  '@type': string;
+  totalItems: number;
+  member: T[];
 }

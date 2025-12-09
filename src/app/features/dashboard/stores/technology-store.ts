@@ -7,7 +7,6 @@ import { LocalStorageService } from '../services/local-storage.service';
   providedIn: 'root',
 })
 export class TechnologyStore {
-
   readonly technologyService = inject(TechnologyService);
   readonly localStorageService = inject(LocalStorageService);
   technologyLoading = signal<boolean>(false);
@@ -17,20 +16,18 @@ export class TechnologyStore {
   getAllTechnologies(): void {
     this.technologyLoading.set(true);
     this.technologyService.getAllTechnologie().subscribe({
-        next: (data) => {
-          if (data) {
-            this.technologies.set(data);
-            this.technologyLoaded.set(true);
-            this.technologyLoading.set(false);
-            this.localStorageService.setItem('technologies', data);
-          }
-        },
-        error: (err) => {
-          console.error('Erreur lors de la récupération des technologies', err);
+      next: (data) => {
+        if (data) {
+          this.technologies.set(data);
+          this.technologyLoaded.set(true);
           this.technologyLoading.set(false);
+          this.localStorageService.setItem('technologies', data);
         }
-      });
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des technologies', err);
+        this.technologyLoading.set(false);
+      },
+    });
   }
-
-
 }

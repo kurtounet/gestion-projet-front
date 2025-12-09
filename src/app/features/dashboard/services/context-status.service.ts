@@ -6,7 +6,6 @@ import { environment } from '../../../../environments/environment.development';
 import { IContextStatus } from '../models/context-status.model';
 import { IApiResponseCollection } from '../models/api/response.models';
 
-
 @Injectable({
   providedIn: 'root',
 })

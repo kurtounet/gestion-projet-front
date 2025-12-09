@@ -6,7 +6,6 @@ import { environment } from '../../../../environments/environment.development';
 import { IProjectTemplateSprintTemplate } from '../models/project-template-sprint-template.model';
 import { IApiResponseCollection } from '../models/api/response.models';
 
-
 @Injectable({
   providedIn: 'root',
 })

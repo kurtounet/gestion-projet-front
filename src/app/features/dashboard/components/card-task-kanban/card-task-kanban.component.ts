@@ -3,7 +3,7 @@ import { Component, ElementRef, inject, input, signal } from '@angular/core';
 import { ModalService } from '../../services/modal.service';
 import { ITaskInstance } from '../../models/task-instance.model';
 import { boolean } from 'zod';
-import { ContextMenuComponent } from "../context-menu/context-menu.component";
+import { ContextMenuComponent } from '../context-menu/context-menu.component';
 import { IContextMenuItem } from '../../models/components/context-menu-item.model';
 
 @Component({
@@ -19,20 +19,20 @@ export class CardTaskKanbanComponent {
   menuIsVisible = signal<boolean>(false);
   elementRef = inject(ElementRef);
 
-readonly taskMenuItems: IContextMenuItem[] = [
+  readonly taskMenuItems: IContextMenuItem[] = [
     { key: 'view', label: 'Voir la tâche' },
     { key: 'edit', label: 'Modifier' },
     { key: 'move', label: 'Changer de colonne' },
     { key: 'duplicate', label: 'Dupliquer' },
     { key: 'delete', label: 'Supprimer', danger: true },
   ];
-ngOnInit() {
-  document.addEventListener('click', e => {
-    if (!this.elementRef.nativeElement.contains(e.target)) {
-      this.menuIsVisible.set(false);
-    }
-  });
-}
+  ngOnInit() {
+    document.addEventListener('click', (e) => {
+      if (!this.elementRef.nativeElement.contains(e.target)) {
+        this.menuIsVisible.set(false);
+      }
+    });
+  }
   editTask(id: number | undefined) {
     if (!id) return;
     this.modalService.open(`Edit task`, 'edit', 'task', id);
@@ -41,14 +41,14 @@ ngOnInit() {
     this.menuIsVisible.set(!this.menuIsVisible());
   }
   onAction(item: { key: string; label: string }) {
-  console.log('Action:', item.key, 'TaskId:', this.task()?.['@id']);
-  this.menuIsVisible.set(false);
-}
+    console.log('Action:', item.key, 'TaskId:', this.task()?.['@id']);
+    this.menuIsVisible.set(false);
+  }
   deleteTask(id: number | undefined) {
     if (!id) return;
     this.modalService.open(`Delete task`, 'delete', 'task', id);
   }
- onTaskMenuAction(item: IContextMenuItem) {
+  onTaskMenuAction(item: IContextMenuItem) {
     const task = this.task();
     if (!task) return;
 

@@ -21,19 +21,19 @@ export class SideBarcardSprint {
   isVisible: boolean = false;
   isSelected: boolean = false;
 
-
   statusName = computed(() => {
-  const status = this.statuses().find((status) => status['@id'] === this.sprint()?.status);
-  return status ? status.label : '';
- });
+    const status = this.statuses().find((status) => status['@id'] === this.sprint()?.status);
+    return status ? status.label : '';
+  });
   priorityName = computed(() => {
-  const priority = this.priorities().find((priority) => priority['@id'] === this.sprint()?.priority);
-  return priority ? priority.label : '';
- });
+    const priority = this.priorities().find(
+      (priority) => priority['@id'] === this.sprint()?.priority,
+    );
+    return priority ? priority.label : '';
+  });
   color = computed(() => {
-   return this.sprint()?.color;
-
- });
+    return this.sprint()?.color;
+  });
 
   editSprint(id: number | undefined) {
     this.modalService.open('Edit sprint', 'edit', 'sprint', id);

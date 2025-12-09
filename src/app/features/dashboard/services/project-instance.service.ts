@@ -8,8 +8,6 @@ import { environment } from '../../../../environments/environment.development';
 import { IPayloadItemOrder } from '../models/payload-item-order.model';
 import { IApiResponseCollection } from '../models/api/response.models';
 
-
-
 @Injectable({
   providedIn: 'root',
 })

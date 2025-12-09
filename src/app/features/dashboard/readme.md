@@ -109,6 +109,7 @@ icon?: string;
 @Component({
 selector: 'app-dashboard',
 template: `
+
 <div class="dashboard-layout">
 <app-sidebar
 [menuGroups]="menuGroups"

@@ -7,7 +7,6 @@ import { LocalStorageService } from '../services/local-storage.service';
   providedIn: 'root',
 })
 export class TypeTaskStore {
-
   readonly typeTaskService = inject(TypeTaskService);
   readonly localStorageService = inject(LocalStorageService);
   typeTasksLoading = signal<boolean>(false);
@@ -15,7 +14,7 @@ export class TypeTaskStore {
 
   typeTasks = signal<ITypeTask[]>([]);
 
-getAllTypeTask(): void {
+  getAllTypeTask(): void {
     this.typeTasksLoading.set(true);
     this.typeTaskService.getAllTypeTask().subscribe({
       next: (data) => {
@@ -29,8 +28,7 @@ getAllTypeTask(): void {
       error: (err) => {
         console.error('Erreur lors de la récupération des types de tâches', err);
         this.typeTasksLoading.set(false);
-      }
+      },
     });
   }
-
 }

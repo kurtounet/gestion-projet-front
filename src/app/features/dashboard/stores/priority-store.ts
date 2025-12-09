@@ -7,7 +7,6 @@ import { LocalStorageService } from '../services/local-storage.service';
   providedIn: 'root',
 })
 export class PriorityStore {
-
   readonly priorityService = inject(PriorityService);
   readonly localStorageService = inject(LocalStorageService);
   prioritiesLoading = signal<boolean>(false);
@@ -17,7 +16,7 @@ export class PriorityStore {
 
   getAllPriority(): void {
     this.prioritiesLoading.set(true);
-    this.priorityService.getAllPriority().subscribe( {
+    this.priorityService.getAllPriority().subscribe({
       next: (data) => {
         if (data) {
           this.priorities.set(data);
@@ -29,7 +28,7 @@ export class PriorityStore {
       error: (err) => {
         console.error('Erreur lors de la récupération des priorités', err);
         this.prioritiesLoading.set(false);
-      }
+      },
     });
   }
 }
