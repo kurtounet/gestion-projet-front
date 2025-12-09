@@ -1,0 +1,28 @@
+<div class="relative inline-block" (click)="$event.stopPropagation()">
+  <!-- Trigger fourni par le parent -->
+  <button type="button" class="inline-flex items-center justify-center" (click)="toggle($event)">
+    <ng-content select="[trigger]"></ng-content>
+  </button>
+
+  @if (open()) {
+    <div
+      #menuPanel
+      tabindex="-1"
+      class="absolute right-0 top-full z-9999 card p-2 rounded shadow-lg bg-white w-48 flex flex-col gap-2"
+      [class.right-0]="align() === 'right'"
+      [class.left-0]="align() === 'left'"
+      (keydown)="onKeydown($event)"
+    >
+      @for (item of items(); track item.key) {
+        <button
+          type="button"
+          [class]="itemClasses(item)"
+          (click)="onItemClick(item)"
+          [disabled]="item.disabled"
+        >
+          <span>{{ item.label }}</span>
+        </button>
+      }
+    </div>
+  }
+</div>
