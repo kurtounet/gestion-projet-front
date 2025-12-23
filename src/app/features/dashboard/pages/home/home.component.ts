@@ -6,10 +6,11 @@ import { CardProject } from '../../components/card-project/card-project';
 import { AsyncPipe } from '@angular/common';
 import { IProjectInstance } from '../../models/project-instance.model';
 import { ProjectInstantStore } from '../../stores/project-instant.store';
+import { AuthRoutingModule } from "@app/features/auth/auth-routing.module";
 
 @Component({
   selector: 'app-home',
-  imports: [PanelStatistic, CardProject],
+  imports: [PanelStatistic, CardProject, AuthRoutingModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
