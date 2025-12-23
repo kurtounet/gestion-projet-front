@@ -7,7 +7,7 @@
 >
   @if (items().length > 0) {
     <ul class="sprints-container flex flex-col gap-1">
-      @for (sprint of items(); track sprint.id) {
+      @for (sprint of items(); track sprint.name) {
         <li (click)="selectedSprint(sprint)" cdkDrag>
           <app-side-bar-card-sprint [sprint]="sprint" />
         </li>

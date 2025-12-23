@@ -5,7 +5,7 @@ import { CardProject } from '../../components/card-project/card-project';
 
 import { AsyncPipe } from '@angular/common';
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstantStore } from '../../stores/project-instant.store';
+import { ProjectInstanceStore } from '../../stores/project-instance.store';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +15,9 @@ import { ProjectInstantStore } from '../../stores/project-instant.store';
 })
 export class HomeComponent {
   projects = signal<IProjectInstance[]>([]);
-  projectInstantStore = inject(ProjectInstantStore);
+  ProjectInstanceStore = inject(ProjectInstanceStore);
 
   ngOnInit() {
-    this.projects = this.projectInstantStore.projects;
+    this.projects = this.ProjectInstanceStore.projects;
   }
 }

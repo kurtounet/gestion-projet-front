@@ -32,6 +32,7 @@ export class TaskInstanceService {
       .get<IApiResponseCollection<ITaskInstance>>(`${this.routeApi}?sprintInstance.id=${id}`)
       .pipe(
         map((response) => {
+
           return response['member'];
         }),
       );

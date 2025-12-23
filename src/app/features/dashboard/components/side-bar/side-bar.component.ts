@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SideBarSectionComponent } from './side-bar-section/side-bar-section.component';
 import { SideBarHeaderComponent } from './side-bar-header/side-bar-header.component';
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstantStore } from '../../stores/project-instant.store';
+import { ProjectInstanceStore } from '../../stores/project-instance.store';
 
 @Component({
   selector: 'app-side-bar',
@@ -17,7 +17,7 @@ import { ProjectInstantStore } from '../../stores/project-instant.store';
 export class SidebarComponent {
   title: string = 'Navigation';
   private readonly router = inject(Router);
-  readonly projectInstantStore = inject(ProjectInstantStore);
+  readonly ProjectInstanceStore = inject(ProjectInstanceStore);
 
   // État local en signaux
   readonly isCollapsed = signal(false);
@@ -25,7 +25,7 @@ export class SidebarComponent {
   readonly isOpen = signal(false);
 
   readonly menuGroups = computed<IMenuGroups[]>(() =>
-    this.buildMenuGroups(this.projectInstantStore.favoryProjects()),
+    this.buildMenuGroups(this.ProjectInstanceStore.favoryProjects()),
   );
 
   toggleSidebar(newState: boolean) {

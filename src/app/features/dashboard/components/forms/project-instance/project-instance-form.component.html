@@ -1,264 +1,142 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
-  <h1>ProjectInstance</h1>
+<form class="card flex flex-col gap-4 max-w-md">
+  <h1>Projet</h1>
 
-  <div class="flex flex-col gap-1">
+  <div class="hidden flex flex-col gap-1">
     <label for="id" class="font-medium">id</label>
-    <input
-      id="id"
-      name="id"
-      type="number"
-      formControlName="id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
+    <input id="id" type="number" [field]="projectForm.id" class="border rounded px-3 py-2" />
 
-    @if ((f['id'].touched || submitted) && f['id'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['id']?.errors?.['required']) {
-          L'id est obligatoire.
+    @for (error of projectForm.id().errors(); track error.kind) {
+      <small class="text-red-600">{{ error.message }}</small>
+    }
+  </div>
+  <div class="flex flex-col gap-1">
+    <label for="name" class="font-medium">Nom</label>
+    <input id="name" type="text" [field]="projectForm.name" class="border rounded px-3 py-2" />
+    @if (projectForm.name().touched() && projectForm.name().invalid()) {
+      <ul class="text-red-600">
+        @for (error of projectForm.name().errors(); track error) {
+          <li>{{ error.message }}</li>
         }
-        @if (f['id']?.errors?.['id']) {
-          Format d'id invalide.
-        }
-      </p>
+      </ul>
     }
   </div>
 
   <div class="flex flex-col gap-1">
-    <label for="status_id" class="font-medium">status_id</label>
-    <input
-      id="status_id"
-      name="status_id"
-      type="number"
-      formControlName="status_id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['status_id'].touched || submitted) && f['status_id'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['status_id']?.errors?.['required']) {
-          L'status_id est obligatoire.
-        }
-        @if (f['status_id']?.errors?.['status_id']) {
-          Format d'status_id invalide.
-        }
-      </p>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="priority_id" class="font-medium">priority_id</label>
-    <input
-      id="priority_id"
-      name="priority_id"
-      type="number"
-      formControlName="priority_id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['priority_id'].touched || submitted) && f['priority_id'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['priority_id']?.errors?.['required']) {
-          L'priority_id est obligatoire.
-        }
-        @if (f['priority_id']?.errors?.['priority_id']) {
-          Format d'priority_id invalide.
-        }
-      </p>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="project_template_id" class="font-medium">project_template_id</label>
-    <input
-      id="project_template_id"
-      name="project_template_id"
-      type="number"
-      formControlName="project_template_id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['project_template_id'].touched || submitted) && f['project_template_id'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['project_template_id']?.errors?.['required']) {
-          L'project_template_id est obligatoire.
-        }
-        @if (f['project_template_id']?.errors?.['project_template_id']) {
-          Format d'project_template_id invalide.
-        }
-      </p>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="comment_id" class="font-medium">comment_id</label>
-    <input
-      id="comment_id"
-      name="comment_id"
-      type="number"
-      formControlName="comment_id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['comment_id'].touched || submitted) && f['comment_id'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['comment_id']?.errors?.['required']) {
-          L'comment_id est obligatoire.
-        }
-        @if (f['comment_id']?.errors?.['comment_id']) {
-          Format d'comment_id invalide.
-        }
-      </p>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="name" class="font-medium">name</label>
-    <input
-      id="name"
-      name="name"
-      type="text"
-      formControlName="name"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['name'].touched || submitted) && f['name'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['name']?.errors?.['required']) {
-          L'name est obligatoire.
-        }
-        @if (f['name']?.errors?.['name']) {
-          Format d'name invalide.
-        }
-      </p>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="description" class="font-medium">description</label>
+    <label for="description" class="font-medium">Déscription</label>
     <input
       id="description"
-      name="description"
       type="text"
-      formControlName="description"
+      [field]="projectForm.description"
       class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
+    />
+    @if (projectForm.description().touched() && projectForm.description().invalid()) {
+      <ul class="text-red-600">
+        @for (error of projectForm.description().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+
+    @for (error of projectForm.description().errors(); track error.kind) {
+      <small class="text-red-600">{{ error.message }}</small>
+    }
+  </div>
+  <div class="w-full flex gap-2">
+    <div class="w-full flex flex-col gap-1">
+      <label for="start-date" class="font-medium">Date de Début</label>
+      <input
+        id="start-date"
+        type="date"
+        [field]="projectForm.startDate"
+        class="border rounded px-3 py-2"
+      />
+
+      @for (error of projectForm.startDate().errors(); track error.kind) {
+        <small class="text-red-600">{{ error.message }}</small>
+      }
+    </div>
+    <div class="w-full flex flex-col gap-1">
+      <label for="end-date" class="font-medium">Date de Fin</label>
+      <input
+        id="end-date"
+        type="date"
+        [field]="projectForm.endDate"
+        class="border rounded px-3 py-2"
+      />
+      @for (error of projectForm.endDate().errors(); track error.kind) {
+        <small class="text-red-600">{{ error.message }}</small>
+      }
+    </div>
+  </div>
+
+  <div class="w-full flex gap-2">
+    <div class="w-full flex flex-col gap-1">
+      <label for="status" class="font-medium">status</label>
+      <select name="status" id="status">
+        @for (status of statuses(); track status['@id']) {
+          <option [value]="status.id" class="border rounded px-3 py-2">
+            {{ status.label }}
+          </option>
+        }
+      </select>
+      @for (error of projectForm.status().errors(); track error.kind) {
+        <small class="text-red-600">{{ error.message }}</small>
+      }
+    </div>
+    <div class="w-full flex flex-col gap-1">
+      <label for="priority" class="font-medium">Priorité</label>
+      <select name="priority" id="priority">
+        @for (priority of priorities(); track priority['@id']) {
+          <option
+            [value]="priority.id"
+            class="border rounded px-3 py-2"
+            [style.background]="priority.color"
+          >
+            <p>
+              {{ priority.label }}
+            </p>
+          </option>
+        }
+      </select>
+      @for (error of projectForm.priority().errors(); track error.kind) {
+        <small class="text-red-600">{{ error.message }}</small>
+      }
+    </div>
+  </div>
+  <div class="flex flex-col gap-1">
+    <label for="project-template" class="font-medium">Template du project</label>
+    <input
+      id="project-template"
+      type="text"
+      [field]="projectForm.projectTemplate"
+      class="border rounded px-3 py-2"
     />
 
-    @if ((f['description'].touched || submitted) && f['description'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['description']?.errors?.['required']) {
-          L'description est obligatoire.
-        }
-        @if (f['description']?.errors?.['description']) {
-          Format d'description invalide.
-        }
-      </p>
+    @for (error of projectForm.projectTemplate().errors(); track error.kind) {
+      <small class="text-red-600">{{ error.message }}</small>
     }
   </div>
 
   <div class="flex flex-col gap-1">
-    <label for="start_date" class="font-medium">start_date</label>
-    <input
-      id="start_date"
-      name="start_date"
-      type="date"
-      formControlName="start_date"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
+    <label for="comment" class="font-medium">Commentaire</label>
+    <textarea
+      id="comment"
+      rows="5"
+      type="text"
+      [field]="projectForm.comment"
+      class="border rounded px-3 py-1"
+    ></textarea>
 
-    @if ((f['start_date'].touched || submitted) && f['start_date'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['start_date']?.errors?.['required']) {
-          L'start_date est obligatoire.
-        }
-        @if (f['start_date']?.errors?.['start_date']) {
-          Format d'start_date invalide.
-        }
-      </p>
+    @for (error of projectForm.comment().errors(); track error.kind) {
+      <small class="text-red-600">{{ error.message }}</small>
     }
   </div>
 
-  <div class="flex flex-col gap-1">
-    <label for="end_date" class="font-medium">end_date</label>
-    <input
-      id="end_date"
-      name="end_date"
-      type="date"
-      formControlName="end_date"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['end_date'].touched || submitted) && f['end_date'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['end_date']?.errors?.['required']) {
-          L'end_date est obligatoire.
-        }
-        @if (f['end_date']?.errors?.['end_date']) {
-          Format d'end_date invalide.
-        }
-      </p>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="created_At" class="font-medium">created_At</label>
-    <input
-      id="created_At"
-      name="created_At"
-      type="datetime-local"
-      formControlName="created_At"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['created_At'].touched || submitted) && f['created_At'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['created_At']?.errors?.['required']) {
-          L'created_At est obligatoire.
-        }
-        @if (f['created_At']?.errors?.['created_At']) {
-          Format d'created_At invalide.
-        }
-      </p>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="updated_At" class="font-medium">updated_At</label>
-    <input
-      id="updated_At"
-      name="updated_At"
-      type="date"
-      formControlName="updated_At"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if ((f['updated_At'].touched || submitted) && f['updated_At'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['updated_At']?.errors?.['required']) {
-          L'updated_At est obligatoire.
-        }
-        @if (f['updated_At']?.errors?.['updated_At']) {
-          Format d'updated_At invalide.
-        }
-      </p>
-    }
-  </div>
-
-  @if (submitted && form.invalid) {
-    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
-  }
-
-  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
-    Se connecter
+  <button
+    (click)="onSubmit($event)"
+    [disabled]="!projectForm"
+    class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium"
+  >
+    Valider
   </button>
 </form>

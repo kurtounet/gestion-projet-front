@@ -15,7 +15,7 @@ import {
 import { SideBarcardSprint } from './side-bar-card-sprint/side-bar-card-sprint';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ISprintInstance } from '../../models/sprint-instance.model';
-import { ProjectInstantStore } from '../../stores/project-instant.store';
+import { ProjectInstanceStore } from '../../stores/project-instance.store';
 
 @Component({
   selector: 'app-side-bar-sprints',
@@ -24,7 +24,7 @@ import { ProjectInstantStore } from '../../stores/project-instant.store';
   styleUrl: './side-bar-sprints.css',
 })
 export class SideBarSprints {
-  readonly projectInstanceStore = inject(ProjectInstantStore);
+  readonly projectInstanceStore = inject(ProjectInstanceStore);
 
   items = computed(() =>
     this.projectInstanceStore.currentProjectSprints().sort((a, b) => a.position - b.position),

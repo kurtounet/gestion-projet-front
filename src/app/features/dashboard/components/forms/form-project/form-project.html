@@ -1,1 +1,121 @@
-<p>form-project works!</p>
+<section class="min-w-full min-h-full flex-1">
+  <div class="login-container">
+    <form (submit)="onSubmit($event)">
+      <h2>Login</h2>
+      <div class="form-group">
+        <label for="name">Nom du projet</label>
+        <input type="name" [field]="projectInstanceForm.name" />
+        @if (projectInstanceForm.name().invalid() && projectInstanceForm.name().touched()) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.name().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Déscription:</label>
+        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
+        @if (
+          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
+        ) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.description().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Déscription:</label>
+        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
+        @if (
+          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
+        ) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.description().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Déscription:</label>
+        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
+        @if (
+          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
+        ) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.description().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Déscription:</label>
+        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
+        @if (
+          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
+        ) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.description().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Déscription:</label>
+        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
+        @if (
+          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
+        ) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.description().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Déscription:</label>
+        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
+        @if (
+          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
+        ) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.description().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="description">Déscription:</label>
+        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
+        @if (
+          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
+        ) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.description().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <div class="form-group">
+        <label for="favory">Déscription:</label>
+        <input type="checkbox" [field]="projectInstanceForm.favory" fieldMinlength="8" />
+        @if (projectInstanceForm.favory().invalid() && projectInstanceForm.favory().touched()) {
+          <ul class="text-red-500 text-sm mt-1 block">
+            @for (error of projectInstanceForm.favory().errors(); track $index) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+      <button type="submit" [disabled]="projectInstanceForm().invalid()">Login</button>
+    </form>
+  </div>
+</section>

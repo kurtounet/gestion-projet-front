@@ -2,7 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { CardTaskComponent } from '../../card-task/card-task.component';
 import { SideBarSprints } from '../../side-bar-sprints/side-bar-sprints';
 import { ViewToolBarComponent } from '../../tool-bar/view-tool-bar/view-tool-bar.component';
-import { ProjectInstantStore } from '@app/features/dashboard/stores/project-instant.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
 import { LoadingSpinner } from '../../loading-spinner/loading-spinner';
 import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag } from '@angular/cdk/drag-drop';
 import { ITaskInstance } from '@app/features/dashboard/models/task-instance.model';
@@ -22,7 +22,7 @@ import { ITaskInstance } from '@app/features/dashboard/models/task-instance.mode
 })
 export class ViewListComponent {
   viewToolBarTitle = 'Nombre de tâches: ';
-  readonly projectInstanceStore = inject(ProjectInstantStore);
+  readonly projectInstanceStore = inject(ProjectInstanceStore);
 
   items = computed(() =>
     this.projectInstanceStore.currentTasks().sort((a, b) => a.position - b.position),
