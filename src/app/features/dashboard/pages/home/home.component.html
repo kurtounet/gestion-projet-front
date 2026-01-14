@@ -6,6 +6,9 @@
   <section class="card">
     <div>
       <h1 class="text-3xl font-bold">Listes de projets</h1>
+      <button class="btn btn-primary mt-4 flex items-center" (click)="newProject()">
+        Nouveau projet
+      </button>
     </div>
     <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       @for (project of projects(); track $index) {

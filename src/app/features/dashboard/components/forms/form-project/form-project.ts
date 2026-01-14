@@ -19,9 +19,9 @@ export class FormProject {
   project = signal<Omit<IProjectInstance, 'id' | 'createdAt' | 'updatedAt'>>(this.projectStore.initialProjectState);
   private readonly projectSchema = schema<Omit<IProjectInstance, 'id' | 'createdAt' | 'updatedAt'>>((project) => {
    required(project.name, { message: 'Name is required' });
-   required(project.status, { message: 'Name is required' });
-   required(project.priority, { message: 'Name is required' });
-   required(project.pathFileDatabase, { message: 'Name is required' });
+   required(project.status, { message: 'status is required' });
+   required(project.priority, { message: 'Priority is required' });
+  //  required(project.pathFileDatabase, { message: 'Path File Database is required' });
 
    minLength(project.name, 8, { message: 'Name must be at least 8 characters long' });
    maxLength(project.name, 8, { message: 'Path File Database must be at least 255 characters long' });

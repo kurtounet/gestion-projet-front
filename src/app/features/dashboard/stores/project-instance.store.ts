@@ -11,6 +11,7 @@ import { LocalStorageService } from '../services/local-storage.service';
 import { fa } from 'zod/locales';
 import { map } from 'zod';
 import { IPayloadItemOrder } from '../models/payload-item-order.model';
+import { OrderService } from '../services/order.service';
 
 export const initialProjectState: IProjectInstance = {
   '@id': '',
@@ -40,10 +41,11 @@ export const initialProjectState: IProjectInstance = {
 })
 export class ProjectInstanceStore {
   readonly initialProjectState = initialProjectState;
+  readonly orderService = inject(OrderService);
   readonly statisticService = inject(StatisticService);
   readonly StorageService = inject(LocalStorageService);
-  readonly sprintInstanceService = inject(SprintInstanceService);
   readonly taskInstanceService = inject(TaskInstanceService);
+  readonly sprintInstanceService = inject(SprintInstanceService);
   readonly projectInstanceService = inject(ProjectInstanceService);
 
   readonly projectsLoading = signal<boolean>(false);
@@ -53,6 +55,7 @@ export class ProjectInstanceStore {
   readonly sprintLoaded = signal<boolean>(false);
   readonly taskLoading = signal<boolean>(false);
   readonly taskLoaded = signal<boolean>(false);
+  readonly sortOrder = signal<string>('desc');
 
   favoryProjectsLoading = signal(false);
   projects = signal<IProjectInstance[]>([]);
@@ -83,12 +86,12 @@ export class ProjectInstanceStore {
   }
 
   getProjectInstanceById(id: number) {
-    this.resetTasks();
+    this.resetAll();
     this.projectInstanceService.getProjectInstanceById(id).subscribe({
       next: (data) => {
         this.currentProject.set(data);
         this.StorageService.setItem('current-project', data);
-        this.getCurrentSprintsProject(data.id);
+        this.getAllSprintsCurrentProject(data.id);
       },
       error: (err) => {
         console.error('getProjectInstanceById: error', err);
@@ -96,7 +99,8 @@ export class ProjectInstanceStore {
       },
     });
   }
-  getCurrentSprintsProject(projectId?: number) {
+  getAllSprintsCurrentProject(projectId?: number) {
+    this.sortOrder.set('asc');
     if (projectId !== undefined) {
       this.sprintInstanceService.getAllSprintProjectInstance(projectId).subscribe({
         next: (data) => {
@@ -166,7 +170,7 @@ export class ProjectInstanceStore {
     this.sprintInstanceService.updateSprintOrder(payload).subscribe({
       next: () => {
         // on met à jour localement l’ordre dans le store
-        this.currentProjectSprints.set(list);
+          // this.currentProjectSprints.set([...list]);
       },
       error: (error) => {
         console.error('Erreur lors de la mise à jour de l’ordre des sprints', error);
@@ -210,4 +214,6 @@ export class ProjectInstanceStore {
   getAllCompletedStatus() {
     return this.taskInstanceService.getAllCompletedStatus();
   }
+
+
 }

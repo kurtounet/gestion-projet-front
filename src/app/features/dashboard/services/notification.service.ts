@@ -37,7 +37,7 @@ export class NotificationService {
 
   // Update Notification3 by ID
   updateNotification(id: string, body: INotification): Observable<INotification> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+merge-patch+json' });
     return this.httpClient.patch<INotification>(`${this.routeApi}/${id}`, body, { headers });
   }
 

@@ -25,4 +25,17 @@ orderByDate( items: any[], order: 'asc' | 'desc' = 'asc') {
   }
   return items;
 }
+orderByPosition( items: any[], order: string) {
+  if (order === 'desc') {
+    items = items.slice().sort((a, b) => {
+      return  b.position - a.position;
+    });
+  }
+  if (order === 'asc') {
+    items = items.slice().sort((a, b) => {
+      return  a.position - b.position;
+    });
+  }
+  return items;
+}
 }

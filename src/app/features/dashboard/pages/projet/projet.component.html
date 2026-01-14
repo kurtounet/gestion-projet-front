@@ -1,10 +1,11 @@
 <div class="mx-1">
   <h1 class="text-3xl font-bold p-4">{{ storeProjectInstance.currentProject().name }}</h1>
   <!-- <app-panel-statistic [cardStats]="cardStats" /> -->
+
   <app-tool-bar-project (selectedComponent)="onComponentChange($event)" />
   <div id="container-type-view" class="container-dashboard flex items-start justify-start">
     <div id="content-type-view" class="w-full">
-      <ng-container *ngComponentOutlet="selectedComponent"></ng-container>
+      <ng-container *ngComponentOutlet="selectedComponent" />
     </div>
   </div>
 </div>
