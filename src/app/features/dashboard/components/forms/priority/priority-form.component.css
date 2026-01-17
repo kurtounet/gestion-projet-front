@@ -1,0 +1,13 @@
+.priority {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.priority_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.priority_input input {
+  width: 100%;
+}

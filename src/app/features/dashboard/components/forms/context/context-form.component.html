@@ -1,0 +1,90 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
+  <h1>Context</h1>
+
+  <div class="flex flex-col gap-1">
+    <label for="id" class="font-medium">id</label>
+    <input
+      id="id"
+      name="id"
+      type="number"
+      formControlName="id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['id'].errors) {
+      <div class="error-message">
+        @if (getForm['id'].errors['required']) {
+          <span>Le id est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="context_label" class="font-medium">context_label</label>
+    <input
+      id="context_label"
+      name="context_label"
+      type="text"
+      formControlName="context_label"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['context_label'].errors) {
+      <div class="error-message">
+        @if (getForm['context_label'].errors['required']) {
+          <span>Le context_label est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="created_At" class="font-medium">created_At</label>
+    <input
+      id="created_At"
+      name="created_At"
+      type="datetime-local"
+      formControlName="created_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['created_At'].errors) {
+      <div class="error-message">
+        @if (getForm['created_At'].errors['required']) {
+          <span>Le created_At est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="updated_At" class="font-medium">updated_At</label>
+    <input
+      id="updated_At"
+      name="updated_At"
+      type="date"
+      formControlName="updated_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['updated_At'].errors) {
+      <div class="error-message">
+        @if (getForm['updated_At'].errors['required']) {
+          <span>Le updated_At est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  @if (submitted && form.invalid) {
+    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  }
+  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
+    Se connecter
+  </button>
+</form>

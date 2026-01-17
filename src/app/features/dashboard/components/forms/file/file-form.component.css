@@ -1,0 +1,13 @@
+.file {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.file_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.file_input input {
+  width: 100%;
+}

@@ -1,0 +1,13 @@
+.context-status {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.context-status_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.context-status_input input {
+  width: 100%;
+}

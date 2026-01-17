@@ -1,0 +1,13 @@
+.task-instance {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.task-instance_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.task-instance_input input {
+  width: 100%;
+}

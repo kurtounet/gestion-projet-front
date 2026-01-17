@@ -1,0 +1,13 @@
+.project-instance {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.project-instance_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.project-instance_input input {
+  width: 100%;
+}

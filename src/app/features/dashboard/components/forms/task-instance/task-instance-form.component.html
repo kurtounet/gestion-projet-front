@@ -1,0 +1,310 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
+  <h1>TaskInstance</h1>
+
+  <div class="flex flex-col gap-1">
+    <label for="id" class="font-medium">id</label>
+    <input
+      id="id"
+      name="id"
+      type="number"
+      formControlName="id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['id'].errors) {
+      <div class="error-message">
+        @if (getForm['id'].errors['required']) {
+          <span>Le id est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="user_id" class="font-medium">user_id</label>
+    <input
+      id="user_id"
+      name="user_id"
+      type="number"
+      formControlName="user_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['user_id'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="task_template_id" class="font-medium">task_template_id</label>
+    <input
+      id="task_template_id"
+      name="task_template_id"
+      type="number"
+      formControlName="task_template_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['task_template_id'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="sprint_instance_id" class="font-medium">sprint_instance_id</label>
+    <input
+      id="sprint_instance_id"
+      name="sprint_instance_id"
+      type="number"
+      formControlName="sprint_instance_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['sprint_instance_id'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="priority_id" class="font-medium">priority_id</label>
+    <input
+      id="priority_id"
+      name="priority_id"
+      type="number"
+      formControlName="priority_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['priority_id'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="status_id" class="font-medium">status_id</label>
+    <input
+      id="status_id"
+      name="status_id"
+      type="number"
+      formControlName="status_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['status_id'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="type_task_id" class="font-medium">type_task_id</label>
+    <input
+      id="type_task_id"
+      name="type_task_id"
+      type="number"
+      formControlName="type_task_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['type_task_id'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="name" class="font-medium">name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      formControlName="name"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['name'].errors) {
+      <div class="error-message">
+        @if (getForm['name'].errors['required']) {
+          <span>Le name est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="description" class="font-medium">description</label>
+    <input
+      id="description"
+      name="description"
+      type="text"
+      formControlName="description"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['description'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="start_date" class="font-medium">start_date</label>
+    <input
+      id="start_date"
+      name="start_date"
+      type="date"
+      formControlName="start_date"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['start_date'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="due_date" class="font-medium">due_date</label>
+    <input
+      id="due_date"
+      name="due_date"
+      type="date"
+      formControlName="due_date"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['due_date'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="order" class="font-medium">order</label>
+    <input
+      id="order"
+      name="order"
+      type="number"
+      formControlName="order"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['order'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="parent_task" class="font-medium">parent_task</label>
+    <input
+      id="parent_task"
+      name="parent_task"
+      type="number"
+      formControlName="parent_task"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['parent_task'].errors) {
+      <div class="error-message">
+        @if (getForm['parent_task'].errors['required']) {
+          <span>Le parent_task est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="dependency_id" class="font-medium">dependency_id</label>
+    <input
+      id="dependency_id"
+      name="dependency_id"
+      type="number"
+      formControlName="dependency_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['dependency_id'].errors) {
+      <div class="error-message">
+        @if (getForm['dependency_id'].errors['required']) {
+          <span>Le dependency_id est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="created_At" class="font-medium">created_At</label>
+    <input
+      id="created_At"
+      name="created_At"
+      type="datetime-local"
+      formControlName="created_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['created_At'].errors) {
+      <div class="error-message">
+        @if (getForm['created_At'].errors['required']) {
+          <span>Le created_At est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="updated_At" class="font-medium">updated_At</label>
+    <input
+      id="updated_At"
+      name="updated_At"
+      type="date"
+      formControlName="updated_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['updated_At'].errors) {
+      <div class="error-message">
+        @if (getForm['updated_At'].errors['required']) {
+          <span>Le updated_At est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="comment_id" class="font-medium">comment_id</label>
+    <input
+      id="comment_id"
+      name="comment_id"
+      type="number"
+      formControlName="comment_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['comment_id'].errors) {
+      <div class="error-message">
+        @if (getForm['comment_id'].errors['required']) {
+          <span>Le comment_id est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  @if (submitted && form.invalid) {
+    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  }
+  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
+    Se connecter
+  </button>
+</form>

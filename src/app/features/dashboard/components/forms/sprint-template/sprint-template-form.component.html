@@ -1,0 +1,122 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
+  <h1>SprintTemplate</h1>
+
+  <div class="flex flex-col gap-1">
+    <label for="sprint_template_id" class="font-medium">sprint_template_id</label>
+    <input
+      id="sprint_template_id"
+      name="sprint_template_id"
+      type="number"
+      formControlName="sprint_template_id"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['sprint_template_id'].errors) {
+      <div class="error-message">
+        @if (getForm['sprint_template_id'].errors['required']) {
+          <span>Le sprint_template_id est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="name" class="font-medium">name</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      formControlName="name"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['name'].errors) {
+      <div class="error-message">
+        @if (getForm['name'].errors['required']) {
+          <span>Le name est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="description" class="font-medium">description</label>
+    <input
+      id="description"
+      name="description"
+      type="text"
+      formControlName="description"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['description'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="duration" class="font-medium">duration</label>
+    <input
+      id="duration"
+      name="duration"
+      type="number"
+      formControlName="duration"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['duration'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="created_At" class="font-medium">created_At</label>
+    <input
+      id="created_At"
+      name="created_At"
+      type="datetime-local"
+      formControlName="created_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['created_At'].errors) {
+      <div class="error-message">
+        @if (getForm['created_At'].errors['required']) {
+          <span>Le created_At est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="updated_At" class="font-medium">updated_At</label>
+    <input
+      id="updated_At"
+      name="updated_At"
+      type="date"
+      formControlName="updated_At"
+      class="border rounded px-3 py-2"
+      placeholder="votre.email@domaine.com"
+    />
+
+    @if (submitted && getForm['updated_At'].errors) {
+      <div class="error-message">
+        @if (getForm['updated_At'].errors['required']) {
+          <span>Le updated_At est requis</span>
+        }
+      </div>
+    }
+  </div>
+
+  @if (submitted && form.invalid) {
+    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  }
+  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
+    Se connecter
+  </button>
+</form>

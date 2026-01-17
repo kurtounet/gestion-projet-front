@@ -1,0 +1,13 @@
+.feature {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.feature_input input {
+  width: 100%;
+}

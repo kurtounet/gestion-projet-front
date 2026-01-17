@@ -1,0 +1,13 @@
+.context {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.context_input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.context_input input {
+  width: 100%;
+}
