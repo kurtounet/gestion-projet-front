@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CardProject } from '../../components/card-project/card-project';
 
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstantStore } from '../../stores/project-instant.store';
+import { ProjectInstanceStore } from '../../stores/project-instant.store';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -12,7 +12,7 @@ import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk
   styleUrl: './projet-list.component.scss',
 })
 export class ProjetListComponent {
-  readonly projectInstanceStore = inject(ProjectInstantStore);
+  readonly projectInstanceStore = inject(ProjectInstanceStore);
 
   items = computed(() =>
     this.projectInstanceStore.projects().sort((a, b) => a.position - b.position),

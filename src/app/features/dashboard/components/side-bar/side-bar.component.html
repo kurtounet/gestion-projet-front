@@ -31,8 +31,8 @@
     />
 
     <ul class="menu-list">
-      @if (projectInstantStore.projectsLoading()) {
-      } @else if (projectInstantStore.projectsLoaded()) {
+      @if (ProjectInstanceStore.projectsLoading()) {
+      } @else if (ProjectInstanceStore.projectsLoaded()) {
         @for (section of menuGroups(); track section.label) {
           <li class="menu-item">
             <app-side-bar-section [section]="section" />

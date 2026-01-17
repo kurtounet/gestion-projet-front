@@ -2,8 +2,8 @@ import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { ISprintInstance } from '@app/features/dashboard/models/sprint-instance.model';
 import { ModalService } from '@app/features/dashboard/services/modal.service';
-import { PriorityStore } from '@app/features/dashboard/stores/priority-store';
-import { ProjectInstantStore } from '@app/features/dashboard/stores/project-instant.store';
+import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
 import { StatusStore } from '@app/features/dashboard/stores/status-store';
 
 @Component({
@@ -13,7 +13,7 @@ import { StatusStore } from '@app/features/dashboard/stores/status-store';
   styleUrl: './side-bar-card-sprint.css',
 })
 export class SideBarcardSprint {
-  projectInstanceStore = inject(ProjectInstantStore);
+  projectInstanceStore = inject(ProjectInstanceStore);
   statuses = inject(StatusStore).statuses;
   priorities = inject(PriorityStore).priorities;
   modalService = inject(ModalService);

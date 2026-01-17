@@ -4,7 +4,7 @@ import { IMenuGroups } from '../../models/menu-item.model';
 import { SidebarComponent } from '../../components/side-bar/side-bar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { ProjectInstantStore } from '../../stores/project-instant.store';
+import { ProjectInstanceStore } from '../../stores/project-instant.store';
 import { InitAppService } from '../../services/init-app.service';
 
 @Component({
@@ -16,9 +16,9 @@ import { InitAppService } from '../../services/init-app.service';
 export class DashboardComponent {
   menuGroups: IMenuGroups[] = [];
   initService = inject(InitAppService).Init();
-  projectInstantStore = inject(ProjectInstantStore);
+  ProjectInstanceStore = inject(ProjectInstanceStore);
   localStorageService = inject(LocalStorageService);
 
-  projects = computed(() => this.projectInstantStore.projects());
+  projects = computed(() => this.ProjectInstanceStore.projects());
   favoryProjects = computed(() => this.projects().filter((p) => p.favory));
 }

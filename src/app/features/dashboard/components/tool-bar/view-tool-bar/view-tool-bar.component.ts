@@ -1,5 +1,5 @@
 import { Component, inject, input, Input, signal } from '@angular/core';
-import { ProjectInstantStore } from '@app/features/dashboard/stores/project-instant.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
 
 @Component({
   selector: 'app-view-tool-bar',
@@ -8,7 +8,7 @@ import { ProjectInstantStore } from '@app/features/dashboard/stores/project-inst
   styleUrl: './view-tool-bar.component.scss',
 })
 export class ViewToolBarComponent {
-  projectInstanceStore = inject(ProjectInstantStore);
+  projectInstanceStore = inject(ProjectInstanceStore);
 
   title = input<string>('');
 

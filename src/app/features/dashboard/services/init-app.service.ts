@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { ProjectInstantStore } from '../stores/project-instant.store';
+import { ProjectInstanceStore } from '../stores/project-instant.store';
 import { LocalStorageService } from './local-storage.service';
 import { StatusStore } from '../stores/status-store';
 import { TypeTaskStore } from '../stores/type-task-store';
-import { PriorityStore } from '../stores/priority-store';
+import { PriorityStore } from '../stores/priority.store';
 import { TechnologyStore } from '../stores/technology-store';
 
 @Injectable({
@@ -15,13 +15,13 @@ export class InitAppService {
   priorityStore = inject(PriorityStore);
   technologyStore = inject(TechnologyStore);
   localStorageService = inject(LocalStorageService);
-  projectInstanceStore = inject(ProjectInstantStore);
+  projectInstanceStore = inject(ProjectInstanceStore);
   Init() {
     this.localStorageService.clear();
     this.statusStore.getAllStatus();
     this.typeTaskStore.getAllTypeTask();
     this.priorityStore.getAllPriority();
-    this.technologyStore.getAllTechnologies();
+    this.technologyStore.getAllTechnologys();
     this.projectInstanceStore.getAllProjectInstance();
   }
 }

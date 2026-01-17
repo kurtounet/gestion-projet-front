@@ -5,8 +5,8 @@ import { CardProject } from '../../components/card-project/card-project';
 
 import { AsyncPipe } from '@angular/common';
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstantStore } from '../../stores/project-instant.store';
-import { AuthRoutingModule } from "@app/features/auth/auth-routing.module";
+import { ProjectInstanceStore } from '../../stores/project-instant.store';
+import { AuthRoutingModule } from '@app/features/auth/auth-routing.module';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +16,9 @@ import { AuthRoutingModule } from "@app/features/auth/auth-routing.module";
 })
 export class HomeComponent {
   projects = signal<IProjectInstance[]>([]);
-  projectInstantStore = inject(ProjectInstantStore);
+  ProjectInstanceStore = inject(ProjectInstanceStore);
 
   ngOnInit() {
-    this.projects = this.projectInstantStore.projects;
+    this.projects = this.ProjectInstanceStore.projects;
   }
 }
