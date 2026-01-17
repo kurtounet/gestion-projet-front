@@ -16,7 +16,9 @@ import {
 import { SideBarcardSprint } from './side-bar-card-sprint/side-bar-card-sprint';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ISprintInstance } from '../../models/sprint-instance.model';
-import { ProjectInstanceStore } from '../../stores/project-instant.store';
+import { ProjectInstanceStore } from '../../stores/project-instance.store';
+import { OrderService } from '../../services/order.service';
+
 
 @Component({
   selector: 'app-side-bar-sprints',
@@ -25,7 +27,9 @@ import { ProjectInstanceStore } from '../../stores/project-instant.store';
   styleUrl: './side-bar-sprints.css',
 })
 export class SideBarSprints {
+  orderSprint = signal<'asc' | 'desc'>('asc');
   readonly projectInstanceStore = inject(ProjectInstanceStore);
+  readonly orderService = inject(OrderService);
 
   items = computed(() =>
      this.projectInstanceStore.currentProjectSprints(),
@@ -53,6 +57,7 @@ export class SideBarSprints {
     this.projectInstanceStore.getCurrentSprintTask(sprint.id);
   }
   toggleSort() {
+
     const newOrder = this.orderSprint() === 'asc' ? 'desc' : 'asc';
     console.log(newOrder);
     this.orderSprint.set(newOrder);
@@ -61,6 +66,7 @@ export class SideBarSprints {
       this.orderSprint()
     );
     this.projectInstanceStore.currentProjectSprints.set(newSortedItems);
+
     console.log(this.items());
 
   }
