@@ -1,5 +1,6 @@
 import { Component, inject, input, Input, signal } from '@angular/core';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
+
 
 @Component({
   selector: 'app-view-tool-bar',

@@ -4,8 +4,9 @@ import { IMenuGroups } from '../../models/menu-item.model';
 import { SidebarComponent } from '../../components/side-bar/side-bar.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { ProjectInstanceStore } from '../../stores/project-instant.store';
+
 import { InitAppService } from '../../services/init-app.service';
+import { ProjectInstanceStore } from '../../stores/project-instance.store';
 
 @Component({
   selector: 'app-dashboard',

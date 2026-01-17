@@ -39,7 +39,7 @@ export class ProjectInstanceService {
   }
 
   // Update ProjectInstance by ID
-  updateProjectInstance(id: number, body: Partial<IProjectInstance>): Observable<IProjectInstance> {
+  updateProjectInstance(id: string, body: Partial<IProjectInstance>): Observable<IProjectInstance> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
     return this.httpClient.patch<IProjectInstance>(`${this.routeApi}/${id}`, body, { headers });
   }

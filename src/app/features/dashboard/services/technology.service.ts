@@ -10,7 +10,7 @@ import { IApiResponseCollection } from '../models/api/response.models';
   providedIn: 'root',
 })
 export class TechnologyService {
-  private routeApi = `${environment.baseApiUrl}/technologies`;
+  private routeApi = `${environment.baseApiUrl}/technology`;
   private httpClient = inject(HttpClient);
 
   constructor() {}

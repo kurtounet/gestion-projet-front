@@ -5,8 +5,9 @@ import { CardProject } from '../../components/card-project/card-project';
 
 import { AsyncPipe } from '@angular/common';
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstanceStore } from '../../stores/project-instant.store';
+
 import { AuthRoutingModule } from '@app/features/auth/auth-routing.module';
+import { ProjectInstanceStore } from '../../stores/project-instance.store';
 
 @Component({
   selector: 'app-home',

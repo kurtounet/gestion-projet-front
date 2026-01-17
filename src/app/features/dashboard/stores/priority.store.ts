@@ -7,6 +7,7 @@ import { LocalStorageService } from '../services/local-storage.service';
   '@type': "",
   id: 0,
   label: "",
+  color: "",
   priorityNumber: 0,
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),

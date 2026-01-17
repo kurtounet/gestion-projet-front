@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TechnologyStore } from '@app/features/dashboard/stores/technology-store';
+import { TechnologyStore } from '@app/features/dashboard/stores/technology.store';
 
 @Component({
   selector: 'app-technologie-form',

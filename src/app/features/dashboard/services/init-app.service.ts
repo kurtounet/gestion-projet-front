@@ -1,10 +1,11 @@
-import { inject, Injectable } from '@angular/core';
-import { ProjectInstanceStore } from '../stores/project-instant.store';
+import { inject, Injectable, signal } from '@angular/core';
+
 import { LocalStorageService } from './local-storage.service';
-import { StatusStore } from '../stores/status-store';
-import { TypeTaskStore } from '../stores/type-task-store';
+import { StatusStore } from '../stores/status.store';
+import { TypeTaskStore } from '../stores/type-task.store';
 import { PriorityStore } from '../stores/priority.store';
-import { TechnologyStore } from '../stores/technology-store';
+import { TechnologyStore } from '../stores/technology.store';
+import { ProjectInstanceStore } from '../stores/project-instance.store';
 
 @Injectable({
   providedIn: 'root',
@@ -31,9 +32,9 @@ export class InitAppService {
   }
  isAllLoaded(): boolean {
    return (
-     this.statusStore.statusesLoaded() &&
-     this.typeTaskStore.typeTasksLoaded() &&
-     this.priorityStore.prioritiesLoaded() &&
+     this.statusStore.statusLoaded() &&
+     this.typeTaskStore.typeTaskLoaded() &&
+     this.priorityStore.priorityLoaded() &&
      this.technologyStore.technologyLoaded()
    );
  }
@@ -41,12 +42,12 @@ export class InitAppService {
 
   resetAll() {
     this.statusStore.statuses.set([]);
-    this.statusStore.statusesLoaded.set(false);
+    this.statusStore.statusLoaded.set(false);
     this.typeTaskStore.typeTasks.set([]);
-    this.typeTaskStore.typeTasksLoaded.set(false);
+    this.typeTaskStore.typeTaskLoaded.set(false);
     this.priorityStore.priorities.set([]);
-    this.priorityStore.prioritiesLoaded.set(false);
-    this.technologyStore.technologies.set([]);
+    this.priorityStore.priorityLoaded.set(false);
+    this.technologyStore.technologys.set([]);
     this.technologyStore.technologyLoaded.set(false);
   }
 }

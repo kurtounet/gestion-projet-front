@@ -55,6 +55,7 @@ export class ProjectInstanceStore {
   readonly taskLoaded = signal<boolean>(false);
   readonly sortOrder = signal<string>('desc');
 
+  initialProjectState = signal<IProjectInstance>(initialProjectState);
   favoryProjectsLoading = signal(false);
   projects = signal<IProjectInstance[]>([]);
   statisticsCurrentProject: ICardStat[] = [];
@@ -121,7 +122,7 @@ export class ProjectInstanceStore {
     console.log( 'getCurrentSprintTask');
 
     if (sprintId !== undefined) {
-      this.taskInstanceService.getAllTaskBySprintInstance(String(sprintId)).subscribe({
+      this.taskInstanceService.getAllTaskBySprintInstance(sprintId).subscribe({
         next: (data) => {
           this.currentTasks.set(data);
           this.taskLoaded.set(true);
@@ -137,7 +138,7 @@ export class ProjectInstanceStore {
   }
   getCurrentProjectTask(id: number) {
     this.taskInstanceService
-      .getAllTaskBySprintInstance(String(id))
+      .getAllTaskBySprintInstance(id)
       .subscribe((data) => this.currentTasks.set(data));
     this.getStatisticsCurrentProject();
   }

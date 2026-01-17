@@ -7,7 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { IProjectInstance } from '@app/features/dashboard/models/project-instance.model';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
+
 
 @Component({
   selector: 'app-project-instance-form',

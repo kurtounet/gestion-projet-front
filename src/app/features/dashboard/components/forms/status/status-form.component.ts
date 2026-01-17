@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { StatusStore } from '@app/features/dashboard/stores/status-store';
+import { StatusStore } from '@app/features/dashboard/stores/status.store';
 
 @Component({
   selector: 'app-status-form',

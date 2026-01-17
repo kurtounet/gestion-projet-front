@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TypeTaskStore } from '@app/features/dashboard/stores/type-task-store';
+import { TypeTaskStore } from '@app/features/dashboard/stores/type-task.store';
 
 @Component({
   selector: 'app-type-task-form',

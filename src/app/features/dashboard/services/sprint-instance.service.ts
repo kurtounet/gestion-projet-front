@@ -27,7 +27,7 @@ export class SprintInstanceService {
   }
   getAllSprintProjectInstance(id: number ): Observable<ISprintInstance[]> {
     return this.httpClient
-      .get<IApiResponseCollection<ISprintInstance>>(`${this.routeApi}/current_project?page=1&projectInstance.id=${id}`)
+      .get<IApiResponseCollection<ISprintInstance>>(`${this.routeApi}/current_project/${id}?page=1`)
       .pipe(
         map((response) => {
           return response['member'];

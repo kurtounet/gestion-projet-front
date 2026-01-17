@@ -16,7 +16,7 @@ export class FormProject {
   private projectStore = inject(ProjectInstanceStore );
   private projectService = inject(ProjectInstanceService );
 
-  project = signal<Omit<IProjectInstance, 'id' | 'createdAt' | 'updatedAt'>>(this.projectStore.initialProjectState);
+  project = signal<Omit<IProjectInstance, 'id' | 'createdAt' | 'updatedAt'>>(this.projectStore.initialProjectState());
   private readonly projectSchema = schema<Omit<IProjectInstance, 'id' | 'createdAt' | 'updatedAt'>>((project) => {
    required(project.name, { message: 'Name is required' });
    required(project.status, { message: 'status is required' });

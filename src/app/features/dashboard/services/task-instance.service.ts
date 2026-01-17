@@ -27,9 +27,9 @@ export class TaskInstanceService {
       }),
     );
   }
-  getAllTaskBySprintInstance(id: string): Observable<ITaskInstance[]> {
+  getAllTaskBySprintInstance(id: number, page = 1): Observable<ITaskInstance[]> {
     return this.httpClient
-      .get<IApiResponseCollection<ITaskInstance>>(`${this.routeApi}?sprintInstance.id=${id}`)
+      .get<IApiResponseCollection<ITaskInstance>>(`${this.routeApi}/current_sprint/${String(id)}?page=${String(page)}`)
       .pipe(
         map((response) => {
 

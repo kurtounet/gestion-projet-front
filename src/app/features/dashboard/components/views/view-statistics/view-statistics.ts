@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { PanelStatistic } from '../../statistic/panel-statistic/panel-statistic';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
+
 
 @Component({
   selector: 'app-view-statistics',

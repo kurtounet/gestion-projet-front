@@ -15,8 +15,9 @@ import { ITaskInstance } from '../../../models/task-instance.model';
 import { TaskInstanceService } from '../../../services/task-instance.service';
 import { SprintInstanceService } from '../../../services/sprint-instance.service';
 import { ISprintInstance } from '../../../models/sprint-instance.model';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
-import { StatusStore } from '@app/features/dashboard/stores/status-store';
+
+import { StatusStore } from '@app/features/dashboard/stores/status.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
 
 interface Column {
   label: string; //'todo' | 'progress' | 'done';
