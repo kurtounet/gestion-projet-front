@@ -35,7 +35,7 @@ export const initialProjectState: IProjectInstance = {
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectInstantStore {
+export class ProjectInstanceStore {
   readonly statisticService = inject(StatisticService);
   readonly StorageService = inject(LocalStorageService);
   readonly sprintInstanceService = inject(SprintInstanceService);
@@ -107,7 +107,6 @@ export class ProjectInstantStore {
       });
     }
   }
-
   getCurrentSprintTask(sprintId: number) {
     this.resetTasks();
     this.taskLoading.set(true);
@@ -115,7 +114,7 @@ export class ProjectInstantStore {
     this.selectedSprintId.set(sprintId);
 
     if (sprintId !== undefined) {
-      this.taskInstanceService.getAllTaskBySprintInstance(sprintId).subscribe({
+      this.taskInstanceService.getAllTaskBySprintInstance(String(sprintId)).subscribe({
         next: (data) => {
           this.currentTasks.set(data);
           this.taskLoaded.set(true);
@@ -131,14 +130,13 @@ export class ProjectInstantStore {
   }
   getCurrentProjectTask(id: number) {
     this.taskInstanceService
-      .getAllTaskBySprintInstance(id)
+      .getAllTaskBySprintInstance(String(id))
       .subscribe((data) => this.currentTasks.set(data));
     this.getStatisticsCurrentProject();
   }
   getStatisticsCurrentProject(projectId?: number) {
     return (this.statisticsCurrentProject = this.statisticService.getCardStatAll());
   }
-
   resetTasks() {
     this.currentTasks.set([]);
   }
@@ -205,8 +203,13 @@ export class ProjectInstantStore {
       },
     });
   }
-
   getAllCompletedStatus() {
     return this.taskInstanceService.getAllCompletedStatus();
+  }
+  createProjectInstance(body: IProjectInstance) {
+    return this.projectInstanceService.createProjectInstance(body);
+  }
+  updateProjectInstance(id: string, body: IProjectInstance) {
+    return this.projectInstanceService.updateProjectInstance(id, body);
   }
 }
