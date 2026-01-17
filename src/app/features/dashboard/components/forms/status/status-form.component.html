@@ -12,15 +12,12 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['status_id'].touched || submitted) && f['status_id'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['status_id']?.errors?.['required']) {
-          L'status_id est obligatoire.
+    @if (submitted && getForm['status_id'].errors) {
+      <div class="error-message">
+        @if (getForm['status_id'].errors['required']) {
+          <span>Le status_id est requis</span>
         }
-        @if (f['status_id']?.errors?.['status_id']) {
-          Format d'status_id invalide.
-        }
-      </p>
+      </div>
     }
   </div>
 
@@ -35,15 +32,12 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['status_name'].touched || submitted) && f['status_name'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['status_name']?.errors?.['required']) {
-          L'status_name est obligatoire.
+    @if (submitted && getForm['status_name'].errors) {
+      <div class="error-message">
+        @if (getForm['status_name'].errors['required']) {
+          <span>Le status_name est requis</span>
         }
-        @if (f['status_name']?.errors?.['status_name']) {
-          Format d'status_name invalide.
-        }
-      </p>
+      </div>
     }
   </div>
 
@@ -58,15 +52,12 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['status_context'].touched || submitted) && f['status_context'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['status_context']?.errors?.['required']) {
-          L'status_context est obligatoire.
+    @if (submitted && getForm['status_context'].errors) {
+      <div class="error-message">
+        @if (getForm['status_context'].errors['required']) {
+          <span>Le status_context est requis</span>
         }
-        @if (f['status_context']?.errors?.['status_context']) {
-          Format d'status_context invalide.
-        }
-      </p>
+      </div>
     }
   </div>
 
@@ -81,15 +72,12 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['created_At'].touched || submitted) && f['created_At'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['created_At']?.errors?.['required']) {
-          L'created_At est obligatoire.
+    @if (submitted && getForm['created_At'].errors) {
+      <div class="error-message">
+        @if (getForm['created_At'].errors['required']) {
+          <span>Le created_At est requis</span>
         }
-        @if (f['created_At']?.errors?.['created_At']) {
-          Format d'created_At invalide.
-        }
-      </p>
+      </div>
     }
   </div>
 
@@ -104,23 +92,19 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['updated_At'].touched || submitted) && f['updated_At'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['updated_At']?.errors?.['required']) {
-          L'updated_At est obligatoire.
+    @if (submitted && getForm['updated_At'].errors) {
+      <div class="error-message">
+        @if (getForm['updated_At'].errors['required']) {
+          <span>Le updated_At est requis</span>
         }
-        @if (f['updated_At']?.errors?.['updated_At']) {
-          Format d'updated_At invalide.
-        }
-      </p>
+      </div>
     }
   </div>
 
   @if (submitted && form.invalid) {
     <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
   }
-
-  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
+  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
     Se connecter
   </button>
 </form>

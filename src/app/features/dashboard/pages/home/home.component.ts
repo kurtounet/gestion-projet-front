@@ -5,9 +5,8 @@ import { CardProject } from '../../components/card-project/card-project';
 
 import { AsyncPipe } from '@angular/common';
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstanceStore } from '../../stores/project-instance.store';
-import { AuthRoutingModule } from "@app/features/auth/auth-routing.module";
-import { ModalService } from '../../services/modal.service';
+import { ProjectInstanceStore } from '../../stores/project-instant.store';
+import { AuthRoutingModule } from '@app/features/auth/auth-routing.module';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +17,8 @@ import { ModalService } from '../../services/modal.service';
 export class HomeComponent {
   projects = signal<IProjectInstance[]>([]);
   ProjectInstanceStore = inject(ProjectInstanceStore);
-  modalService = inject(ModalService);
 
   ngOnInit() {
     this.projects = this.ProjectInstanceStore.projects;
-  }
-
-  newProject() {
-      this.modalService.open('Nouveau projet', 'create', 'project'); // Call the openModal
   }
 }

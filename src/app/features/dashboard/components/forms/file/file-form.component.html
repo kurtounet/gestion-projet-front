@@ -12,15 +12,12 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['id'].touched || submitted) && f['id'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['id']?.errors?.['required']) {
-          L'id est obligatoire.
+    @if (submitted && getForm['id'].errors) {
+      <div class="error-message">
+        @if (getForm['id'].errors['required']) {
+          <span>Le id est requis</span>
         }
-        @if (f['id']?.errors?.['id']) {
-          Format d'id invalide.
-        }
-      </p>
+      </div>
     }
   </div>
 
@@ -35,15 +32,12 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['path'].touched || submitted) && f['path'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['path']?.errors?.['required']) {
-          L'path est obligatoire.
+    @if (submitted && getForm['path'].errors) {
+      <div class="error-message">
+        @if (getForm['path'].errors['required']) {
+          <span>Le path est requis</span>
         }
-        @if (f['path']?.errors?.['path']) {
-          Format d'path invalide.
-        }
-      </p>
+      </div>
     }
   </div>
 
@@ -58,23 +52,15 @@
       placeholder="votre.email@domaine.com"
     />
 
-    @if ((f['key_word'].touched || submitted) && f['key_word'].errors) {
-      <p class="text-sm text-red-600">
-        @if (f['key_word']?.errors?.['required']) {
-          L'key_word est obligatoire.
-        }
-        @if (f['key_word']?.errors?.['key_word']) {
-          Format d'key_word invalide.
-        }
-      </p>
+    @if (submitted && getForm['key_word'].errors) {
+      <div class="error-message"></div>
     }
   </div>
 
   @if (submitted && form.invalid) {
     <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
   }
-
-  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
+  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
     Se connecter
   </button>
 </form>

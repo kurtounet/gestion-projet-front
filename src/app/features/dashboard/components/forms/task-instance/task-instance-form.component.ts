@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { TaskInstanceStore } from '@app/features/dashboard/stores/task-instance.store';
 
 @Component({
   selector: 'app-task-instance-form',
@@ -8,32 +15,75 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './task-instance-form.component.css',
 })
 export class TaskInstanceFormComponent {
-  form: FormGroup;
+  id = signal<string | number>(0);
   submitted = false;
+  private fb = inject(FormBuilder);
+  private taskInstanceStore = inject(TaskInstanceStore);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      id: ['', [Validators.required, Validators.minLength(8)]],
-      user_id: ['', [Validators.required, Validators.minLength(8)]],
-      task_template_id: ['', [Validators.required, Validators.minLength(8)]],
-      sprint_instance_id: ['', [Validators.required, Validators.minLength(8)]],
-      priority_id: ['', [Validators.required, Validators.minLength(8)]],
-      status_id: ['', [Validators.required, Validators.minLength(8)]],
-      type_task_id: ['', [Validators.required, Validators.minLength(8)]],
-      name: ['', [Validators.required, Validators.minLength(8)]],
-      description: ['', [Validators.required, Validators.minLength(8)]],
-      start_date: ['', [Validators.required, Validators.minLength(8)]],
-      due_date: ['', [Validators.required, Validators.minLength(8)]],
-      order: ['', [Validators.required, Validators.minLength(8)]],
-      parent_task: ['', [Validators.required, Validators.minLength(8)]],
-      dependency_id: ['', [Validators.required, Validators.minLength(8)]],
-      created_At: ['', [Validators.required, Validators.minLength(8)]],
-      updated_At: ['', [Validators.required, Validators.minLength(8)]],
-      comment_id: ['', [Validators.required, Validators.minLength(8)]],
+  form!: FormGroup;
+
+  ngOnInit() {
+    if (this.id() === 0 || this.id() === null) {
+      this.initCreateForm();
+    } else {
+      this.initUpdateForm();
+    }
+  }
+
+  private initCreateForm(): void {
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      user_id: [''],
+      task_template_id: [''],
+      sprint_instance_id: [''],
+      priority_id: [''],
+      status_id: [''],
+      type_task_id: [''],
+      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      description: ['', Validators.minLength(6), Validators.maxLength(255)],
+      start_date: [''],
+      due_date: [''],
+      order: [''],
+      parent_task: ['', Validators.required],
+      dependency_id: ['', Validators.required],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
+      comment_id: ['', Validators.required],
+    });
+  }
+  private initUpdateForm(): void {
+    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
+    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
+    // const data: ITaskInstance = {};
+    const data = {};
+
+    if (!data) {
+      this.initCreateForm();
+      return;
+    }
+
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      user_id: [''],
+      task_template_id: [''],
+      sprint_instance_id: [''],
+      priority_id: [''],
+      status_id: [''],
+      type_task_id: [''],
+      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      description: ['', Validators.minLength(6), Validators.maxLength(255)],
+      start_date: [''],
+      due_date: [''],
+      order: [''],
+      parent_task: ['', Validators.required],
+      dependency_id: ['', Validators.required],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
+      comment_id: ['', Validators.required],
     });
   }
 
-  get f() {
+  get getForm() {
     return this.form.controls;
   }
 
@@ -44,7 +94,14 @@ export class TaskInstanceFormComponent {
       return;
     }
 
-    // Traitement du form
-    console.log(this.form.value);
+    const formValue = this.form.value;
+
+    if (this.id() === 0 || this.id() === null) {
+      //this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création:', formValue);
+    } else {
+      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
+      console.log('Modification:', formValue);
+    }
   }
 }

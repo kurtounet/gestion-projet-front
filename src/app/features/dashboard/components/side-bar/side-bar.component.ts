@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SideBarSectionComponent } from './side-bar-section/side-bar-section.component';
 import { SideBarHeaderComponent } from './side-bar-header/side-bar-header.component';
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstanceStore } from '../../stores/project-instance.store';
+import { ProjectInstanceStore } from '../../stores/project-instant.store';
 
 @Component({
   selector: 'app-side-bar',

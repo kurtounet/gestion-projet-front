@@ -40,8 +40,6 @@ export const initialProjectState: IProjectInstance = {
   providedIn: 'root',
 })
 export class ProjectInstanceStore {
-  readonly initialProjectState = initialProjectState;
-  readonly orderService = inject(OrderService);
   readonly statisticService = inject(StatisticService);
   readonly StorageService = inject(LocalStorageService);
   readonly taskInstanceService = inject(TaskInstanceService);
@@ -123,7 +121,7 @@ export class ProjectInstanceStore {
     console.log( 'getCurrentSprintTask');
 
     if (sprintId !== undefined) {
-      this.taskInstanceService.getAllTaskBySprintInstance(sprintId).subscribe({
+      this.taskInstanceService.getAllTaskBySprintInstance(String(sprintId)).subscribe({
         next: (data) => {
           this.currentTasks.set(data);
           this.taskLoaded.set(true);
@@ -139,7 +137,7 @@ export class ProjectInstanceStore {
   }
   getCurrentProjectTask(id: number) {
     this.taskInstanceService
-      .getAllTaskBySprintInstance(id)
+      .getAllTaskBySprintInstance(String(id))
       .subscribe((data) => this.currentTasks.set(data));
     this.getStatisticsCurrentProject();
   }
@@ -214,6 +212,10 @@ export class ProjectInstanceStore {
   getAllCompletedStatus() {
     return this.taskInstanceService.getAllCompletedStatus();
   }
-
-
+  createProjectInstance(body: IProjectInstance) {
+    return this.projectInstanceService.createProjectInstance(body);
+  }
+  updateProjectInstance(id: string, body: IProjectInstance) {
+    return this.projectInstanceService.updateProjectInstance(id, body);
+  }
 }

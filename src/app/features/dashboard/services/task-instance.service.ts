@@ -27,7 +27,7 @@ export class TaskInstanceService {
       }),
     );
   }
-  getAllTaskBySprintInstance(id: number): Observable<ITaskInstance[]> {
+  getAllTaskBySprintInstance(id: string): Observable<ITaskInstance[]> {
     return this.httpClient
       .get<IApiResponseCollection<ITaskInstance>>(`${this.routeApi}?sprintInstance.id=${id}`)
       .pipe(
@@ -39,7 +39,7 @@ export class TaskInstanceService {
   }
 
   // Get TaskInstance by ID
-  getTaskInstanceById(id: number): Observable<ITaskInstance> {
+  getTaskInstanceById(id: string): Observable<ITaskInstance> {
     return this.httpClient.get<ITaskInstance>(`${this.routeApi}/${id}`);
   }
 
@@ -50,7 +50,7 @@ export class TaskInstanceService {
   }
 
   // Update TaskInstance by ID
-  updateTaskInstance(id: number, body: ITaskInstance): Observable<ITaskInstance> {
+  updateTaskInstance(id: string, body: ITaskInstance): Observable<ITaskInstance> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
     return this.httpClient.patch<ITaskInstance>(`${this.routeApi}/${id}`, body, { headers });
   }

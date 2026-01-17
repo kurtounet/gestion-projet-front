@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { CodeBaseStore } from '@app/features/dashboard/stores/code-base.store';
 
 @Component({
   selector: 'app-code-base-form',
@@ -8,20 +15,51 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './code-base-form.component.css',
 })
 export class CodeBaseFormComponent {
-  form: FormGroup;
+  id = signal<string | number>(0);
   submitted = false;
+  private fb = inject(FormBuilder);
+  private codeBaseStore = inject(CodeBaseStore);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      id: ['', [Validators.required, Validators.minLength(8)]],
-      label: ['', [Validators.required, Validators.minLength(8)]],
-      code: ['', [Validators.required, Validators.minLength(8)]],
-      path_file: ['', [Validators.required, Validators.minLength(8)]],
-      feature: ['', [Validators.required, Validators.minLength(8)]],
+  form!: FormGroup;
+
+  ngOnInit() {
+    if (this.id() === 0 || this.id() === null) {
+      this.initCreateForm();
+    } else {
+      this.initUpdateForm();
+    }
+  }
+
+  private initCreateForm(): void {
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      code: ['', Validators.minLength(6), Validators.maxLength(255)],
+      path_file: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      feature: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+    });
+  }
+  private initUpdateForm(): void {
+    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
+    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
+    // const data: ICodeBase = {};
+    const data = {};
+
+    if (!data) {
+      this.initCreateForm();
+      return;
+    }
+
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      code: ['', Validators.minLength(6), Validators.maxLength(255)],
+      path_file: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      feature: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
     });
   }
 
-  get f() {
+  get getForm() {
     return this.form.controls;
   }
 
@@ -32,7 +70,14 @@ export class CodeBaseFormComponent {
       return;
     }
 
-    // Traitement du form
-    console.log(this.form.value);
+    const formValue = this.form.value;
+
+    if (this.id() === 0 || this.id() === null) {
+      //this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création:', formValue);
+    } else {
+      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
+      console.log('Modification:', formValue);
+    }
   }
 }

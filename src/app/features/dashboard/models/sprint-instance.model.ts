@@ -4,7 +4,7 @@ export interface ISprintInstance {
   id: number;
   projectInstance: string;
   priority: string;
-  sprintTtemplate: string;
+  sprintTemplate: string;
   sprintDependency: string;
   name: string;
   description: string;

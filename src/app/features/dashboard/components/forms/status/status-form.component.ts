@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { StatusStore } from '@app/features/dashboard/stores/status-store';
 
 @Component({
   selector: 'app-status-form',
@@ -8,20 +15,51 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './status-form.component.css',
 })
 export class StatusFormComponent {
-  form: FormGroup;
+  id = signal<string | number>(0);
   submitted = false;
+  private fb = inject(FormBuilder);
+  private statusStore = inject(StatusStore);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      status_id: ['', [Validators.required, Validators.minLength(8)]],
-      status_name: ['', [Validators.required, Validators.minLength(8)]],
-      status_context: ['', [Validators.required, Validators.minLength(8)]],
-      created_At: ['', [Validators.required, Validators.minLength(8)]],
-      updated_At: ['', [Validators.required, Validators.minLength(8)]],
+  form!: FormGroup;
+
+  ngOnInit() {
+    if (this.id() === 0 || this.id() === null) {
+      this.initCreateForm();
+    } else {
+      this.initUpdateForm();
+    }
+  }
+
+  private initCreateForm(): void {
+    this.form = this.fb.nonNullable.group({
+      status_id: ['', Validators.required],
+      status_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      status_context: ['', Validators.required],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
+    });
+  }
+  private initUpdateForm(): void {
+    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
+    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
+    // const data: IStatus = {};
+    const data = {};
+
+    if (!data) {
+      this.initCreateForm();
+      return;
+    }
+
+    this.form = this.fb.nonNullable.group({
+      status_id: ['', Validators.required],
+      status_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      status_context: ['', Validators.required],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
     });
   }
 
-  get f() {
+  get getForm() {
     return this.form.controls;
   }
 
@@ -32,7 +70,14 @@ export class StatusFormComponent {
       return;
     }
 
-    // Traitement du form
-    console.log(this.form.value);
+    const formValue = this.form.value;
+
+    if (this.id() === 0 || this.id() === null) {
+      //this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création:', formValue);
+    } else {
+      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
+      console.log('Modification:', formValue);
+    }
   }
 }

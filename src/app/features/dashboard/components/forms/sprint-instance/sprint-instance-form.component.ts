@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { SprintInstanceStore } from '@app/features/dashboard/stores/sprint-instance.store';
 
 @Component({
   selector: 'app-sprint-instance-form',
@@ -8,28 +15,67 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './sprint-instance-form.component.css',
 })
 export class SprintInstanceFormComponent {
-  form: FormGroup;
+  id = signal<string | number>(0);
   submitted = false;
+  private fb = inject(FormBuilder);
+  private sprintInstanceStore = inject(SprintInstanceStore);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      id: ['', [Validators.required, Validators.minLength(8)]],
-      project_instance_id: ['', [Validators.required, Validators.minLength(8)]],
-      priority_id: ['', [Validators.required, Validators.minLength(8)]],
-      sprint_template_id: ['', [Validators.required, Validators.minLength(8)]],
-      sprint_dependency_id: ['', [Validators.required, Validators.minLength(8)]],
-      name: ['', [Validators.required, Validators.minLength(8)]],
-      start_date: ['', [Validators.required, Validators.minLength(8)]],
-      end_date: ['', [Validators.required, Validators.minLength(8)]],
-      status_id: ['', [Validators.required, Validators.minLength(8)]],
-      order: ['', [Validators.required, Validators.minLength(8)]],
-      comment_id: ['', [Validators.required, Validators.minLength(8)]],
-      created_At: ['', [Validators.required, Validators.minLength(8)]],
-      updated_At: ['', [Validators.required, Validators.minLength(8)]],
+  form!: FormGroup;
+
+  ngOnInit() {
+    if (this.id() === 0 || this.id() === null) {
+      this.initCreateForm();
+    } else {
+      this.initUpdateForm();
+    }
+  }
+
+  private initCreateForm(): void {
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      project_instance_id: [''],
+      priority_id: ['', Validators.required],
+      sprint_template_id: [''],
+      sprint_dependency_id: ['', Validators.required],
+      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      start_date: [''],
+      end_date: [''],
+      status_id: [''],
+      order: [''],
+      comment_id: ['', Validators.required],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
+    });
+  }
+  private initUpdateForm(): void {
+    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
+    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
+    // const data: ISprintInstance = {};
+    const data = {};
+
+    if (!data) {
+      this.initCreateForm();
+      return;
+    }
+
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      project_instance_id: [''],
+      priority_id: ['', Validators.required],
+      sprint_template_id: [''],
+      sprint_dependency_id: ['', Validators.required],
+      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      start_date: [''],
+      end_date: [''],
+      status_id: [''],
+      order: [''],
+      comment_id: ['', Validators.required],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
     });
   }
 
-  get f() {
+  get getForm() {
     return this.form.controls;
   }
 
@@ -40,7 +86,14 @@ export class SprintInstanceFormComponent {
       return;
     }
 
-    // Traitement du form
-    console.log(this.form.value);
+    const formValue = this.form.value;
+
+    if (this.id() === 0 || this.id() === null) {
+      //this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création:', formValue);
+    } else {
+      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
+      console.log('Modification:', formValue);
+    }
   }
 }

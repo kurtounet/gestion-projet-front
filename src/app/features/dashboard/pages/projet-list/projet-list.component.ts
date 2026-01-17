@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CardProject } from '../../components/card-project/card-project';
 
 import { IProjectInstance } from '../../models/project-instance.model';
-import { ProjectInstanceStore } from '../../stores/project-instance.store';
+import { ProjectInstanceStore } from '../../stores/project-instant.store';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({

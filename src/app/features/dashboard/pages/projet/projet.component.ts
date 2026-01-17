@@ -11,7 +11,7 @@ import { th } from 'zod/locales';
 import { StatisticService } from '../../services/statistic.service';
 import { IProjectInstance } from '../../models/project-instance.model';
 import { ISprintInstance } from '../../models/sprint-instance.model';
-import { ProjectInstanceStore } from '../../stores/project-instance.store';
+import { ProjectInstanceStore } from '../../stores/project-instant.store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 

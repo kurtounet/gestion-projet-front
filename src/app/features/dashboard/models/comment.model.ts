@@ -1,9 +1,9 @@
 export interface IComment {
   id: number;
-  task_id: number;
-  user_id: number;
+  taskId: number;
+  userId: number;
   subject: string;
   content: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

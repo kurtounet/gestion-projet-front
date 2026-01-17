@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { CommentStore } from '@app/features/dashboard/stores/comment.store';
 
 @Component({
   selector: 'app-comment-form',
@@ -8,22 +15,55 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './comment-form.component.css',
 })
 export class CommentFormComponent {
-  form: FormGroup;
+  id = signal<string | number>(0);
   submitted = false;
+  private fb = inject(FormBuilder);
+  private commentStore = inject(CommentStore);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      id: ['', [Validators.required, Validators.minLength(8)]],
-      task_id: ['', [Validators.required, Validators.minLength(8)]],
-      user_id: ['', [Validators.required, Validators.minLength(8)]],
-      subject: ['', [Validators.required, Validators.minLength(8)]],
-      content: ['', [Validators.required, Validators.minLength(8)]],
-      created_at: ['', [Validators.required, Validators.minLength(8)]],
-      updated_at: ['', [Validators.required, Validators.minLength(8)]],
+  form!: FormGroup;
+
+  ngOnInit() {
+    if (this.id() === 0 || this.id() === null) {
+      this.initCreateForm();
+    } else {
+      this.initUpdateForm();
+    }
+  }
+
+  private initCreateForm(): void {
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      task_id: [''],
+      user_id: [''],
+      subject: ['', Validators.minLength(6), Validators.maxLength(255)],
+      content: ['', Validators.minLength(6), Validators.maxLength(255)],
+      created_at: ['', Validators.required],
+      updated_at: ['', Validators.required],
+    });
+  }
+  private initUpdateForm(): void {
+    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
+    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
+    // const data: IComment = {};
+    const data = {};
+
+    if (!data) {
+      this.initCreateForm();
+      return;
+    }
+
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      task_id: [''],
+      user_id: [''],
+      subject: ['', Validators.minLength(6), Validators.maxLength(255)],
+      content: ['', Validators.minLength(6), Validators.maxLength(255)],
+      created_at: ['', Validators.required],
+      updated_at: ['', Validators.required],
     });
   }
 
-  get f() {
+  get getForm() {
     return this.form.controls;
   }
 
@@ -34,7 +74,14 @@ export class CommentFormComponent {
       return;
     }
 
-    // Traitement du form
-    console.log(this.form.value);
+    const formValue = this.form.value;
+
+    if (this.id() === 0 || this.id() === null) {
+      //this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création:', formValue);
+    } else {
+      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
+      console.log('Modification:', formValue);
+    }
   }
 }

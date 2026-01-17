@@ -1,6 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { ProjectInstanceFormComponent } from "../../forms/project-instance/project-instance-form.component";
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
+import { IProjectInstance } from '@app/features/dashboard/models/project-instance.model';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
 
 @Component({
   selector: 'app-view-project',
@@ -10,5 +10,5 @@ import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-ins
 })
 export class ViewProject {
   private readonly projectStore = inject(ProjectInstanceStore);
-
+  project = this.projectStore.currentProject; //
 }

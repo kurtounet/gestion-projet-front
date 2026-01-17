@@ -36,7 +36,7 @@ export class SprintInstanceService {
   }
 
   // Get SprintInstance by ID
-  getSprintInstanceById(id: number): Observable<ISprintInstance> {
+  getSprintInstanceById(id: string): Observable<ISprintInstance> {
     return this.httpClient.get<ISprintInstance>(`${this.routeApi}/${id}`);
   }
 

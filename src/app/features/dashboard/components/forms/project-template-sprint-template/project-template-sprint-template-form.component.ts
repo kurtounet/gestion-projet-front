@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ProjectTemplateSprintTemplateStore } from '@app/features/dashboard/stores/project-template-sprint-template.store';
 
 @Component({
   selector: 'app-project-template-sprint-template-form',
@@ -8,20 +15,51 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './project-template-sprint-template-form.component.css',
 })
 export class ProjectTemplateSprintTemplateFormComponent {
-  form: FormGroup;
+  id = signal<string | number>(0);
   submitted = false;
+  private fb = inject(FormBuilder);
+  private projectTemplateSprintTemplateStore = inject(ProjectTemplateSprintTemplateStore);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      project_template_id: ['', [Validators.required, Validators.minLength(8)]],
-      sprint_template_id: ['', [Validators.required, Validators.minLength(8)]],
-      sprint_order: ['', [Validators.required, Validators.minLength(8)]],
-      created_At: ['', [Validators.required, Validators.minLength(8)]],
-      updated_At: ['', [Validators.required, Validators.minLength(8)]],
+  form!: FormGroup;
+
+  ngOnInit() {
+    if (this.id() === 0 || this.id() === null) {
+      this.initCreateForm();
+    } else {
+      this.initUpdateForm();
+    }
+  }
+
+  private initCreateForm(): void {
+    this.form = this.fb.nonNullable.group({
+      project_template_id: ['', Validators.required],
+      sprint_template_id: ['', Validators.required],
+      sprint_order: [''],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
+    });
+  }
+  private initUpdateForm(): void {
+    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
+    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
+    // const data: IProjectTemplateSprintTemplate = {};
+    const data = {};
+
+    if (!data) {
+      this.initCreateForm();
+      return;
+    }
+
+    this.form = this.fb.nonNullable.group({
+      project_template_id: ['', Validators.required],
+      sprint_template_id: ['', Validators.required],
+      sprint_order: [''],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
     });
   }
 
-  get f() {
+  get getForm() {
     return this.form.controls;
   }
 
@@ -32,7 +70,14 @@ export class ProjectTemplateSprintTemplateFormComponent {
       return;
     }
 
-    // Traitement du form
-    console.log(this.form.value);
+    const formValue = this.form.value;
+
+    if (this.id() === 0 || this.id() === null) {
+      //this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création:', formValue);
+    } else {
+      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
+      console.log('Modification:', formValue);
+    }
   }
 }

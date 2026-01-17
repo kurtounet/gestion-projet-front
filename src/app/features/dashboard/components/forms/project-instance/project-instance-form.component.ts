@@ -1,127 +1,92 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
-
-import { schema, required, minLength, maxLength, Field, form, submit } from '@angular/forms/signals';
+import { Component, inject, signal } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { IProjectInstance } from '@app/features/dashboard/models/project-instance.model';
-import { ProjectInstanceService } from '@app/features/dashboard/services/project-instance.service';
-import { PriorityStore } from '@app/features/dashboard/stores/priority-store';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
-import { StatusStore } from '@app/features/dashboard/stores/status-store';
-
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
 
 @Component({
   selector: 'app-project-instance-form',
-  imports: [Field],
+  imports: [ReactiveFormsModule],
   templateUrl: './project-instance-form.component.html',
   styleUrl: './project-instance-form.component.css',
 })
 export class ProjectInstanceFormComponent {
+  id = signal<string | number>(0);
+  submitted = false;
+  private fb = inject(FormBuilder);
+  private projectInstanceStore = inject(ProjectInstanceStore);
 
-  private projectStore = inject(ProjectInstanceStore);
-  projectId = signal<number>(this.projectStore.currentProject().id);
+  form!: FormGroup;
 
-  readonly statuses  = inject(StatusStore).statuses;
-  readonly priorities  = inject(PriorityStore).priorities;
-  private projectService = inject(ProjectInstanceService );
-
-  project = signal<Omit<IProjectInstance, 'createdAt' | 'updatedAt'>>(this.projectStore.initialProjectState);
-
-  private readonly projectSchema = schema<Omit<IProjectInstance,   'createdAt' | 'updatedAt'>>((project) => {
-   required(project.name, { message: 'Name is required' });
-   required(project.status, { message: 'Status is required' });
-   required(project.priority, { message: 'Property is required' });
-   required(project.pathFileDatabase, { message: 'pathFileDatabase is required' });
-
-   minLength(project.name, 8, { message: 'Name must be at least 8 characters long' });
-   maxLength(project.name, 100, { message: 'icon Database must be at least 255 characters long' });
-   maxLength(project.pathFileDatabase, 255, { message: 'Path File Database must be at least 255 characters long' });
-  //  required(projectInstance.description, { message: 'Name is required' });
-  //  minLength(project.description, 8, { message: 'Password must be at least 8 characters long' });
-
-  //  favory: boolean;
-   /*
-
-  icon: string;
-  color: string;
-  position: number;
-  startDate: Date;
-  pathProject
-  endDate: Date;
-  status: number;
-  priority: number;
-  projectTemplate: number;
-  comment: number;
-  sprintInstances: string[];
-  createdAt: Date;
-  updatedAt: Date;
-  favory: boolean;
-*/
-  });
-projectForm = form(this.project, this.projectSchema);
-
-constructor() {
-  effect(() => {
-    const projectId = this.projectId();
-    if(projectId){
-      {
-      this.projectService.getProjectInstanceById(projectId).subscribe({
-        next: (data: IProjectInstance) => {
-          data.startDate = new Date(data.startDate);
-          data.endDate = new Date(data.endDate);
-          this.projectStore.getProjectInstanceById(data.id);
-          this.project.set(data);
-        },
-        error: (error) => {
-          // this.serverErrorMessages = error.error.message;
-          // console.error('Login failed', error.error.message);
-        },
-      });
+  ngOnInit() {
+    if (this.id() === 0 || this.id() === null) {
+      this.initCreateForm();
+    } else {
+      this.initUpdateForm();
     }
   }
-})
-}
 
-onSubmit(event: Event): void {
-   event.preventDefault();
+  private initCreateForm(): void {
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      status_id: [''],
+      priority_id: [''],
+      project_template_id: [''],
+      comment_id: [''],
+      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      description: ['', Validators.minLength(6), Validators.maxLength(255)],
+      start_date: [''],
+      end_date: [''],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
+    });
+  }
+  private initUpdateForm(): void {
+    this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
+    const data: IProjectInstance = this.projectInstanceStore.currentProject();
+    // const data: IProjectInstance = {};
 
-    this.projectForm.name().markAsTouched();
-    this.projectForm.name().markAsDirty();
-
-    if (this.projectForm().invalid()) {
-      console.log('Form is invalid');
+    if (!data) {
+      this.initCreateForm();
       return;
     }
-    const projectValue = this.projectForm().value();
 
+    this.form = this.fb.nonNullable.group({
+      id: ['', Validators.required],
+      status_id: [''],
+      priority_id: [''],
+      project_template_id: [''],
+      comment_id: [''],
+      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
+      description: ['', Validators.minLength(6), Validators.maxLength(255)],
+      start_date: [''],
+      end_date: [''],
+      created_At: ['', Validators.required],
+      updated_At: ['', Validators.required],
+    });
+  }
 
-    const projectId = this.projectId();
+  get getForm() {
+    return this.form.controls;
+  }
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+    const formValue = this.form.value;
 
-    if(projectId){
-      console.log('update');
-      this.projectService.updateProjectInstance(projectId, projectValue).subscribe({
-        next: (data: IProjectInstance) => {
-          data.startDate = new Date(data.startDate);
-          data.endDate = new Date(data.endDate);
-          this.project.set(data);
-          console.log(data);
-        },
-        error: (error) => {
-          // this.serverErrorMessages = error.error.message;
-          // console.error('Login failed', error.error.message);
-        },
-      });
-    }else{
-      console.log('create');
-      this.projectService.createProjectInstance(projectValue).subscribe({
-        next: (data: IProjectInstance) => {
-          data.startDate = new Date(data.startDate);
-          data.endDate = new Date(data.endDate);
-          this.project.set(data);
-        },
-        error: (error) => {
-          // this.serverErrorMessages = error.error.message;
-          // console.error('Login failed', error.error.message);
-        },
-      });
+    if (this.id() === 0 || this.id() === null) {
+      //this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création:', formValue);
+    } else {
+      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
+      console.log('Modification:', formValue);
     }
   }
 }

@@ -15,7 +15,7 @@ import { ITaskInstance } from '../../../models/task-instance.model';
 import { TaskInstanceService } from '../../../services/task-instance.service';
 import { SprintInstanceService } from '../../../services/sprint-instance.service';
 import { ISprintInstance } from '../../../models/sprint-instance.model';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
 import { StatusStore } from '@app/features/dashboard/stores/status-store';
 
 interface Column {
@@ -130,7 +130,7 @@ export class ViewKanbanComponent {
         }
 
         if (needUpdate) {
-          this.taskInstanceService.updateTaskInstance(task.id, task).subscribe({
+          this.taskInstanceService.updateTaskInstance(String(task.id), task).subscribe({
             next: (response) => console.log('Sauvegarde réussie', response),
             error: (error) => console.error('Erreur de sauvegarde', error),
           });

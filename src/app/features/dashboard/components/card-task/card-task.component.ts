@@ -4,7 +4,7 @@ import { form, Field, FieldTree } from '@angular/forms/signals';
 import { ModalService } from '../../services/modal.service';
 import { ITaskInstance } from '../../models/task-instance.model';
 import { StatusStore } from '../../stores/status-store';
-import { PriorityStore } from '../../stores/priority-store';
+import { PriorityStore } from '../../stores/priority.store';
 
 @Component({
   selector: 'app-card-task',

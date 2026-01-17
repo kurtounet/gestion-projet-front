@@ -2,8 +2,8 @@ import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { ISprintInstance } from '@app/features/dashboard/models/sprint-instance.model';
 import { ModalService } from '@app/features/dashboard/services/modal.service';
-import { PriorityStore } from '@app/features/dashboard/stores/priority-store';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
+import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
+import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instant.store';
 import { StatusStore } from '@app/features/dashboard/stores/status-store';
 
 @Component({
