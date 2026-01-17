@@ -9,12 +9,12 @@ import {
 import { NotificationStore } from '@app/features/dashboard/stores/notification.store';
 
 @Component({
-  selector: 'app-notification-3-form',
+  selector: 'app-notification-form',
   imports: [ReactiveFormsModule],
   templateUrl: './notification-form.component.html',
   styleUrl: './notification-form.component.css',
 })
-export class Notification3FormComponent {
+export class NotificationFormComponent {
   id = signal<string | number>(0);
   submitted = false;
   private fb = inject(FormBuilder);
