@@ -18,11 +18,11 @@ import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk
 import { ISprintInstance } from '../../models/sprint-instance.model';
 import { ProjectInstanceStore } from '../../stores/project-instance.store';
 import { OrderService } from '../../services/order.service';
-
+import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-side-bar-sprints',
-  imports: [SideBarcardSprint, CdkDropList, CdkDrag],
+  imports: [SideBarcardSprint, CdkDropList, CdkDrag, LoadingSpinner],
   templateUrl: './side-bar-sprints.html',
   styleUrl: './side-bar-sprints.css',
 })
@@ -31,13 +31,12 @@ export class SideBarSprints {
   readonly projectInstanceStore = inject(ProjectInstanceStore);
   readonly orderService = inject(OrderService);
 
-  items = computed(() =>
-     this.projectInstanceStore.currentProjectSprints(),
+  items = computed(
+    () => this.projectInstanceStore.currentProjectSprints(),
     // this.orderService.orderByPosition(
     //   this.projectInstanceStore.currentProjectSprints(),
     //    this.orderSprint() )
   );
-
 
   selectedSprintId = signal<number | null>(null);
   isSelected = signal<boolean>(false);
@@ -57,17 +56,15 @@ export class SideBarSprints {
     this.projectInstanceStore.getCurrentSprintTask(sprint.id);
   }
   toggleSort() {
-
     const newOrder = this.orderSprint() === 'asc' ? 'desc' : 'asc';
     console.log(newOrder);
     this.orderSprint.set(newOrder);
     const newSortedItems = this.orderService.orderByPosition(
       this.projectInstanceStore.currentProjectSprints(),
-      this.orderSprint()
+      this.orderSprint(),
     );
     this.projectInstanceStore.currentProjectSprints.set(newSortedItems);
 
     console.log(this.items());
-
   }
 }
