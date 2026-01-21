@@ -13,7 +13,9 @@
   class="w-[255px] flex flex-col mt-0 mr-1"
   (cdkDropListDropped)="drop($event)"
 >
-  @if (items().length > 0) {
+  @if (
+    !projectInstanceStore.sprintLoading() && projectInstanceStore.currentProjectSprints().length > 0
+  ) {
     <ul class="sprints-container flex flex-col gap-1">
       @for (sprint of items(); track sprint.name) {
         <li (click)="selectedSprint(sprint)" cdkDrag>
@@ -21,5 +23,14 @@
         </li>
       }
     </ul>
+  } @else {
+    <section class="w-full py-20 flex flex-col items-center justify-center gap-2">
+      <!-- @if (projectInstanceStore.sprintLoading()) { -->
+      <h1>Chargement de la liste...</h1>
+      <app-loading-spinner />
+      <!-- } @else {
+        <h1>Séléctionnez un sprint</h1>
+      } -->
+    </section>
   }
 </div>
