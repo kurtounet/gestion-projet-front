@@ -21,5 +21,5 @@ export class DashboardComponent {
   localStorageService = inject(LocalStorageService);
 
   projects = computed(() => this.ProjectInstanceStore.projects());
-  favoryProjects = computed(() => this.projects().filter((p) => p.favory));
+  favoryProjects = computed(() => this.projects().filter((p) => p.isFavory));
 }

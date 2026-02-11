@@ -3,13 +3,12 @@
     <h1 class="text-3xl font-bold">Listes de projets</h1>
   </div>
   <div
-    class="w-full"
     cdkDropList
     [cdkDropListData]="items()"
     cdkDropListOrientation="vertical"
     (cdkDropListDropped)="drop($event)"
   >
-    <ul>
+    <ul class="w-full flex flex-wrap items-center justify-center gap-4">
       @if (projectInstanceStore.projectsLoading()) {
         <p>Chargement…</p>
       } @else if (projectInstanceStore.projectsLoaded()) {
