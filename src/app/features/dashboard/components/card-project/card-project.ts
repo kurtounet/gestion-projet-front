@@ -24,8 +24,8 @@ export class CardProject {
   }
   toogleFavorit(project: IProjectInstance | undefined) {
     if (project) {
-      this.isFavorit.set(project.favory);
-      project.favory = !project.favory;
+      this.isFavorit.set(project.isFavory);
+      project.isFavory = !project.isFavory;
     }
   }
   ngOnInit() {
