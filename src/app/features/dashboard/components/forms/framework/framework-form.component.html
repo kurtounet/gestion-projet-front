@@ -1,0 +1,87 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="w-full flex flex-col gap-4 max-w-md border-2 border-gray-200 p-2"
+>
+  <h1>Framework</h1>
+
+  <div class="flex flex-col gap-1">
+    <form-input-component
+      label="Nom"
+      formControlName="label"
+      placeholder="Entrez votre nom"
+      errorMessage="Le nom est requis"
+    />
+    <form-input-component
+      label="Nom"
+      formControlName="label"
+      [required]="true"
+      placeholder="Entrez le nom du framework"
+      errorMessage="Le nom est requis"
+    />
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <form-input-component
+      label="description"
+      type="text"
+      formControlName="description"
+      [required]="true"
+      placeholder="Entrez votre description"
+      errorMessage="Le description est requis"
+    />
+  </div>
+  <div class="w-full flex justify-between"></div>
+  <div class="w-full flex gap-4">
+    <!--
+    <form-select-component
+      label="Statut"
+      formControlName="status"
+      [control]="form.controls['status']"
+      [required]="true"
+      [options]="statusOptions"
+      placeholder="Choisir un statut"
+      errorMessage="Le statut est requis"
+    />
+    <form-select-component
+      label="Priority"
+      formControlName="priority"
+      [control]="form.controls['priority']"
+      [required]="true"
+      [options]="priorityOptions"
+      placeholder="Choisir une priorite"
+      errorMessage="Une priorité est requis"
+    />
+     <form-select-component
+      label="Model de Projet"
+      formControlName="projectTemplate"
+      [control]="form.controls['projectTemplate']"
+      [required]="true"
+      [options]="projectTemplateOptions"
+      placeholder="Choisir un model de projet"
+      errorMessage="Un model de projet est requis"
+    /> -->
+  </div>
+  <div class="flex flex-col gap-1">
+    <label for="description_id" class="font-medium">Déscription</label>
+    <textarea
+      id="description_id"
+      name="description_id"
+      formControlName="description"
+      class="border rounded px-3 py-2"
+      placeholder="votre commentaire"
+    >
+    </textarea>
+
+    @if (submitted && getForm['comment'].errors) {
+      <div class="error-message"></div>
+    }
+  </div>
+
+  @if (submitted && form.invalid) {
+    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  }
+  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
+    Se connecter
+  </button>
+</form>
