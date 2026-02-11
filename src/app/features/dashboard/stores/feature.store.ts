@@ -1,9 +1,9 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IFeature } from '../models/feature.model';
 import { FeatureService } from '../services/feature.service';
- export const initialFeatureState: IFeature = {
-    id: 0,
-  label: "",
+export const initialFeatureState: IFeature = {
+  id: 0,
+  label: '',
 };
 @Injectable({
   providedIn: 'root',

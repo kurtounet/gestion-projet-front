@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ICodeBase } from '@app/features/dashboard/models/code-base.model';
 import { CodeBaseService } from '@app/features/dashboard/services/code-base.service';
- export const initialCodeBaseState: ICodeBase = {
-    id: 0,
-  label: "",
-  code: "",
-  pathFile: "",
-  feature: "",
+export const initialCodeBaseState: ICodeBase = {
+  id: 0,
+  label: '',
+  code: '',
+  pathFile: '',
+  feature: '',
 };
 @Injectable({
   providedIn: 'root',

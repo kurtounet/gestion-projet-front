@@ -1,8 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IProjectTemplateSprintTemplate } from '@app/features/dashboard/models/project-template-sprint-template.model';
 import { ProjectTemplateSprintTemplateService } from '@app/features/dashboard/services/project-template-sprint-template.service';
- export const initialProjectTemplateSprintTemplateState: IProjectTemplateSprintTemplate = {
-    projectTemplateId: 0,
+export const initialProjectTemplateSprintTemplateState: IProjectTemplateSprintTemplate = {
+  projectTemplateId: 0,
   sprintTemplateId: 0,
   sprintOrder: 0,
   createdAt: new Date('now()'),
@@ -15,7 +15,9 @@ export class ProjectTemplateSprintTemplateStore {
   readonly projectTemplateSprintTemplateService = inject(ProjectTemplateSprintTemplateService);
 
   projectTemplateSprintTemplates = signal<IProjectTemplateSprintTemplate[]>([]);
-  currentProjectTemplateSprintTemplate = signal<IProjectTemplateSprintTemplate>(initialProjectTemplateSprintTemplateState);
+  currentProjectTemplateSprintTemplate = signal<IProjectTemplateSprintTemplate>(
+    initialProjectTemplateSprintTemplateState,
+  );
   projectTemplateSprintTemplateLoading = signal<boolean>(false);
   projectTemplateSprintTemplateLoaded = signal<boolean>(false);
 

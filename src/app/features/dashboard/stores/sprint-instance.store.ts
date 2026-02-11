@@ -1,23 +1,23 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ISprintInstance } from '../models/sprint-instance.model';
 import { SprintInstanceService } from '../services/sprint-instance.service';
- export const initialSprintInstanceState: ISprintInstance = {
-    '@id': "",
-  '@type': "",
-    id: 0,
-  projectInstance: "",
-  priority: "",
-  sprintTemplate: "",
-  sprintDependency: "",
-  name: "",
-  description: "",
-  color: "",
-  icon: "",
+export const initialSprintInstanceState: ISprintInstance = {
+  '@id': '',
+  '@type': '',
+  id: 0,
+  projectInstance: '',
+  priority: '',
+  sprintTemplate: '',
+  sprintDependency: '',
+  name: '',
+  description: '',
+  color: '',
+  icon: '',
   startDate: new Date('now()'),
   endDate: new Date('now()'),
-  status: "",
+  status: '',
   position: 0,
-  comment: "",
+  comment: '',
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),
 };

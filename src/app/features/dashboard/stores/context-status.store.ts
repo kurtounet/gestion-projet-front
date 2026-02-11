@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IContextStatus } from '../models/context-status.model';
 import { ContextStatusService } from '../services/context-status.service';
- export const initialContextStatusState: IContextStatus = {
+export const initialContextStatusState: IContextStatus = {
   contextId: 0,
   statusId: 0,
   createdAt: new Date('now()'),

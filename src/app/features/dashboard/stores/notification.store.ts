@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { INotification } from '../models/notification.model';
 import { NotificationService } from '../services/notification.service';
- export const initialNotificationState: INotification = {
+export const initialNotificationState: INotification = {
   id: 0,
   userId: 0,
-  message: "",
+  message: '',
   date: new Date('now()'),
-  type: "",
+  type: '',
 };
 @Injectable({
   providedIn: 'root',

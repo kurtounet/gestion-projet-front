@@ -2,10 +2,9 @@ import { inject, Injectable, signal } from '@angular/core';
 import { ITechnology } from '../models/technology.model';
 import { TechnologyService } from '../services/technology.service';
 
-
- export const initialTechnologieState: ITechnology = {
+export const initialTechnologieState: ITechnology = {
   id: 0,
-  label: "",
+  label: '',
 };
 @Injectable({
   providedIn: 'root',

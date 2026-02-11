@@ -1,11 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { TaskTemplateService } from '../services/task-template.service';
 import { ITaskTemplate } from '../models/task-template.model';
- export const initialTaskTemplateState: ITaskTemplate = {
+export const initialTaskTemplateState: ITaskTemplate = {
   id: 0,
   sprintTemplateId: 0,
-  name: "",
-  description: "",
+  name: '',
+  description: '',
   parentTask: 0,
   typeTaskId: 0,
   createdAt: new Date('now()'),

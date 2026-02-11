@@ -1,10 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IProjectTemplate } from '../models/project-template.model';
 import { ProjectTemplateService } from '../services/project-template.service';
- export const initialProjectTemplateState: IProjectTemplate = {
-    projectTemplateId: 0,
-  name: "",
-  description: "",
+export const initialProjectTemplateState: IProjectTemplate = {
+  id: 0,
+  name: '',
+  label: '',
+  description: '',
   duration: new Date('now()'),
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),

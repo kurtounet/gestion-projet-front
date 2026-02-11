@@ -1,10 +1,10 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IFile } from '../models/file.model';
 import { FileService } from '../services/file.service';
- export const initialFileState: IFile = {
-    id: 0,
-  path: "",
-  keyWord: "",
+export const initialFileState: IFile = {
+  id: 0,
+  path: '',
+  keyWord: '',
 };
 @Injectable({
   providedIn: 'root',

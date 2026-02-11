@@ -2,12 +2,12 @@ import { inject, Injectable, signal } from '@angular/core';
 import { IPriority } from '../models/priority.model';
 import { PriorityService } from '../services/priority.service';
 import { LocalStorageService } from '../services/local-storage.service';
- export const initialPriorityState: IPriority = {
-   '@id':"",
-  '@type': "",
+export const initialPriorityState: IPriority = {
+  '@id': '',
+  '@type': '',
   id: 0,
-  label: "",
-  color: "",
+  label: '',
+  color: '',
   priorityNumber: 0,
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),

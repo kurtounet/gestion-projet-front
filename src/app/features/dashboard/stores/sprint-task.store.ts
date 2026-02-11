@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { ISprintTask } from '../models/sprint-task.model';
 import { SprintTaskService } from '../services/sprint-task.service';
- export const initialSprintTaskState: ISprintTask = {
+export const initialSprintTaskState: ISprintTask = {
   sprintTemplateId: 0,
   taskTemplateId: 0,
   taskOrder: 0,

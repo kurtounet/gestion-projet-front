@@ -2,10 +2,10 @@ import { inject, Injectable, signal } from '@angular/core';
 import { ISprintTemplate } from '../models/sprint-template.model';
 import { SprintTemplateService } from '../services/sprint-template.service';
 
- export const initialSprintTemplateState: ISprintTemplate = {
+export const initialSprintTemplateState: ISprintTemplate = {
   sprintTemplateId: 0,
-  name: "",
-  description: "",
+  name: '',
+  description: '',
   duration: 0,
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),

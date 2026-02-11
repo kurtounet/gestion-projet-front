@@ -2,11 +2,11 @@ import { inject, Injectable, signal } from '@angular/core';
 import { StatusService } from '../services/status.service';
 import { IStatus } from '../models/status.model';
 import { LocalStorageService } from '../services/local-storage.service';
- export const initialStatusState: IStatus = {
-  '@id': "",
-  '@type': "",
+export const initialStatusState: IStatus = {
+  '@id': '',
+  '@type': '',
   id: 0,
-  label: "",
+  label: '',
   context: 0,
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),

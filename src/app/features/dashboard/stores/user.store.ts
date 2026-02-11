@@ -1,13 +1,13 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { IUser } from '../models/user.model';
- export const initialUserState: IUser = {
+export const initialUserState: IUser = {
   id: 0,
   role: ['ROLE_USER'],
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),
 };

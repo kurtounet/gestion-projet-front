@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { IComment } from '../models/comment.model';
 import { CommentService } from '../services/comment.service';
- export const initialCommentState: IComment = {
-    id: 0,
+export const initialCommentState: IComment = {
+  id: 0,
   taskId: 0,
   userId: 0,
-  subject: "",
-  content: "",
+  subject: '',
+  content: '',
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),
 };

@@ -22,8 +22,8 @@ export const initialProjectState: IProjectInstance = {
   icon: '',
   color: '',
   position: 0,
-  startDate: new Date('now()'),
-  endDate: new Date('now()'),
+  startDate: '',
+  endDate: '',
   status: '',
   priority: '',
   projectTemplate: '',
@@ -34,7 +34,7 @@ export const initialProjectState: IProjectInstance = {
   sprintInstances: [],
   createdAt: new Date(),
   updatedAt: new Date(),
-  favory: false,
+  isFavory: false,
 };
 @Injectable({
   providedIn: 'root',
@@ -74,7 +74,7 @@ export class ProjectInstanceStore {
         this.projects.set(data);
         this.projectsLoading.set(false);
         this.projectsLoaded.set(true);
-        this.favoryProjects.set(data.filter((project) => project.favory));
+        this.favoryProjects.set(data.filter((project) => project.isFavory));
         this.StorageService.setItem('projects', data);
       },
       error: (err) => {
@@ -119,7 +119,7 @@ export class ProjectInstanceStore {
     this.taskLoading.set(true);
     this.taskLoaded.set(false);
     this.selectedSprintId.set(sprintId);
-    console.log( 'getCurrentSprintTask');
+    console.log('getCurrentSprintTask');
 
     if (sprintId !== undefined) {
       this.taskInstanceService.getAllTaskBySprintInstance(sprintId).subscribe({
@@ -169,7 +169,7 @@ export class ProjectInstanceStore {
     this.sprintInstanceService.updateSprintOrder(payload).subscribe({
       next: () => {
         // on met à jour localement l’ordre dans le store
-          // this.currentProjectSprints.set([...list]);
+        // this.currentProjectSprints.set([...list]);
       },
       error: (error) => {
         console.error('Erreur lors de la mise à jour de l’ordre des sprints', error);
@@ -213,10 +213,10 @@ export class ProjectInstanceStore {
   getAllCompletedStatus() {
     return this.taskInstanceService.getAllCompletedStatus();
   }
-  createProjectInstance(body: IProjectInstance) {
-    return this.projectInstanceService.createProjectInstance(body);
+  createProjectInstance(project: Partial<IProjectInstance>) {
+    return this.projectInstanceService.createProjectInstance(project);
   }
-  updateProjectInstance(id: string, body: IProjectInstance) {
-    return this.projectInstanceService.updateProjectInstance(id, body);
+  updateProjectInstance(project: IProjectInstance) {
+    return this.projectInstanceService.updateProjectInstance(project);
   }
 }

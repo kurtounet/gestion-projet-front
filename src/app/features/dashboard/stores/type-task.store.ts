@@ -1,12 +1,12 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { TypeTaskService } from '../services/type-task.service';
 import { ITypeTask } from '../models/type-task.model';
- export const initialTypeTaskState: ITypeTask = {
-    id: 0,
+export const initialTypeTaskState: ITypeTask = {
+  id: 0,
   codeId: 0,
-  name: "",
-  pathFileScript: "",
-  description: "",
+  name: '',
+  pathFileScript: '',
+  description: '',
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),
   automatique: false,

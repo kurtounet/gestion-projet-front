@@ -1,29 +1,29 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { TaskInstanceService } from '../services/task-instance.service';
 import { ITaskInstance } from '../models/task-instance.model';
- export const initialTaskInstanceState: ITaskInstance = {
-   '@id': "",
-  '@type': "",
-    id: 0,
-  user: "",
-  taskTemplate: "",
-  sprintInstance: "",
-  icon: "",
-  color: "",
-  priority: "",
-  status: "",
-  typeTask: "",
-  name: "",
-  description: "",
+export const initialTaskInstanceState: ITaskInstance = {
+  '@id': '',
+  '@type': '',
+  id: 0,
+  user: '',
+  taskTemplate: '',
+  sprintInstance: '',
+  icon: '',
+  color: '',
+  priority: '',
+  status: '',
+  typeTask: '',
+  name: '',
+  description: '',
   startDate: new Date('now()'),
   dueDate: new Date('now()'),
   position: 0,
-  parentTask: "",
+  parentTask: '',
   dependency: 0,
   createdAt: new Date('now()'),
   updatedAt: new Date('now()'),
-  comment: "",
-  completed: ""
+  comment: '',
+  completed: '',
 };
 @Injectable({
   providedIn: 'root',
