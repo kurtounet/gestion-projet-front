@@ -1,6 +1,7 @@
 export interface IProjectTemplate {
-  projectTemplateId: number;
-  name: string;
+  id: number;
+  name?: string;
+  label?: string;
   description: string;
   duration: Date;
   createdAt: Date;

@@ -8,4 +8,3 @@ export interface IPriority {
   createdAt: Date;
   updatedAt: Date;
 }
-
