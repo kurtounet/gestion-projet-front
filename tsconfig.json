@@ -14,12 +14,14 @@
     "module": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["src/app/*"],
       "@core/*": ["src/app/core/*"],
+      "@app/*": ["src/app/*"],
+      "@features/*": ["src/app/features/*"],
       "@features/dashboard/*": ["src/app/features/dashboard/*"],
       "@features/dashboard/components/*": ["src/app/features/dashboard/components/*"],
-      "@features/*": ["src/app/features/*"],
-      "@features/dashboard/models*": ["src/app/features/dashboard/models/*"],
+      "@features/dashboard/models/*": ["src/app/features/dashboard/models/*"],
+      "@features/dashboard/services/*": ["src/app/features/dashboard/services/*"],
+      "@features/dashboard/stores/*": ["src/app/features/dashboard/stores/*"],
       "@env/*": ["src/environments/*"],
       "@assets/*": ["src/assets/*"]
     }
