@@ -28,17 +28,15 @@ export class InitAppService {
     this.projectInstanceStore.getAllProjectInstance();
     this.allLoaded.set(this.isAllLoaded());
     console.log('InitAppService', this.isAllLoaded());
-
   }
- isAllLoaded(): boolean {
-   return (
-     this.statusStore.statusLoaded() &&
-     this.typeTaskStore.typeTaskLoaded() &&
-     this.priorityStore.priorityLoaded() &&
-     this.technologyStore.technologyLoaded()
-   );
- }
-
+  isAllLoaded(): boolean {
+    return (
+      this.statusStore.statusLoaded() &&
+      this.typeTaskStore.typeTaskLoaded() &&
+      this.priorityStore.priorityLoaded() &&
+      this.technologyStore.technologyLoaded()
+    );
+  }
 
   resetAll() {
     this.statusStore.statuses.set([]);

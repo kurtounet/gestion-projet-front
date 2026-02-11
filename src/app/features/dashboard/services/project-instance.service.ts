@@ -33,15 +33,19 @@ export class ProjectInstanceService {
   }
 
   // Create a new ProjectInstance
-  createProjectInstance(body: Partial<IProjectInstance>): Observable<IProjectInstance> {
+  createProjectInstance(project: Partial<IProjectInstance>): Observable<IProjectInstance> {
+    console.log(project);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.httpClient.post<IProjectInstance>(this.routeApi, body, { headers });
+    return this.httpClient.post<IProjectInstance>(this.routeApi, project, { headers });
   }
 
   // Update ProjectInstance by ID
-  updateProjectInstance(id: string, body: Partial<IProjectInstance>): Observable<IProjectInstance> {
+  updateProjectInstance(project: Partial<IProjectInstance>): Observable<IProjectInstance> {
+    console.log(project);
     const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
-    return this.httpClient.patch<IProjectInstance>(`${this.routeApi}/${id}`, body, { headers });
+    return this.httpClient.patch<IProjectInstance>(`${this.routeApi}/${project.id}`, project, {
+      headers,
+    });
   }
 
   // Delete ProjectInstance
