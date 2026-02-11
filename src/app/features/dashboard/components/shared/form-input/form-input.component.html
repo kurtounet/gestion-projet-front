@@ -1,0 +1,37 @@
+<div class="form-group">
+  @if (label()) {
+    <label
+      >{{ label() }}
+      @if (required()) {
+        *
+      }
+    </label>
+  }
+
+  <input
+    [type]="type()"
+    [value]="value()"
+    [placeholder]="placeholder()"
+    [disabled]="isDisabled()"
+    (input)="handleInput($event)"
+    (blur)="onTouched()"
+    [class.is-invalid]="hasError()"
+  />
+
+  @if (hasError()) {
+    <div class="error-msg">
+      @if (ngControl.errors?.['required']) {
+        Ce champ est obligatoire
+      }
+      @if (ngControl.errors?.['minlength']) {
+        Minimum {{ ngControl.errors?.['minlength'].requiredLength }} caractères
+      }
+      @if (ngControl.errors?.['maxlength']) {
+        Max atteint
+      }
+      @if (ngControl.errors?.['email']) {
+        Format email invalide
+      }
+    </div>
+  }
+</div>
