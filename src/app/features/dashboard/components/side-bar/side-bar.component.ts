@@ -7,7 +7,6 @@ import { SideBarHeaderComponent } from './side-bar-header/side-bar-header.compon
 import { IProjectInstance } from '../../models/project-instance.model';
 import { ProjectInstanceStore } from '../../stores/project-instance.store';
 
-
 @Component({
   selector: 'app-side-bar',
   standalone: true,

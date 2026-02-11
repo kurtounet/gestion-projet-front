@@ -47,13 +47,3 @@ export class SideBarcardSprint {
     this.isSelected = !this.isSelected;
   }
 }
-/*
-[
-    "form-project",
-    "form-sprint",
-    "form-framework",
-    "form-database",
-    "form-task",
-    "form-file"
-]
-*/
