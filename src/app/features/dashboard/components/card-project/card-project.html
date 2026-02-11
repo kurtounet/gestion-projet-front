@@ -1,5 +1,5 @@
 <div
-  class="card mt-6 rounded-md gap-4 flex flex-col cursor-pointer hover:shadow-lg hover:transition-shadow hover:duration-500"
+  class="card w-[250px] h-[200px] mt-6 rounded-md gap-4 flex flex-col cursor-pointer hover:shadow-lg hover:transition-shadow hover:duration-500"
   routerLinkActive="active-link"
 >
   <div class="flex-col header-card">
@@ -9,7 +9,7 @@
         <app-star-favorit
           (click)="toogleFavorit(project())"
           [class]="'h-8 w-8 object-containe'"
-          [class.isFavorit]="project()?.favory"
+          [class.isFavorit]="project()?.isFavory"
           [style]="'fill: rgb(255, 174, 0);'"
         />
         <!-- <img
