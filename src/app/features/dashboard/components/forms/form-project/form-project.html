@@ -106,10 +106,10 @@
       </div>
       <div class="form-group">
         <label for="favory">Déscription:</label>
-        <input type="checkbox" [field]="projectInstanceForm.favory" fieldMinlength="8" />
-        @if (projectInstanceForm.favory().invalid() && projectInstanceForm.favory().touched()) {
+        <input type="checkbox" [field]="projectInstanceForm.isFavory" fieldMinlength="8" />
+        @if (projectInstanceForm.isFavory().invalid() && projectInstanceForm.isFavory().touched()) {
           <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.favory().errors(); track $index) {
+            @for (error of projectInstanceForm.isFavory().errors(); track $index) {
               <li>{{ error.message }}</li>
             }
           </ul>
