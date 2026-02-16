@@ -1,41 +1,34 @@
-// import { HttpInterceptorFn } from '@angular/common/http';
-
-// export const authInterceptor: HttpInterceptorFn = (req, next) => {
-//   return next(req);
-// };
 import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
-
 import { catchError, Observable, throwError } from 'rxjs';
-
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
+import { AUTH_CONFIG } from '../models/auth-config.model';
 
 export function authInterceptor(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> {
-  // Injection des services
   const authService = inject(AuthService);
-  const router = inject(Router);
   const storageService = inject(StorageService);
+  const config = inject(AUTH_CONFIG);
 
-  // Récuperation du token dans le localStorage
   const token = storageService.getLocalStorageToken();
-  if (token) {
-    // Ajout du token dans le header
+
+  // On n'ajoute le token que si la requête commence par la baseUrl configurée
+  if (token && req.url.startsWith(config.baseUrl)) {
     req = req.clone({
       setHeaders: { Authorization: `Bearer ${token}` },
     });
   }
+
   return next(req).pipe(
     catchError((error) => {
-      // Si l'utilisateur n'est pas autorisé.
+      // Si l'utilisateur n'est pas autorisé (401)
       if (error.status === 401) {
         authService.logOut();
       }
-      return throwError(error);
+      return throwError(() => error);
     }),
   );
 }

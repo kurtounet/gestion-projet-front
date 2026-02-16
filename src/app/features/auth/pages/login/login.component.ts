@@ -1,12 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
-  OnInit,
   signal,
 } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ICredentials, IToken } from '../../models/login.model';
@@ -17,19 +15,11 @@ import {
   required,
   minLength,
   email,
-  validate,
-  customError,
   submit,
 } from '@angular/forms/signals';
-import z from 'zod';
-import { I } from '@angular/cdk/keycodes';
-import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
-export const loginZodSchema = z.object({
-  email: z.email(),
-  password: z.string().min(8),
-});
-type TLogin = z.infer<typeof loginZodSchema>;
+import { AUTH_CONFIG } from '../../models/auth-config.model';
+
 @Component({
   selector: 'app-login',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,11 +31,11 @@ type TLogin = z.infer<typeof loginZodSchema>;
 export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly storageService = inject(StorageService);
+  private readonly config = inject(AUTH_CONFIG);
 
   defaultLogin = { email: '', password: '' };
 
-  private readonly credentialSchema = schema<TLogin>((credentials) => {
+  private readonly credentialSchema = schema<ICredentials>((credentials) => {
     // email
     required(credentials.email, { message: 'Email is required' });
     email(credentials.email, { message: 'Enter a valid email address' });
@@ -65,15 +55,14 @@ export class LoginComponent {
         next: (token: IToken) => {
           if (token?.token) {
             if (this.authService.isLogged()) {
-              this.router.navigateByUrl('admin');
+              this.router.navigateByUrl(this.config.defaultRedirectUrl);
             }
           } else {
-            this.router.navigate(['/auth/login']);
+            this.router.navigate([this.config.loginRoute]);
           }
         },
         error: (error) => {
-          // this.serverErrorMessages = error.error.message;
-          // console.error('Login failed', error.error.message);
+          console.error('Login failed', error);
         },
       });
     });

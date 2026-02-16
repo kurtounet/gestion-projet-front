@@ -1,27 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { AUTH_CONFIG } from '../models/auth-config.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
+  private readonly config = inject(AUTH_CONFIG);
+
   public setLocalStorageToken(token: string): void {
-    localStorage.setItem('token', token);
+    localStorage.setItem(this.config.storageKey, token);
   }
 
   public getLocalStorageToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem(this.config.storageKey);
   }
-
-  //  getToken(): string | null {
-  //   return localStorage.getItem('token');
-  // }
-
-  // public setLocalStorageUser(user: IUser): void {
-  //   localStorage.setItem("user", JSON.stringify(user));
-  // }
-
-  // public getLocalStorageUser(): IUser {
-  //   const user = localStorage.getItem("user");
-  //   return user ? JSON.parse(user) : null;
-  // }
 }

@@ -25,8 +25,8 @@ export class ForgotComponent implements OnInit {
   onSubmit(): void {
     if (this.forgotForm.valid) {
       this.authService.forgotPassword(this.forgotForm.value).subscribe(
-        (response) => {
-          console.log('Forgot password request successful', response);
+        (next) => {
+          console.log('Forgot password request successful', next);
           // Handle successful request, e.g., show a message to the user
         },
         (error) => {
