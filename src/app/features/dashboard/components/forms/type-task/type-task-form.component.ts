@@ -1,68 +1,53 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { TypeTaskStore } from '@app/features/dashboard/stores/type-task.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
+import { FormCheckboxComponent } from '../../shared/form-checkbox/form-checkbox.component';
+import { ITypeTask } from '@app/features/dashboard/models/type-task.model';
 
 @Component({
   selector: 'app-type-task-form',
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    FormInputComponent,
+    FormTextareaComponent,
+    FormCheckboxComponent,
+  ],
   templateUrl: './type-task-form.component.html',
   styleUrl: './type-task-form.component.css',
 })
-export class TypeTaskFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
+export class TypeTaskFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private typeTaskStore = inject(TypeTaskStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    codeId: [0],
+    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    pathFileScript: ['', [Validators.minLength(6), Validators.maxLength(255)]],
+    description: ['', [Validators.minLength(6), Validators.maxLength(255)]],
+    createdAt: [new Date(), [Validators.required]],
+    updatedAt: [new Date(), [Validators.required]],
+    automatique: [false, [Validators.required]],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.typeTaskStore.currentTypeTask();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      code_id: [''],
-      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      path_file_script: ['', Validators.minLength(6), Validators.maxLength(255)],
-      description: ['', Validators.minLength(6), Validators.maxLength(255)],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-      automatique: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: ITypeTask = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      code_id: [''],
-      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      path_file_script: ['', Validators.minLength(6), Validators.maxLength(255)],
-      description: ['', Validators.minLength(6), Validators.maxLength(255)],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-      automatique: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -70,20 +55,23 @@ export class TypeTaskFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const typeTaskData: ITypeTask = {
+      ...rawValue,
+      id: rawValue.id || 0,
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.typeTaskStore.createTypeTask(typeTaskData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.typeTaskStore.updateTypeTask(String(this.id()), typeTaskData);
     }
   }
 }
+

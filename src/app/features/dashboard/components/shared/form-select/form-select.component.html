@@ -3,7 +3,7 @@
     <label
       >{{ label() }}
       @if (required()) {
-        *
+        <span class="required">*</span>
       }
     </label>
   }
@@ -13,20 +13,23 @@
     [disabled]="isDisabled()"
     (change)="handleSelect($event)"
     (blur)="onTouched()"
-    [class.is-invalid]="hasError()"
+    [class.error]="hasError()"
   >
     @if (placeholder()) {
-      <option value="" disabled selected>{{ placeholder() }}</option>
+      <option value="" disabled [selected]="!value()">{{ placeholder() }}</option>
     }
 
-    @for (option of options(); track option.id || option.value) {
-      <option [value]="option.id || option.value">
-        {{ option.name || option.label }}
-      </option>
-    }
+    @for (option of options(); track $index) {
+    <option 
+      [value]="option.name ?? option.label ?? option.id ?? option.value"
+    [selected]="(option.name ?? option.label ?? option.id ?? option.value) === value()"
+    >
+      {{ option.name ?? option.label }}
+    </option>
+  }
   </select>
 
-  @if (hasError()) {
-    <div class="error-msg">Ce choix est requis.</div>
+ @if (hasError()) {
+    <div class="error-message">Ce choix est requis.</div>
   }
 </div>

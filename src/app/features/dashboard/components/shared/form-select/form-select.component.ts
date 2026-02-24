@@ -18,29 +18,31 @@ export interface SelectOption {
 export class FormSelectComponent implements ControlValueAccessor {
   label = input<string>('');
   options = input<SelectOption[]>([]);
+  selectedOption = input<string>('');
   placeholder = input<string>('');
   required = input<boolean>(false);
 
   value = signal<any>('');
   isDisabled = signal<boolean>(false);
+   
 
   // L'injection de NgControl lie le composant au formControlName "status" du parent
   constructor(@Self() @Optional() public ngControl: NgControl) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+   
   }
-
   hasError = computed(() => {
-    return !!(this.ngControl?.invalid && (this.ngControl?.touched || this.ngControl?.dirty));
+    return !!(this.ngControl?.invalid && (this.ngControl?.touched ?? this.ngControl?.dirty));
   });
 
   // --- Implémentation ControlValueAccessor ---
   onChange = (value: any) => {};
   onTouched = () => {};
 
-  writeValue(value: any): void {
-    this.value.set(value || '');
+  writeValue(value: any): void {     
+    this.value.set(value !== undefined && value !== null ? value : '');
   }
 
   registerOnChange(fn: any): void {
@@ -54,8 +56,9 @@ export class FormSelectComponent implements ControlValueAccessor {
   }
 
   handleSelect(event: Event): void {
-    const val = (event.target as HTMLSelectElement).value;
-    this.value.set(val);
-    this.onChange(val);
-  }
+  const val = (event.target as HTMLSelectElement).value;
+  this.value.set(val); // Met à jour le signal local
+  this.onChange(val);  // Informe le Reactive Form du parent
+  this.onTouched();   // Marque le champ comme "manipulé" pour la validation
+}
 }

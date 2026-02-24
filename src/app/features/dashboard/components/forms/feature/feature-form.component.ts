@@ -8,49 +8,37 @@ import {
 } from '@angular/forms';
 import { FeatureStore } from '@app/features/dashboard/stores/feature.store';
 
+import { IFeature } from '@app/features/dashboard/models/feature.model';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+
 @Component({
   selector: 'app-feature-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormInputComponent],
   templateUrl: './feature-form.component.html',
   styleUrl: './feature-form.component.css',
 })
 export class FeatureFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
   private fb = inject(FormBuilder);
   private featureStore = inject(FeatureStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.featureStore.currentFeature();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IFeature = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-    });
   }
 
   get getForm() {
@@ -58,20 +46,23 @@ export class FeatureFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const featureData: IFeature = {
+      ...rawValue,
+      id: rawValue.id || 0,
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.featureStore.createFeature(featureData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.featureStore.updateFeature(String(this.id()), featureData);
     }
   }
 }
+

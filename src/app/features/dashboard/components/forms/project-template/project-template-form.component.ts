@@ -1,64 +1,45 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { ProjectTemplateStore } from '@app/features/dashboard/stores/project-template.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
+import { IProjectTemplate } from '@app/features/dashboard/models/project-template.model';
 
 @Component({
   selector: 'app-project-template-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormInputComponent, FormTextareaComponent],
   templateUrl: './project-template-form.component.html',
   styleUrl: './project-template-form.component.css',
 })
-export class ProjectTemplateFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
+export class ProjectTemplateFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private projectTemplateStore = inject(ProjectTemplateStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    description: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    duration: [new Date()],
+    createdAt: [new Date()],
+    updatedAt: [new Date()],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.projectTemplateStore.currentProjectTemplate();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      project_template_id: ['', Validators.required],
-      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      description: ['', Validators.minLength(6), Validators.maxLength(255)],
-      duration: [''],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IProjectTemplate = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      project_template_id: ['', Validators.required],
-      name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      description: ['', Validators.minLength(6), Validators.maxLength(255)],
-      duration: [''],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -66,20 +47,23 @@ export class ProjectTemplateFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const templateData: IProjectTemplate = {
+      ...rawValue,
+      id: rawValue.id || 0,
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.projectTemplateStore.createProjectTemplate(templateData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.projectTemplateStore.updateProjectTemplate(String(this.id()), templateData);
     }
   }
 }
+

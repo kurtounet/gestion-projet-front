@@ -1,68 +1,53 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { UserStore } from '@app/features/dashboard/stores/user.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { FormSelectComponent } from '../../shared/form-select/form-select.component';
+import { IUser } from '@app/features/dashboard/models/user.model';
 
 @Component({
   selector: 'app-user-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormInputComponent, FormSelectComponent],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css',
 })
-export class UserFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
+export class UserFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private userStore = inject(UserStore);
 
-  form!: FormGroup;
+  // Options
+  protected roleOptions = signal([
+    { id: 'ROLE_USER', label: 'Utilisateur' },
+    { id: 'ROLE_ADMIN', label: 'Administrateur' },
+  ]);
+
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    role: [['ROLE_USER'], [Validators.required]],
+    firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    createdAt: [new Date(), [Validators.required]],
+    updatedAt: [new Date(), [Validators.required]],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.userStore.currentUser();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      user_id: ['', Validators.required],
-      role: ['', Validators.required],
-      first_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      last_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      email: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      password: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IUser = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      user_id: ['', Validators.required],
-      role: ['', Validators.required],
-      first_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      last_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      email: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      password: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -70,20 +55,23 @@ export class UserFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const userData: IUser = {
+      ...rawValue,
+      id: rawValue.id || 0,
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.userStore.createUser(userData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.userStore.updateUser(String(this.id()), userData);
     }
   }
 }
+

@@ -1,121 +1,39 @@
-<section class="min-w-full min-h-full flex-1">
-  <div class="login-container">
-    <form (submit)="onSubmit($event)">
-      <h2>Login</h2>
-      <div class="form-group">
-        <label for="name">Nom du projet</label>
-        <input type="name" [field]="projectInstanceForm.name" />
-        @if (projectInstanceForm.name().invalid() && projectInstanceForm.name().touched()) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.name().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="description">Déscription:</label>
-        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
-        @if (
-          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
-        ) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.description().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="description">Déscription:</label>
-        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
-        @if (
-          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
-        ) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.description().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="description">Déscription:</label>
-        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
-        @if (
-          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
-        ) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.description().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="description">Déscription:</label>
-        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
-        @if (
-          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
-        ) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.description().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="description">Déscription:</label>
-        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
-        @if (
-          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
-        ) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.description().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="description">Déscription:</label>
-        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
-        @if (
-          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
-        ) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.description().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="description">Déscription:</label>
-        <input type="text" [field]="projectInstanceForm.description" fieldMinlength="8" />
-        @if (
-          projectInstanceForm.description().invalid() && projectInstanceForm.description().touched()
-        ) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.description().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <div class="form-group">
-        <label for="favory">Déscription:</label>
-        <input type="checkbox" [field]="projectInstanceForm.isFavory" fieldMinlength="8" />
-        @if (projectInstanceForm.isFavory().invalid() && projectInstanceForm.isFavory().touched()) {
-          <ul class="text-red-500 text-sm mt-1 block">
-            @for (error of projectInstanceForm.isFavory().errors(); track $index) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        }
-      </div>
-      <button type="submit" [disabled]="projectInstanceForm().invalid()">Login</button>
-    </form>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm">
+  <h1 class="text-xl font-bold">Projet (Form)</h1>
+
+  <form-input-component
+    label="Nom"
+    formControlName="name"
+    placeholder="Nom du projet"
+    [required]="true"
+  />
+
+  <form-textarea-component
+    label="Description"
+    formControlName="description"
+    placeholder="Description du projet"
+  />
+
+  <div class="grid grid-cols-2 gap-4">
+    <form-select-component
+      label="Statut"
+      formControlName="status"
+      [options]="statusOptions()"
+      [required]="true"
+    />
+    <form-select-component
+      label="Priorité"
+      formControlName="priority"
+      [options]="priorityOptions()"
+      [required]="true"
+    />
   </div>
-</section>
+
+  @if (submitted() && form.invalid) {
+    <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>
+  }
+
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors">
+    {{ isNew() ? 'Ajouter' : 'Modifier' }}
+  </button>
+</form>

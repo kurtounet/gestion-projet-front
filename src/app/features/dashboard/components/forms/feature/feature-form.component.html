@@ -1,50 +1,19 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
-  <h1>Feature</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm">
+  <h1 class="text-xl font-bold">Fonctionnalité</h1>
 
-  <div class="flex flex-col gap-1">
-    <label for="id" class="font-medium">id</label>
-    <input
-      id="id"
-      name="id"
-      type="number"
-      formControlName="id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
+  <form-input-component
+    label="Libellé"
+    formControlName="label"
+    placeholder="ex: Authentification"
+    [required]="true"
+  />
 
-    @if (submitted && getForm['id'].errors) {
-      <div class="error-message">
-        @if (getForm['id'].errors['required']) {
-          <span>Le id est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="label" class="font-medium">label</label>
-    <input
-      id="label"
-      name="label"
-      type="text"
-      formControlName="label"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['label'].errors) {
-      <div class="error-message">
-        @if (getForm['label'].errors['required']) {
-          <span>Le label est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  @if (submitted && form.invalid) {
-    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  @if (submitted() && form.invalid) {
+    <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>
   }
-  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
-    Se connecter
+
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors">
+    {{ isNew() ? 'Ajouter' : 'Modifier' }}
   </button>
 </form>
+

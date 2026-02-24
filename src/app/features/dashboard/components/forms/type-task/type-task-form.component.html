@@ -1,158 +1,51 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
-  <h1>TypeTask</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm">
+  <h1 class="text-xl font-bold">Type de Tâche</h1>
 
-  <div class="flex flex-col gap-1">
-    <label for="id" class="font-medium">id</label>
-    <input
-      id="id"
-      name="id"
-      type="number"
-      formControlName="id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
+  <form-input-component
+    label="Nom"
+    formControlName="name"
+    placeholder="Nom du type de tâche"
+    [required]="true"
+  />
 
-    @if (submitted && getForm['id'].errors) {
-      <div class="error-message">
-        @if (getForm['id'].errors['required']) {
-          <span>Le id est requis</span>
-        }
-      </div>
-    }
-  </div>
+  <form-textarea-component
+    label="Description"
+    formControlName="description"
+    placeholder="Description..."
+    [rows]="3"
+  />
 
-  <div class="flex flex-col gap-1">
-    <label for="code_id" class="font-medium">code_id</label>
-    <input
-      id="code_id"
-      name="code_id"
-      type="number"
-      formControlName="code_id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
+  <form-input-component
+    label="Chemin du script"
+    formControlName="pathFileScript"
+    placeholder="ex: scripts/my-task.sh"
+  />
 
-    @if (submitted && getForm['code_id'].errors) {
-      <div class="error-message"></div>
-    }
-  </div>
+  <form-checkbox-component
+    label="Automatique"
+    formControlName="automatique"
+  />
 
-  <div class="flex flex-col gap-1">
-    <label for="name" class="font-medium">name</label>
-    <input
-      id="name"
-      name="name"
-      type="text"
-      formControlName="name"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['name'].errors) {
-      <div class="error-message">
-        @if (getForm['name'].errors['required']) {
-          <span>Le name est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="path_file_script" class="font-medium">path_file_script</label>
-    <input
-      id="path_file_script"
-      name="path_file_script"
-      type="file"
-      formControlName="path_file_script"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['path_file_script'].errors) {
-      <div class="error-message"></div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="description" class="font-medium">description</label>
-    <input
-      id="description"
-      name="description"
-      type="text"
-      formControlName="description"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['description'].errors) {
-      <div class="error-message"></div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="created_At" class="font-medium">created_At</label>
-    <input
-      id="created_At"
-      name="created_At"
+  <div class="grid grid-cols-2 gap-4">
+    <form-input-component
+      label="Créé le"
+      formControlName="createdAt"
       type="datetime-local"
-      formControlName="created_At"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
+      [required]="true"
     />
-
-    @if (submitted && getForm['created_At'].errors) {
-      <div class="error-message">
-        @if (getForm['created_At'].errors['required']) {
-          <span>Le created_At est requis</span>
-        }
-      </div>
-    }
+    <form-input-component
+      label="Mis à jour le"
+      formControlName="updatedAt"
+      type="datetime-local"
+      [required]="true"
+    />
   </div>
 
-  <div class="flex flex-col gap-1">
-    <label for="updated_At" class="font-medium">updated_At</label>
-    <input
-      id="updated_At"
-      name="updated_At"
-      type="date"
-      formControlName="updated_At"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['updated_At'].errors) {
-      <div class="error-message">
-        @if (getForm['updated_At'].errors['required']) {
-          <span>Le updated_At est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="automatique" class="font-medium">automatique</label>
-    <input
-      id="automatique"
-      name="automatique"
-      type="text"
-      formControlName="automatique"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['automatique'].errors) {
-      <div class="error-message">
-        @if (getForm['automatique'].errors['required']) {
-          <span>Le automatique est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  @if (submitted && form.invalid) {
-    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  @if (submitted() && form.invalid) {
+    <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>
   }
-  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
-    Se connecter
+
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors">
+    {{ isNew() ? 'Ajouter' : 'Modifier' }}
   </button>
 </form>

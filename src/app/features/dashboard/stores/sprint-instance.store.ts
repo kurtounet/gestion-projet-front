@@ -13,13 +13,13 @@ export const initialSprintInstanceState: ISprintInstance = {
   description: '',
   color: '',
   icon: '',
-  startDate: new Date('now()'),
-  endDate: new Date('now()'),
+  startDate: new Date(),
+  endDate: new Date(),
   status: '',
   position: 0,
   comment: '',
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 @Injectable({
   providedIn: 'root',

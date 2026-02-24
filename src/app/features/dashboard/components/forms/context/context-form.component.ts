@@ -8,53 +8,39 @@ import {
 } from '@angular/forms';
 import { ContextStore } from '@app/features/dashboard/stores/context.store';
 
+import { IContext } from '@app/features/dashboard/models/context.model';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+
 @Component({
   selector: 'app-context-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormInputComponent],
   templateUrl: './context-form.component.html',
   styleUrl: './context-form.component.css',
 })
 export class ContextFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
   private fb = inject(FormBuilder);
   private contextStore = inject(ContextStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    contextLabel: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    createdAt: [new Date()],
+    updatedAt: [new Date()],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.contextStore.currentContext();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      context_label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IContext = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      context_label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -62,20 +48,25 @@ export class ContextFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const contextData: IContext = {
+      ...rawValue,
+      id: rawValue.id || 0,
+      createdAt: new Date(rawValue.createdAt),
+      updatedAt: new Date(rawValue.updatedAt),
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.contextStore.createContext(contextData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.contextStore.updateContext(String(this.id()), contextData);
     }
   }
 }
+

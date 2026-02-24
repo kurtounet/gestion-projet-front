@@ -1,170 +1,65 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md">
-  <h1>User</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm">
+  <h1 class="text-xl font-bold">Utilisateur</h1>
 
-  <div class="flex flex-col gap-1">
-    <label for="user_id" class="font-medium">user_id</label>
-    <input
-      id="user_id"
-      name="user_id"
-      type="number"
-      formControlName="user_id"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
+  <div class="grid grid-cols-2 gap-4">
+    <form-input-component
+      label="Prénom"
+      formControlName="firstName"
+      placeholder="Prénom"
+      [required]="true"
     />
-
-    @if (submitted && getForm['user_id'].errors) {
-      <div class="error-message">
-        @if (getForm['user_id'].errors['required']) {
-          <span>Le user_id est requis</span>
-        }
-      </div>
-    }
+    <form-input-component
+      label="Nom"
+      formControlName="lastName"
+      placeholder="Nom"
+      [required]="true"
+    />
   </div>
 
-  <div class="flex flex-col gap-1">
-    <label for="role" class="font-medium">role</label>
-    <input
-      id="role"
-      name="role"
-      type="text"
-      formControlName="role"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
+  <form-input-component
+    label="Email"
+    type="email"
+    formControlName="email"
+    placeholder="votre.email@domaine.com"
+    [required]="true"
+  />
 
-    @if (submitted && getForm['role'].errors) {
-      <div class="error-message">
-        @if (getForm['role'].errors['required']) {
-          <span>Le role est requis</span>
-        }
-      </div>
-    }
-  </div>
+  <form-input-component
+    label="Mot de passe"
+    type="password"
+    formControlName="password"
+    placeholder="••••••••"
+    [required]="true"
+  />
 
-  <div class="flex flex-col gap-1">
-    <label for="first_name" class="font-medium">first_name</label>
-    <input
-      id="first_name"
-      name="first_name"
-      type="text"
-      formControlName="first_name"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
+  <form-select-component
+    label="Rôle"
+    formControlName="role"
+    [options]="roleOptions()"
+    placeholder="Choisir un rôle"
+    [required]="true"
+  />
 
-    @if (submitted && getForm['first_name'].errors) {
-      <div class="error-message">
-        @if (getForm['first_name'].errors['required']) {
-          <span>Le first_name est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="last_name" class="font-medium">last_name</label>
-    <input
-      id="last_name"
-      name="last_name"
-      type="text"
-      formControlName="last_name"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['last_name'].errors) {
-      <div class="error-message">
-        @if (getForm['last_name'].errors['required']) {
-          <span>Le last_name est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="email" class="font-medium">email</label>
-    <input
-      id="email"
-      name="email"
-      type="email"
-      formControlName="email"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['email'].errors) {
-      <div class="error-message">
-        @if (getForm['email'].errors['required']) {
-          <span>Le email est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="password" class="font-medium">password</label>
-    <input
-      id="password"
-      name="password"
-      type="password"
-      formControlName="password"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['password'].errors) {
-      <div class="error-message">
-        @if (getForm['password'].errors['required']) {
-          <span>Le password est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  <div class="flex flex-col gap-1">
-    <label for="created_At" class="font-medium">created_At</label>
-    <input
-      id="created_At"
-      name="created_At"
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form-input-component
+      label="Créé le"
+      formControlName="createdAt"
       type="datetime-local"
-      formControlName="created_At"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
+      [required]="true"
     />
-
-    @if (submitted && getForm['created_At'].errors) {
-      <div class="error-message">
-        @if (getForm['created_At'].errors['required']) {
-          <span>Le created_At est requis</span>
-        }
-      </div>
-    }
+    <form-input-component
+      label="Mis à jour le"
+      formControlName="updatedAt"
+      type="datetime-local"
+      [required]="true"
+    />
   </div>
 
-  <div class="flex flex-col gap-1">
-    <label for="updated_At" class="font-medium">updated_At</label>
-    <input
-      id="updated_At"
-      name="updated_At"
-      type="date"
-      formControlName="updated_At"
-      class="border rounded px-3 py-2"
-      placeholder="votre.email@domaine.com"
-    />
-
-    @if (submitted && getForm['updated_At'].errors) {
-      <div class="error-message">
-        @if (getForm['updated_At'].errors['required']) {
-          <span>Le updated_At est requis</span>
-        }
-      </div>
-    }
-  </div>
-
-  @if (submitted && form.invalid) {
-    <p class="text-sm text-red-600">Corrigez les erreurs avant de continuer.</p>
+  @if (submitted() && form.invalid) {
+    <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>
   }
-  <button (click)="onSubmit()" class="mt-2 px-4 py-2 rounded bg-blue-600 text-white font-medium">
-    Se connecter
+
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors">
+    {{ isNew() ? 'Créer le compte' : 'Modifier' }}
   </button>
 </form>

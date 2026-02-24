@@ -6,21 +6,33 @@ import { StatusStore } from '@app/features/dashboard/stores/status.store';
 import { ProjectTemplateStore } from '@app/features/dashboard/stores/project-template.store';
 import { FormInputComponent } from '../../shared/form-input/form-input.component';
 import { FormSelectComponent } from '../../shared/form-select/form-select.component';
+import { FormCheckboxComponent } from '../../shared/form-checkbox/form-checkbox.component';
+import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
+import { FormColorPickerComponent } from '../../shared/form-color-picker/form-color-picker.component';
+import { FormFilePickerComponent } from '../../shared/form-file-picker/form-file-picker.component';
 import { IProjectInstance } from '@app/features/dashboard/models/project-instance.model';
 
 @Component({
   selector: 'app-project-instance-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormInputComponent, FormSelectComponent],
+  imports: [
+    ReactiveFormsModule,
+    FormInputComponent,
+    FormSelectComponent,
+    FormCheckboxComponent,
+    FormTextareaComponent,
+    FormColorPickerComponent,
+    FormFilePickerComponent,
+  ],
   templateUrl: './project-instance-form.component.html',
 })
 export class ProjectInstanceFormComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   // Injection des stores
-  private projectInstanceStore = inject(ProjectInstanceStore);
   private priorityStore = inject(PriorityStore);
   private statusStore = inject(StatusStore);
+  private projectInstanceStore = inject(ProjectInstanceStore);
   private projectTemplateStore = inject(ProjectTemplateStore);
 
   // Utilisation des signaux des stores pour les options

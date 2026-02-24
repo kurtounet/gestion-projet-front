@@ -7,60 +7,45 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommentStore } from '@app/features/dashboard/stores/comment.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
+import { FormSelectComponent } from '../../shared/form-select/form-select.component';
+
+import { IComment } from '@app/features/dashboard/models/comment.model';
 
 @Component({
   selector: 'app-comment-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormInputComponent, FormTextareaComponent, FormSelectComponent],
   templateUrl: './comment-form.component.html',
   styleUrl: './comment-form.component.css',
 })
 export class CommentFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
   private fb = inject(FormBuilder);
   private commentStore = inject(CommentStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    taskId: [0, [Validators.required]],
+    userId: [0, [Validators.required]],
+    subject: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    content: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    createdAt: [new Date()],
+    updatedAt: [new Date()],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.commentStore.currentComment();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      task_id: [''],
-      user_id: [''],
-      subject: ['', Validators.minLength(6), Validators.maxLength(255)],
-      content: ['', Validators.minLength(6), Validators.maxLength(255)],
-      created_at: ['', Validators.required],
-      updated_at: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IComment = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      task_id: [''],
-      user_id: [''],
-      subject: ['', Validators.minLength(6), Validators.maxLength(255)],
-      content: ['', Validators.minLength(6), Validators.maxLength(255)],
-      created_at: ['', Validators.required],
-      updated_at: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -68,20 +53,25 @@ export class CommentFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const commentData: IComment = {
+      ...rawValue,
+      id: rawValue.id || 0,
+      createdAt: new Date(rawValue.createdAt),
+      updatedAt: new Date(rawValue.updatedAt),
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.commentStore.createComment(commentData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.commentStore.updateComment(String(this.id()), commentData);
     }
   }
 }
+

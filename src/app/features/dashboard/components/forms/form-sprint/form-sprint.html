@@ -1,3 +1,39 @@
-<section class="min-w-full min-h-full flex-1">
-  <h1 class="text-2xl">form-sprint works!</h1>
-</section>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm">
+  <h1 class="text-xl font-bold">Sprint (Form)</h1>
+
+  <form-input-component
+    label="Nom"
+    formControlName="name"
+    placeholder="Nom du sprint"
+    [required]="true"
+  />
+
+  <form-textarea-component
+    label="Description"
+    formControlName="description"
+    placeholder="Description du sprint"
+  />
+
+  <div class="grid grid-cols-2 gap-4">
+    <form-select-component
+      label="Statut"
+      formControlName="status"
+      [options]="statusOptions()"
+      [required]="true"
+    />
+    <form-select-component
+      label="Priorité"
+      formControlName="priority"
+      [options]="priorityOptions()"
+      [required]="true"
+    />
+  </div>
+
+  @if (submitted() && form.invalid) {
+    <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>
+  }
+
+  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors">
+    {{ isNew() ? 'Ajouter' : 'Modifier' }}
+  </button>
+</form>

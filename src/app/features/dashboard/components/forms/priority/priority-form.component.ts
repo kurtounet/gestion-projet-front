@@ -7,56 +7,42 @@ import {
   Validators,
 } from '@angular/forms';
 import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+
+import { IPriority } from '@app/features/dashboard/models/priority.model';
 
 @Component({
   selector: 'app-priority-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormInputComponent],
   templateUrl: './priority-form.component.html',
   styleUrl: './priority-form.component.css',
 })
 export class PriorityFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
   private fb = inject(FormBuilder);
   private priorityStore = inject(PriorityStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    priorityNumber: [0, [Validators.required]],
+    color: [''],
+    createdAt: [new Date()],
+    updatedAt: [new Date()],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.priorityStore.currentPriority();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      priority_id: ['', Validators.required],
-      priority_label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      priority_number: ['', Validators.required],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IPriority = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      priority_id: ['', Validators.required],
-      priority_label: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      priority_number: ['', Validators.required],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -64,20 +50,27 @@ export class PriorityFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const priorityData: IPriority = {
+      ...rawValue,
+      id: rawValue.id || 0,
+      createdAt: new Date(rawValue.createdAt),
+      updatedAt: new Date(rawValue.updatedAt),
+      '@id': '',
+      '@type': '',
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.priorityStore.createPriority(priorityData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.priorityStore.updatePriority(String(this.id()), priorityData);
     }
   }
 }
+

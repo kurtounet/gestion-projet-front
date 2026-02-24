@@ -19,23 +19,22 @@
     placeholder="Entrez votre description"
     errorMessage="La description est requise"
   />
-  <form-input-component
-    label="chemin du Projet"
+  <form-file-picker-component
+    label="Chemin du Projet"
     formControlName="pathProject"
-    placeholder="Entrez le chemin du projet"
-    errorMessage="La chemin du projet est requise"
+    placeholder="Cliquer pour choisir le dossier/fichier"
+    [required]="true"
   />
-  <form-input-component
+
+  <form-file-picker-component
     label="Chemin du starUml"
     formControlName="pathFileDatabase"
-    placeholder="Entrez votre description"
-    errorMessage="La description est requise"
+    placeholder="Sélectionner le schéma de base de données"
+    [required]="true"
   />
-  <form-input-component
-    label="couleur"
+  <form-color-picker-component
+    label="Couleur"
     formControlName="color"
-    placeholder="Entrez votre description"
-    errorMessage="La description est requise"
   />
   <form-input-component
     label="Icon"
@@ -89,16 +88,17 @@
     />
   </div>
 
-  <div class="flex flex-col gap-1">
-    <label for="comment" class="font-medium text-sm">Commentaire</label>
-    <textarea
-      id="comment"
-      formControlName="comment"
-      rows="3"
-      class="border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-      placeholder="Votre commentaire..."
-    ></textarea>
-  </div>
+  <form-textarea-component
+    label="Commentaire"
+    formControlName="comment"
+    placeholder="Votre commentaire..."
+    [rows]="3"
+  />
+
+  <form-checkbox-component
+    label="Ajouter aux favoris"
+    formControlName="isFavory"
+  />
 
   @if (submitted() && form.invalid) {
     <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>

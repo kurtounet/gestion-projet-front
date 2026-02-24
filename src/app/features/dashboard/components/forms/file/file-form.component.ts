@@ -1,58 +1,42 @@
 import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { FileStore } from '@app/features/dashboard/stores/file.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { IFile } from '@app/features/dashboard/models/file.model';
 
 @Component({
   selector: 'app-file-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormInputComponent],
   templateUrl: './file-form.component.html',
   styleUrl: './file-form.component.css',
 })
 export class FileFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
   private fb = inject(FormBuilder);
   private fileStore = inject(FileStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    path: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    keyWord: ['', [Validators.minLength(6), Validators.maxLength(255)]],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.fileStore.currentFile();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      path: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      key_word: ['', Validators.minLength(6), Validators.maxLength(255)],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IFile = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      path: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      key_word: ['', Validators.minLength(6), Validators.maxLength(255)],
-    });
   }
 
   get getForm() {
@@ -60,20 +44,22 @@ export class FileFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const fileData: IFile = {
+      ...rawValue,
+      id: rawValue.id || 0,
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.fileStore.createFile(fileData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.fileStore.updateFile(String(this.id()), fileData);
     }
   }
 }

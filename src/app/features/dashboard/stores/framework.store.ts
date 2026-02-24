@@ -18,7 +18,7 @@ export const initialFrameworkState: IFramework = {
 @Injectable({
   providedIn: 'root',
 })
-export class frameworkStore {
+export class FrameworkStore {
   readonly StorageService = inject(LocalStorageService);
   readonly frameworkService = inject(FrameworkService);
 
@@ -60,13 +60,10 @@ export class frameworkStore {
     });
   }
 
-  createframework(body: IFramework) {
+  createFramework(body: IFramework) {
     return this.frameworkService.createFramework(body);
   }
-  updateframework(id: string, body: IFramework) {
+  updateFramework(id: string, body: IFramework) {
     return this.frameworkService.updateFramework(id, body);
   }
-  //   resetFramework() {
-  //   this.currentFramework.set(initialFrameworkState);
-  // }
 }

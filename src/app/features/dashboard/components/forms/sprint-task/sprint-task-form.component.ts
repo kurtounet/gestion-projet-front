@@ -1,62 +1,52 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { SprintTaskStore } from '@app/features/dashboard/stores/sprint-task.store';
+import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
+import { TaskTemplateStore } from '@app/features/dashboard/stores/task-template.store';
+import { FormSelectComponent } from '../../shared/form-select/form-select.component';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { ISprintTask } from '@app/features/dashboard/models/sprint-task.model';
 
 @Component({
   selector: 'app-sprint-task-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormSelectComponent, FormInputComponent],
   templateUrl: './sprint-task-form.component.html',
   styleUrl: './sprint-task-form.component.css',
 })
-export class SprintTaskFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
+export class SprintTaskFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private sprintTaskStore = inject(SprintTaskStore);
+  private sprintTemplateStore = inject(SprintTemplateStore);
+  private taskTemplateStore = inject(TaskTemplateStore);
 
-  form!: FormGroup;
+  // Options
+  protected sprintTemplateOptions = this.sprintTemplateStore.sprintTemplates;
+  protected taskTemplateOptions = this.taskTemplateStore.taskTemplates;
+
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    sprintTemplateId: [0, [Validators.required]],
+    taskTemplateId: [0, [Validators.required]],
+    taskOrder: [0, [Validators.required]],
+    createdAt: [new Date(), [Validators.required]],
+    updatedAt: [new Date(), [Validators.required]],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.sprintTaskStore.currentSprintTask();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      sprint_template_id: ['', Validators.required],
-      task_template_id: ['', Validators.required],
-      task_order: [''],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: ISprintTask = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      sprint_template_id: ['', Validators.required],
-      task_template_id: ['', Validators.required],
-      task_order: [''],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -64,20 +54,22 @@ export class SprintTaskFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const mappingData: ISprintTask = {
+      ...rawValue,
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.sprintTaskStore.createSprintTask(mappingData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.sprintTaskStore.updateSprintTask(String(this.id()), mappingData);
     }
   }
 }
+

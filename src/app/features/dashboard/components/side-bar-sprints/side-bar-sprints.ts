@@ -53,7 +53,7 @@ export class SideBarSprints {
   selectedSprint(sprint: ISprintInstance) {
     this.isSelected.set(true);
     this.projectInstanceStore.selectedSprint.set(sprint);
-    this.projectInstanceStore.getCurrentSprintTask(sprint.id);
+    this.projectInstanceStore.getCurrentSprintTask(sprint.id!);
   }
   toggleSort() {
     const newOrder = this.orderSprint() === 'asc' ? 'desc' : 'asc';

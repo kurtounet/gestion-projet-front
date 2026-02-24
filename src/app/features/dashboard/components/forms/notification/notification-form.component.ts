@@ -1,62 +1,54 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { NotificationStore } from '@app/features/dashboard/stores/notification.store';
+import { UserStore } from '@app/features/dashboard/stores/user.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
+import { FormSelectComponent } from '../../shared/form-select/form-select.component';
+import { INotification } from '@app/features/dashboard/models/notification.model';
 
 @Component({
   selector: 'app-notification-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormInputComponent, FormTextareaComponent, FormSelectComponent],
   templateUrl: './notification-form.component.html',
   styleUrl: './notification-form.component.css',
 })
-export class NotificationFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
+export class NotificationFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private notificationStore = inject(NotificationStore);
+  private userStore = inject(UserStore);
 
-  form!: FormGroup;
+  // Options
+  protected userOptions = this.userStore.users;
+
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    userId: [0, [Validators.required]],
+    message: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    date: [new Date()],
+    type: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.notificationStore.currentNotification();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue({
+        ...data,
+        userId: data.userId || 0
+      });
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      user_id: [''],
-      message: ['', Validators.minLength(6), Validators.maxLength(255)],
-      date: [''],
-      type: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: INotification3 = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      id: ['', Validators.required],
-      user_id: [''],
-      message: ['', Validators.minLength(6), Validators.maxLength(255)],
-      date: [''],
-      type: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-    });
   }
 
   get getForm() {
@@ -64,20 +56,23 @@ export class NotificationFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const notificationData: INotification = {
+      ...rawValue,
+      id: rawValue.id || 0,
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.notificationStore.createNotification(notificationData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.notificationStore.updateNotification(String(this.id()), notificationData);
     }
   }
 }
+

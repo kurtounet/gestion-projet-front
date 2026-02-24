@@ -161,7 +161,8 @@ export class ProjectInstanceStore {
   }
   updateSprintOrder(list: ISprintInstance[]) {
     const payload: IPayloadItemOrder = {
-      items: list.map((sprint, index) => ({
+      items: list.filter((sprint): sprint is typeof sprint & { id: number } => sprint.id !== undefined)
+       .map((sprint, index) => ({
         id: sprint.id,
         position: index,
       })),

@@ -8,53 +8,47 @@ import {
 } from '@angular/forms';
 import { ContextStatusStore } from '@app/features/dashboard/stores/context-status.store';
 
+import { IContextStatus } from '@app/features/dashboard/models/context-status.model';
+import { FormSelectComponent } from '../../shared/form-select/form-select.component';
+import { ContextStore } from '@app/features/dashboard/stores/context.store';
+import { StatusStore } from '@app/features/dashboard/stores/status.store';
+
 @Component({
   selector: 'app-context-status-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormSelectComponent],
   templateUrl: './context-status-form.component.html',
   styleUrl: './context-status-form.component.css',
 })
 export class ContextStatusFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
   private fb = inject(FormBuilder);
   private contextStatusStore = inject(ContextStatusStore);
+  private contextStore = inject(ContextStore);
+  private statusStore = inject(StatusStore);
 
-  form!: FormGroup;
+  // Options pour les selects
+  protected contextOptions = this.contextStore.contexts;
+  protected statusOptions = this.statusStore.statuses;
+
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    contextId: [0, [Validators.required]],
+    statusId: [0, [Validators.required]],
+    createdAt: [new Date()],
+    updatedAt: [new Date()],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.contextStatusStore.currentContextStatus();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      context_id: ['', Validators.required],
-      status_id: ['', Validators.required],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IContextStatus = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      context_id: ['', Validators.required],
-      status_id: ['', Validators.required],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -62,20 +56,24 @@ export class ContextStatusFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const contextStatusData: IContextStatus = {
+      ...rawValue,
+      createdAt: new Date(rawValue.createdAt),
+      updatedAt: new Date(rawValue.updatedAt),
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.contextStatusStore.createContextStatus(contextStatusData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.contextStatusStore.updateContextStatus(String(this.id()), contextStatusData);
     }
   }
 }
+

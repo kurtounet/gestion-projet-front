@@ -7,56 +7,41 @@ import {
   Validators,
 } from '@angular/forms';
 import { StatusStore } from '@app/features/dashboard/stores/status.store';
+import { FormInputComponent } from '../../shared/form-input/form-input.component';
+
+import { IStatus } from '@app/features/dashboard/models/status.model';
 
 @Component({
   selector: 'app-status-form',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, FormInputComponent],
   templateUrl: './status-form.component.html',
   styleUrl: './status-form.component.css',
 })
 export class StatusFormComponent {
-  id = signal<string | number>(0);
-  submitted = false;
   private fb = inject(FormBuilder);
   private statusStore = inject(StatusStore);
 
-  form!: FormGroup;
+  // Signaux d'état
+  id = signal<string | number>(0);
+  isNew = signal<boolean>(false);
+  submitted = signal(false);
+
+  // Formulaire typé
+  protected form = this.fb.nonNullable.group({
+    id: [0],
+    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    context: [0, [Validators.required]],
+    createdAt: [new Date()],
+    updatedAt: [new Date()],
+  });
 
   ngOnInit() {
-    if (this.id() === 0 || this.id() === null) {
-      this.initCreateForm();
-    } else {
-      this.initUpdateForm();
+    const data = this.statusStore.currentStatus();
+
+    if (data && !this.isNew()) {
+      this.form.patchValue(data);
     }
-  }
-
-  private initCreateForm(): void {
-    this.form = this.fb.nonNullable.group({
-      status_id: ['', Validators.required],
-      status_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      status_context: ['', Validators.required],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
-  }
-  private initUpdateForm(): void {
-    //this.projectInstanceStore.getProjectInstanceById(Number(this.id()));
-    // const data: IProjectInstance = this.projectInstanceStore.currentProject();
-    // const data: IStatus = {};
-    const data = {};
-
-    if (!data) {
-      this.initCreateForm();
-      return;
-    }
-
-    this.form = this.fb.nonNullable.group({
-      status_id: ['', Validators.required],
-      status_name: ['', Validators.required, Validators.minLength(6), Validators.maxLength(255)],
-      status_context: ['', Validators.required],
-      created_At: ['', Validators.required],
-      updated_At: ['', Validators.required],
-    });
   }
 
   get getForm() {
@@ -64,20 +49,27 @@ export class StatusFormComponent {
   }
 
   onSubmit(): void {
-    this.submitted = true;
+    this.submitted.set(true);
 
     if (this.form.invalid) {
       return;
     }
 
-    const formValue = this.form.value;
+    const rawValue = this.form.getRawValue();
+    const statusData: IStatus = {
+      ...rawValue,
+      id: rawValue.id || 0,
+      createdAt: new Date(rawValue.createdAt),
+      updatedAt: new Date(rawValue.updatedAt),
+      '@id': '',
+      '@type': '',
+    };
 
-    if (this.id() === 0 || this.id() === null) {
-      //this.projectInstanceStore.createProjectInstance(formValue);
-      console.log('Création:', formValue);
+    if (this.isNew()) {
+      this.statusStore.createStatus(statusData);
     } else {
-      //this.projectInstanceStore.updateProjectInstance(String(this.id()), formValue);
-      console.log('Modification:', formValue);
+      this.statusStore.updateStatus(String(this.id()), statusData);
     }
   }
 }
+
