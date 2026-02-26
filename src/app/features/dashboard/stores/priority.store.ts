@@ -16,6 +16,7 @@ export const initialPriorityState: IPriority = {
   providedIn: 'root',
 })
 export class PriorityStore {
+  readonly apiResource = 'priorities';
   readonly priorityService = inject(PriorityService);
   readonly localStorageService = inject(LocalStorageService);
   priorityLoading = signal<boolean>(false);
@@ -86,5 +87,12 @@ export class PriorityStore {
         console.error('Erreur lors de la suppression: error', err);
       },
     });
+  }
+  getIdByLabel(label: string): string {
+    const id = this.priorities().find((priority) => priority.label === label)?.id;
+    return `/api/priorities/${id}`;
+  }
+  getLabelById(id: number): string {
+    return this.priorities().find((priority) => priority.id === id)?.label || '';
   }
 }

@@ -16,6 +16,7 @@ export const initialStatusState: IStatus = {
   providedIn: 'root',
 })
 export class StatusStore {
+  readonly apiResource = 'statuses';
   readonly statusService = inject(StatusService);
   readonly localStorageService = inject(LocalStorageService);
   statusLoading = signal<boolean>(false);
@@ -85,5 +86,13 @@ export class StatusStore {
         console.error('Erreur lors de la suppression: error', err);
       },
     });
+  }
+
+  getIdByLabel(label: string): string {
+    const id = this.statuses().find((status) => status.label === label)?.id;
+    return `/api/${this.apiResource}/${id}`;
+  }
+  getLabelById(id: number): string {
+    return this.statuses().find((status) => status.id === id)?.label || '';
   }
 }

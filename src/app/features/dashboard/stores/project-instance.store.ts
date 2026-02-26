@@ -161,11 +161,12 @@ export class ProjectInstanceStore {
   }
   updateSprintOrder(list: ISprintInstance[]) {
     const payload: IPayloadItemOrder = {
-      items: list.filter((sprint): sprint is typeof sprint & { id: number } => sprint.id !== undefined)
-       .map((sprint, index) => ({
-        id: sprint.id,
-        position: index,
-      })),
+      items: list
+        .filter((sprint): sprint is typeof sprint & { id: number } => sprint.id !== undefined)
+        .map((sprint, index) => ({
+          id: sprint.id,
+          position: index,
+        })),
     };
     this.sprintInstanceService.updateSprintOrder(payload).subscribe({
       next: () => {

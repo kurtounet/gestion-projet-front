@@ -28,9 +28,9 @@ export class SprintInstanceStore {
   readonly sprintInstanceService = inject(SprintInstanceService);
 
   sprintInstances = signal<ISprintInstance[]>([]);
-  currentSprintInstance = signal<ISprintInstance>(initialSprintInstanceState);
   sprintInstanceLoading = signal<boolean>(false);
   sprintInstanceLoaded = signal<boolean>(false);
+  currentSprintInstance = signal<ISprintInstance>(initialSprintInstanceState);
 
   sprintInstance = signal<ISprintInstance[]>([]);
 
@@ -69,7 +69,7 @@ export class SprintInstanceStore {
   updateSprintInstance(id: string, body: ISprintInstance) {
     this.sprintInstanceService.updateSprintInstance(id, body).subscribe({
       next: (data) => {
-        //this.getCurrentSprintInstance(data.id);
+        this.currentSprintInstance.set(data);
       },
       error: (err) => {
         console.error('Erreur lors de la mise à jour : error', err);
@@ -79,7 +79,7 @@ export class SprintInstanceStore {
   createSprintInstance(body: ISprintInstance) {
     this.sprintInstanceService.createSprintInstance(body).subscribe({
       next: (data) => {
-        // this.getCurrentSprintInstance(data.id);
+        this.currentSprintInstance.set(data);
       },
       error: (err) => {
         console.error('Erreur lors de la création : error', err);
@@ -89,7 +89,7 @@ export class SprintInstanceStore {
   deleteSprintInstance(id: string) {
     this.sprintInstanceService.deleteSprintInstance(id).subscribe({
       next: (data) => {
-        // this.getCurrentSprintInstance(data.id);
+        // this.currentSprintInstance.set(data);
       },
       error: (err) => {
         console.error('Erreur lors de la suppression: error', err);
