@@ -1,12 +1,16 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TaskTemplateStore } from '@app/features/dashboard/stores/task-template.store';
-import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
-import { TypeTaskStore } from '@app/features/dashboard/stores/type-task.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { ITaskTemplate } from '@app/features/dashboard/models/task-template.model';
+import {
+  TaskTemplateStore,
+  SprintTemplateStore,
+  TypeTaskStore,
+} from '@app/features/dashboard/stores/index';
+import {
+  FormInputComponent,
+  FormSelectComponent,
+  FormTextareaComponent,
+} from '../../shared/index';
+import { ITaskTemplate } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-task-template-form',

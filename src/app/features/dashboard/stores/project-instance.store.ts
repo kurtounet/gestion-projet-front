@@ -218,7 +218,7 @@ export class ProjectInstanceStore {
   createProjectInstance(project: Partial<IProjectInstance>) {
     return this.projectInstanceService.createProjectInstance(project);
   }
-  updateProjectInstance(project: IProjectInstance) {
-    return this.projectInstanceService.updateProjectInstance(project);
+  updateProjectInstance(id: string, project: IProjectInstance) {
+    return this.projectInstanceService.updateProjectInstance(id, project);
   }
 }

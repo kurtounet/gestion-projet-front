@@ -1,11 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NotificationStore } from '@app/features/dashboard/stores/notification.store';
-import { UserStore } from '@app/features/dashboard/stores/user.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { INotification } from '@app/features/dashboard/models/notification.model';
+import { NotificationStore, UserStore } from '@app/features/dashboard/stores/index';
+import {
+  FormInputComponent,
+  FormTextareaComponent,
+  FormSelectComponent,
+} from '../../shared/index';
+import { INotification } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-notification-form',

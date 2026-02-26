@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ContextStore } from '@app/features/dashboard/stores/context.store';
+import { ContextStore } from '@app/features/dashboard/stores/index';
 
-import { IContext } from '@app/features/dashboard/models/context.model';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { IContext } from '@app/features/dashboard/models/index';
+import { FormInputComponent } from '../../shared/index';
 
 @Component({
   selector: 'app-context-form',

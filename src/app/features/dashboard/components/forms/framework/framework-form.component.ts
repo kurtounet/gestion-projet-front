@@ -1,11 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FrameworkStore } from '@app/features/dashboard/stores/framework.store';
-import { TechnologyStore } from '@app/features/dashboard/stores/technology.store';
-import { IFramework } from '@app/features/dashboard/models/framework.model';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
+import { FrameworkStore, TechnologyStore } from '@app/features/dashboard/stores/index';
+import { IFramework } from '@app/features/dashboard/models/index';
+import {
+  FormInputComponent,
+  FormSelectComponent,
+  FormTextareaComponent,
+} from '../../shared/index';
 
 @Component({
   selector: 'app-framework-form',

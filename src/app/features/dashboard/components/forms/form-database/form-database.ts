@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { FormInputComponent } from '../../shared/index';
 
 @Component({
   selector: 'app-form-database',

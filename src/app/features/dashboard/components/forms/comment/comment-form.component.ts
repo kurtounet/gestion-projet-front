@@ -6,12 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommentStore } from '@app/features/dashboard/stores/comment.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
+import { CommentStore } from '@app/features/dashboard/stores/index';
+import {
+  FormInputComponent,
+  FormTextareaComponent,
+  FormSelectComponent,
+} from '../../shared/index';
 
-import { IComment } from '@app/features/dashboard/models/comment.model';
+import { IComment } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-comment-form',

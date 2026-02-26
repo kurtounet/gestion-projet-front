@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { StatusService } from '../services/status.service';
 import { IStatus } from '../models/status.model';
 import { LocalStorageService } from '../services/local-storage.service';
+import { UriService } from '../services/uri.service';
 export const initialStatusState: IStatus = {
   '@id': '',
   '@type': '',
@@ -17,6 +18,7 @@ export const initialStatusState: IStatus = {
 })
 export class StatusStore {
   readonly apiResource = 'statuses';
+  readonly uriService = inject(UriService);
   readonly statusService = inject(StatusService);
   readonly localStorageService = inject(LocalStorageService);
   statusLoading = signal<boolean>(false);
@@ -92,7 +94,8 @@ export class StatusStore {
     const id = this.statuses().find((status) => status.label === label)?.id;
     return `/api/${this.apiResource}/${id}`;
   }
-  getLabelById(id: number): string {
-    return this.statuses().find((status) => status.id === id)?.label || '';
+  getLabelById(uri: string): string {
+    const id = this.uriService.extractId(uri);
+    return this.statuses().find((status) => status.id === Number(id))?.label || '';
   }
 }

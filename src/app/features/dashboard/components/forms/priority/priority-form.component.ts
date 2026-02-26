@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { PriorityStore } from '@app/features/dashboard/stores/index';
+import { FormInputComponent } from '../../shared/index';
 
-import { IPriority } from '@app/features/dashboard/models/priority.model';
+import { IPriority } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-priority-form',

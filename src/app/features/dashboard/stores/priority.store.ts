@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { IPriority } from '../models/priority.model';
 import { PriorityService } from '../services/priority.service';
 import { LocalStorageService } from '../services/local-storage.service';
+import { UriService } from '../services/uri.service';
 export const initialPriorityState: IPriority = {
   '@id': '',
   '@type': '',
@@ -17,6 +18,7 @@ export const initialPriorityState: IPriority = {
 })
 export class PriorityStore {
   readonly apiResource = 'priorities';
+  readonly uriService = inject(UriService);
   readonly priorityService = inject(PriorityService);
   readonly localStorageService = inject(LocalStorageService);
   priorityLoading = signal<boolean>(false);
@@ -92,7 +94,8 @@ export class PriorityStore {
     const id = this.priorities().find((priority) => priority.label === label)?.id;
     return `/api/priorities/${id}`;
   }
-  getLabelById(id: number): string {
-    return this.priorities().find((priority) => priority.id === id)?.label || '';
+  getLabelById(uri: string): string {
+    const id = this.uriService.extractId(uri);
+    return this.priorities().find((priority) => priority.id === Number(id))?.label || '';
   }
 }

@@ -1,9 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { ISprintTemplate } from '@app/features/dashboard/models/sprint-template.model';
+import { SprintTemplateStore } from '@app/features/dashboard/stores/index';
+import { FormInputComponent, FormTextareaComponent } from '../../shared/index';
+import { ISprintTemplate } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-sprint-template-form',

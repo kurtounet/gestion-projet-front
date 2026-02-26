@@ -1,8 +1,4 @@
-<form
-  [formGroup]="form"
-  (ngSubmit)="onSubmit()"
-  class="w-full flex gap-2 font-medium text-sm"
->
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full flex gap-2 font-medium text-sm">
   <div class="w-1/2 border-1 border-gray-200 p-4 rounded-md">
     <h1 class="text-xl font-bold">Projet</h1>
     <form-checkbox-component label="Ajouter aux favoris" formControlName="isFavory" />
@@ -32,14 +28,14 @@
       [required]="true"
     />
     <div class="flex gap-2">
-    <form-color-picker-component label="Couleur" formControlName="color" />
-    <form-input-component
-      label="Icon"
-      formControlName="icon"
-      placeholder="Entrez votre description"
-      errorMessage="La description est requise"
-    />
-  </div>
+      <form-color-picker-component label="Couleur" formControlName="color" />
+      <form-input-component
+        label="Icon"
+        formControlName="icon"
+        placeholder="Entrez votre description"
+        errorMessage="La description est requise"
+      />
+    </div>
   </div>
   <div class="w-1/2 border-1 border-gray-200 p-4 rounded-md">
     <div class="w-full flex gap-4">
@@ -95,7 +91,7 @@
     />
 
     @if (submitted() && form.invalid) {
-      <p class="text-red-600 font-medium text-sm ">Certains champs sont invalides.</p>
+      <p class="text-red-600 font-medium text-sm">Certains champs sont invalides.</p>
     }
     <button
       type="submit"

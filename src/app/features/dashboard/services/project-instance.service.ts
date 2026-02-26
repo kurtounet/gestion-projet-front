@@ -34,18 +34,16 @@ export class ProjectInstanceService {
 
   // Create a new ProjectInstance
   createProjectInstance(project: Partial<IProjectInstance>): Observable<IProjectInstance> {
-    console.log(project);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<IProjectInstance>(this.routeApi, project, { headers });
   }
 
-  // Update ProjectInstance by ID
-  updateProjectInstance(project: Partial<IProjectInstance>): Observable<IProjectInstance> {
-    console.log(project);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
-    return this.httpClient.patch<IProjectInstance>(`${this.routeApi}/${project.id}`, project, {
-      headers,
-    });
+  updateProjectInstance(
+    id: string,
+    project: Partial<IProjectInstance>,
+  ): Observable<IProjectInstance> {
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
+    return this.httpClient.patch<IProjectInstance>(`${this.routeApi}/${id}`, project);
   }
 
   // Delete ProjectInstance
@@ -55,7 +53,7 @@ export class ProjectInstanceService {
 
   updateProjectOrder(newOrder: IPayloadItemOrder) {
     console.log(newOrder);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
-    return this.httpClient.patch<void>(`${this.routeCustom}/order`, newOrder, { headers });
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/merge-patch+json' });
+    return this.httpClient.patch<void>(`${this.routeCustom}/order`, newOrder);
   }
 }

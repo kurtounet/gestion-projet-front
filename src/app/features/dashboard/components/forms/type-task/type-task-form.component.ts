@@ -1,10 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TypeTaskStore } from '@app/features/dashboard/stores/type-task.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { FormCheckboxComponent } from '../../shared/form-checkbox/form-checkbox.component';
-import { ITypeTask } from '@app/features/dashboard/models/type-task.model';
+import { TypeTaskStore } from '@app/features/dashboard/stores/index';
+import {
+  FormInputComponent,
+  FormTextareaComponent,
+  FormCheckboxComponent,
+} from '../../shared/index';
+import { ITypeTask } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-type-task-form',

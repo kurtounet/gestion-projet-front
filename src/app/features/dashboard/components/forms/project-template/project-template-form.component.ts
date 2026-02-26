@@ -1,9 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProjectTemplateStore } from '@app/features/dashboard/stores/project-template.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { IProjectTemplate } from '@app/features/dashboard/models/project-template.model';
+import { ProjectTemplateStore } from '@app/features/dashboard/stores/index';
+import { FormInputComponent, FormTextareaComponent } from '../../shared/index';
+import { IProjectTemplate } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-project-template-form',

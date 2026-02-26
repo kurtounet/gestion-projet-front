@@ -3,7 +3,7 @@ export interface ISprintInstance {
   '@type'?: string;
   id?: number;
   projectInstance?: string;
-  priority?: string;
+  priority: string;
   sprintTemplate?: string;
   sprintDependency?: string;
   name: string;

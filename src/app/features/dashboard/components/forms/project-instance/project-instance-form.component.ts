@@ -1,19 +1,24 @@
 import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
-import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
-import { StatusStore } from '@app/features/dashboard/stores/status.store';
-import { ProjectTemplateStore } from '@app/features/dashboard/stores/project-template.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { FormCheckboxComponent } from '../../shared/form-checkbox/form-checkbox.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { FormColorPickerComponent } from '../../shared/form-color-picker/form-color-picker.component';
-import { FormFilePickerComponent } from '../../shared/form-file-picker/form-file-picker.component';
-import { IProjectInstance } from '@app/features/dashboard/models/project-instance.model';
+import {
+  ProjectInstanceStore,
+  PriorityStore,
+  StatusStore,
+  ProjectTemplateStore,
+} from '@app/features/dashboard/stores/index';
+import {
+  FormInputComponent,
+  FormSelectComponent,
+  FormCheckboxComponent,
+  FormTextareaComponent,
+  FormColorPickerComponent,
+  FormFilePickerComponent,
+} from '../../shared/index';
+import { IProjectInstance } from '@app/features/dashboard/models/index';
 import { GetStatusPipe } from '@app/pipes/get-status-pipe';
 import { GetPriorityPipe } from '@app/pipes/get-priority-pipe';
 import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
+import { DateService } from '@app/features/dashboard/services/index';
 
 @Component({
   selector: 'app-project-instance-form',
@@ -28,11 +33,11 @@ import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
     FormFilePickerComponent,
   ],
   templateUrl: './project-instance-form.component.html',
-   providers: [IsoDatePipe],
+  providers: [IsoDatePipe],
 })
 export class ProjectInstanceFormComponent implements OnInit {
   private fb = inject(FormBuilder);
-  private isoDatePipe = inject(IsoDatePipe);
+  private dateService = inject(DateService);
 
   // Injection des stores
   private priorityStore = inject(PriorityStore);
@@ -51,7 +56,7 @@ export class ProjectInstanceFormComponent implements OnInit {
 
   // Formulaire typé (nonNullable garantit que reset() remet les valeurs par défaut au lieu de null)
   protected form = this.fb.nonNullable.group({
-    id: [0], // Optionnel pour la création
+    id: [0],
     name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
     description: ['', [Validators.minLength(6), Validators.maxLength(255)]],
     pathProject: ['', [Validators.required]],
@@ -72,15 +77,14 @@ export class ProjectInstanceFormComponent implements OnInit {
 
   ngOnInit() {
     const data = this.projectInstanceStore.currentProject();
-
     if (data && !this.isNew()) {
-       const formattedData = {
+      const formattedData = {
         ...data,
         id: data.id,
-        status: this.statusStore.getLabelById(Number(data.status)),
-        priority: this.priorityStore.getLabelById(Number(data.priority)) ,
-        startDate: this.isoDatePipe.transform(data.startDate),
-        endDate: this.isoDatePipe.transform(data.endDate),
+        status: this.statusStore.getLabelById(data.status),
+        priority: this.priorityStore.getLabelById(data.priority),
+        startDate: this.dateService.dateForForm(data.startDate),
+        endDate: this.dateService.dateForForm(data.endDate),
       };
       this.form.patchValue(formattedData);
     }
@@ -93,16 +97,12 @@ export class ProjectInstanceFormComponent implements OnInit {
 
     if (this.form.invalid) return;
 
-    // getRawValue() est parfait ici car il récupère même les champs disabled
     const rawValue = this.form.getRawValue();
 
-    // On crée l'objet final en s'assurant du respect strict de l'interface
-    const projectData: IProjectInstance = {
+    const formValue: IProjectInstance = {
       ...rawValue,
-      // On s'assure que l'ID est un nombre (cas du mode édition)
-      id: rawValue.id || 0,
-
-      // Conversion sécurisée des dates en ISO string
+      priority: this.priorityStore.getIdByLabel(rawValue.priority),
+      status: this.statusStore.getIdByLabel(rawValue.status),
       startDate: rawValue.startDate ? new Date(rawValue.startDate).toISOString() : '',
       endDate: rawValue.endDate ? new Date(rawValue.endDate).toISOString() : '',
 
@@ -111,10 +111,10 @@ export class ProjectInstanceFormComponent implements OnInit {
       projectInstances: Array.isArray(rawValue.projectInstances) ? rawValue.projectInstances : [],
     };
 
-    if (this.isNew()) {
-      this.projectInstanceStore.createProjectInstance(projectData);
+    if (formValue.id === 0 || formValue.id === null) {
+      this.projectInstanceStore.createProjectInstance(formValue);
     } else {
-      this.projectInstanceStore.updateProjectInstance(projectData);
+      this.projectInstanceStore.updateProjectInstance(String(formValue.id), formValue);
     }
   }
 }

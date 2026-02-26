@@ -1,17 +1,21 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TaskInstanceStore } from '@app/features/dashboard/stores/task-instance.store';
-import { UserStore } from '@app/features/dashboard/stores/user.store';
-import { TaskTemplateStore } from '@app/features/dashboard/stores/task-template.store';
-import { SprintInstanceStore } from '@app/features/dashboard/stores/sprint-instance.store';
-import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
-import { StatusStore } from '@app/features/dashboard/stores/status.store';
-import { TypeTaskStore } from '@app/features/dashboard/stores/type-task.store';
-import { CommentStore } from '@app/features/dashboard/stores/comment.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { ITaskInstance } from '@app/features/dashboard/models/task-instance.model';
+import {
+  TaskInstanceStore,
+  UserStore,
+  TaskTemplateStore,
+  SprintInstanceStore,
+  PriorityStore,
+  StatusStore,
+  TypeTaskStore,
+  CommentStore,
+} from '@app/features/dashboard/stores/index';
+import {
+  FormInputComponent,
+  FormSelectComponent,
+  FormTextareaComponent,
+} from '../../shared/index';
+import { ITaskInstance } from '@app/features/dashboard/models/index';
 import { GetStatusPipe } from '@app/pipes/get-status-pipe';
 import { GetPriorityPipe } from '@app/pipes/get-priority-pipe';
 import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
@@ -80,8 +84,8 @@ export class TaskInstanceFormComponent implements OnInit {
       const formattedData = {
         ...data,
         id: data.id,
-        status: this.statusStore.getLabelById(Number(data.status)),
-        priority: this.priorityStore.getLabelById(Number(data.priority)),
+        status: this.statusStore.getLabelById(data.status),
+        priority: this.priorityStore.getLabelById(data.priority),
         startDate: this.isoDatePipe.transform(data.startDate),
         dueDate: this.isoDatePipe.transform(data.dueDate),
       };

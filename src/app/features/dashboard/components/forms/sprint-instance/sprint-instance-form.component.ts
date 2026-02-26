@@ -6,21 +6,23 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { SprintInstanceStore } from '@app/features/dashboard/stores/sprint-instance.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
 
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
-import { FormColorPickerComponent } from '../../shared/form-color-picker/form-color-picker.component';
-
-import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
-import { StatusStore } from '@app/features/dashboard/stores/status.store';
-
-import { ISprintInstance } from '@app/features/dashboard/models/sprint-instance.model';
-import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
-import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
+import { ISprintInstance } from '@app/features/dashboard/models/index';
 import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
- 
+import { DateService } from '@app/features/dashboard/services/index';
+import {
+  FormColorPickerComponent,
+  FormInputComponent,
+  FormSelectComponent,
+  FormTextareaComponent,
+} from '../../shared/index';
+import {
+  StatusStore,
+  PriorityStore,
+  ProjectInstanceStore,
+  SprintInstanceStore,
+  SprintTemplateStore,
+} from '@app/features/dashboard/stores/index';
 
 @Component({
   selector: 'app-sprint-instance-form',
@@ -38,8 +40,8 @@ import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
 })
 export class SprintInstanceFormComponent {
   private fb = inject(FormBuilder);
-  private isoDatePipe = inject(IsoDatePipe);
- 
+  private dateService = inject(DateService);
+
   // Injection des stores
   private statusStore = inject(StatusStore);
   private priorityStore = inject(PriorityStore);
@@ -74,16 +76,20 @@ export class SprintInstanceFormComponent {
   });
   ngOnInit() {
     const data = this.projectInstanceStore.selectedSprint();
-   
 
     if (data && !this.isNew()) {
+      console.log(data.status);
+      const status = this.statusStore.getLabelById(data.status);
+      const priority = this.priorityStore.getLabelById(data.priority);
+      const sprintTemplate = this.sprintTemplateStore.sprintTemplates();
+
       const formattedData = {
         ...data,
         id: data.id,
-         status: this.statusStore.getLabelById(Number(data.status)),
-        priority: this.priorityStore.getLabelById(Number(data.priority)) ,
-        startDate: this.isoDatePipe.transform(data.startDate),
-        endDate: this.isoDatePipe.transform(data.endDate),
+        status: status,
+        priority: priority,
+        startDate: this.dateService.dateForForm(data.startDate),
+        endDate: this.dateService.dateForForm(data.endDate),
       };
 
       this.form.patchValue(formattedData as any);

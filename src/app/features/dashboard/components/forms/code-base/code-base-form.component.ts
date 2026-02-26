@@ -6,11 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CodeBaseStore } from '@app/features/dashboard/stores/code-base.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormFilePickerComponent } from '../../shared/form-file-picker/form-file-picker.component';
+import { CodeBaseStore } from '@app/features/dashboard/stores/index';
+import { FormInputComponent, FormFilePickerComponent } from '../../shared/index';
 
-import { ICodeBase } from '@app/features/dashboard/models/code-base.model';
+import { ICodeBase } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-code-base-form',

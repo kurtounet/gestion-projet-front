@@ -6,12 +6,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ContextStatusStore } from '@app/features/dashboard/stores/context-status.store';
+import {
+  ContextStatusStore,
+  ContextStore,
+  StatusStore,
+} from '@app/features/dashboard/stores/index';
 
-import { IContextStatus } from '@app/features/dashboard/models/context-status.model';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { ContextStore } from '@app/features/dashboard/stores/context.store';
-import { StatusStore } from '@app/features/dashboard/stores/status.store';
+import { IContextStatus } from '@app/features/dashboard/models/index';
+import { FormSelectComponent } from '../../shared/index';
 
 @Component({
   selector: 'app-context-status-form',

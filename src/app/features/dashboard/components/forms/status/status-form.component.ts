@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { StatusStore } from '@app/features/dashboard/stores/status.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { StatusStore } from '@app/features/dashboard/stores/index';
+import { FormInputComponent } from '../../shared/index';
 
-import { IStatus } from '@app/features/dashboard/models/status.model';
+import { IStatus } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-status-form',

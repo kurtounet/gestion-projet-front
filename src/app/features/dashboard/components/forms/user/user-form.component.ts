@@ -1,9 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserStore } from '@app/features/dashboard/stores/user.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { IUser } from '@app/features/dashboard/models/user.model';
+import { UserStore } from '@app/features/dashboard/stores/index';
+import { FormInputComponent, FormSelectComponent } from '../../shared/index';
+import { IUser } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-user-form',

@@ -1,11 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SprintInstanceStore } from '@app/features/dashboard/stores/sprint-instance.store';
-import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
-import { StatusStore } from '@app/features/dashboard/stores/status.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
+import { SprintInstanceStore, PriorityStore, StatusStore } from '@app/features/dashboard/stores/index';
+import {
+  FormInputComponent,
+  FormSelectComponent,
+  FormTextareaComponent,
+} from '../../shared/index';
 
 @Component({
   selector: 'app-form-sprint',

@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FeatureStore } from '@app/features/dashboard/stores/feature.store';
+import { FeatureStore } from '@app/features/dashboard/stores/index';
 
-import { IFeature } from '@app/features/dashboard/models/feature.model';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
+import { IFeature } from '@app/features/dashboard/models/index';
+import { FormInputComponent } from '../../shared/index';
 
 @Component({
   selector: 'app-feature-form',

@@ -1,11 +1,12 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProjectTemplateSprintTemplateStore } from '@app/features/dashboard/stores/project-template-sprint-template.store';
-import { ProjectTemplateStore } from '@app/features/dashboard/stores/project-template.store';
-import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
-import { FormSelectComponent } from '../../shared/form-select/form-select.component';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { IProjectTemplateSprintTemplate } from '@app/features/dashboard/models/project-template-sprint-template.model';
+import {
+  ProjectTemplateSprintTemplateStore,
+  ProjectTemplateStore,
+  SprintTemplateStore,
+} from '@app/features/dashboard/stores/index';
+import { FormSelectComponent, FormInputComponent } from '../../shared/index';
+import { IProjectTemplateSprintTemplate } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-project-template-sprint-template-form',

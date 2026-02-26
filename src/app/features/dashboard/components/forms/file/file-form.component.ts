@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FileStore } from '@app/features/dashboard/stores/file.store';
-import { FormInputComponent } from '../../shared/form-input/form-input.component';
-import { IFile } from '@app/features/dashboard/models/file.model';
+import { FileStore } from '@app/features/dashboard/stores/index';
+import { FormInputComponent } from '../../shared/index';
+import { IFile } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-file-form',
