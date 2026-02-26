@@ -1,4 +1,8 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm">
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm"
+>
   <h1 class="text-xl font-bold">CodeBase</h1>
 
   <form-input-component
@@ -8,11 +12,7 @@
     [required]="true"
   />
 
-  <form-input-component
-    label="Code"
-    formControlName="code"
-    placeholder="Identifiant de code"
-  />
+  <form-input-component label="Code" formControlName="code" placeholder="Identifiant de code" />
 
   <form-file-picker-component
     label="Fichier"
@@ -32,8 +32,10 @@
     <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>
   }
 
-  <button type="submit" class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors">
+  <button
+    type="submit"
+    class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
+  >
     {{ isNew() ? 'Ajouter' : 'Modifier' }}
   </button>
 </form>
-
