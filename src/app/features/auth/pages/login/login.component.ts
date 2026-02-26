@@ -1,22 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ICredentials, IToken } from '../../models/login.model';
-import {
-  form,
-  Field,
-  schema,
-  required,
-  minLength,
-  email,
-  submit,
-} from '@angular/forms/signals';
+import { form, Field, schema, required, minLength, email, submit } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 import { AUTH_CONFIG } from '../../models/auth-config.model';
 
