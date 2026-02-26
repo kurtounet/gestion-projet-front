@@ -1,9 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SprintTaskStore } from '@app/features/dashboard/stores/sprint-task.store';
 import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
 import { TaskTemplateStore } from '@app/features/dashboard/stores/task-template.store';
@@ -72,4 +68,3 @@ export class SprintTaskFormComponent implements OnInit {
     }
   }
 }
-
