@@ -57,11 +57,7 @@
     "pathOut": "./tree",
     "analysis": {
       "enabled": false,
-      "extensions": [
-        ".ts",
-        ".js",
-        ".php"
-      ],
+      "extensions": [".ts", ".js", ".php"],
       "save": true,
       "maxLevel": 0
     },
