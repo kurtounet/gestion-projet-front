@@ -15,21 +15,27 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    loadComponent: () => import('./features/auth/pages/auth/auth.component').then(m => m.AuthComponent),
+    loadComponent: () =>
+      import('./features/auth/pages/auth/auth.component').then((m) => m.AuthComponent),
     children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       {
         path: 'login',
-        loadComponent: () => import('./features/auth/pages/login/login.component').then(m => m.LoginComponent),
+        loadComponent: () =>
+          import('./features/auth/pages/login/login.component').then((m) => m.LoginComponent),
       },
       {
         path: 'forgot',
-        loadComponent: () => import('./features/auth/pages/forgot/forgot.component').then(m => m.ForgotComponent),
+        loadComponent: () =>
+          import('./features/auth/pages/forgot/forgot.component').then((m) => m.ForgotComponent),
       },
       {
         path: 'register',
-        loadComponent: () => import('./features/auth/pages/register/register.component').then(m => m.RegisterComponent),
+        loadComponent: () =>
+          import('./features/auth/pages/register/register.component').then(
+            (m) => m.RegisterComponent,
+          ),
       },
-    ]
+    ],
   },
 ];
