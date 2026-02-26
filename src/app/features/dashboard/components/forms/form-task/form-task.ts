@@ -10,12 +10,7 @@ import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.
 @Component({
   selector: 'app-form-task',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormInputComponent,
-    FormSelectComponent,
-    FormTextareaComponent,
-  ],
+  imports: [ReactiveFormsModule, FormInputComponent, FormSelectComponent, FormTextareaComponent],
   templateUrl: './form-task.html',
   styleUrl: './form-task.css',
 })
@@ -55,4 +50,3 @@ export class FormTask {
     console.log('FormTask submitted:', this.form.getRawValue());
   }
 }
-
