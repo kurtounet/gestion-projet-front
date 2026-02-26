@@ -20,16 +20,16 @@
     }
 
     @for (option of options(); track $index) {
-    <option 
-      [value]="option.name ?? option.label ?? option.id ?? option.value"
-    [selected]="(option.name ?? option.label ?? option.id ?? option.value) === value()"
-    >
-      {{ option.name ?? option.label }}
-    </option>
-  }
+      <option
+        [value]="option.name ?? option.label ?? option.id ?? option.value"
+        [selected]="(option.name ?? option.label ?? option.id ?? option.value) === value()"
+      >
+        {{ option.name ?? option.label }}
+      </option>
+    }
   </select>
 
- @if (hasError()) {
+  @if (hasError()) {
     <div class="error-message">Ce choix est requis.</div>
   }
 </div>

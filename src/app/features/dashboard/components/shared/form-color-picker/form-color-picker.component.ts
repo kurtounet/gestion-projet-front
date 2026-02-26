@@ -45,53 +45,40 @@ import { ControlValueAccessor, NgControl, ReactiveFormsModule } from '@angular/f
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.2rem;
-      font-weight: 500;
-      color: #333;
-    }
-    .required {
-      color: #e74c3c;
-    }
-    .picker-container {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    input[type="color"] {
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      cursor: pointer;
-      background: none;
-    }
-    .hex-input {
-      flex: 1;
-      padding: 0.5rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-      font-family: monospace;
-      text-transform: uppercase;
-    }
-    .hex-input:focus {
-      outline: none;
-      border-color: #3498db;
-    }
-    .error-msg {
-      color: #e74c3c;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .picker-container {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      input[type='color'] {
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        background: none;
+      }
+      .hex-input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-family: monospace;
+        text-transform: uppercase;
+      }
+      .hex-input:focus {
+        outline: none;
+        border-color: #3498db;
+      }
+    `,
+  ],
 })
 export class FormColorPickerComponent implements ControlValueAccessor {
   label = input<string>('');

@@ -41,48 +41,7 @@ import { ControlValueAccessor, NgControl, ReactiveFormsModule } from '@angular/f
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      margin-bottom: 1rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.2rem;
-      font-weight: 500;
-      color: #333;
-    }
-    .required {
-      color: #e74c3c;
-    }
-    textarea {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-      transition: border-color 0.3s;
-      box-sizing: border-box;
-      resize: vertical;
-      font-family: inherit;
-    }
-    textarea:focus {
-      outline: none;
-      border-color: #3498db;
-    }
-    textarea.is-invalid {
-      border-color: #e74c3c;
-    }
-    textarea:disabled {
-      background-color: #f5f5f5;
-      cursor: not-allowed;
-    }
-    .error-msg {
-      color: #e74c3c;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-    }
-  `]
+  styles: [``],
 })
 export class FormTextareaComponent implements ControlValueAccessor {
   label = input<string>('');

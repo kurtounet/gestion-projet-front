@@ -36,38 +36,27 @@ import { ControlValueAccessor, NgControl, ReactiveFormsModule } from '@angular/f
       }
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      margin-bottom: 1rem;
-    }
-    .checkbox-container {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      font-weight: 500;
-      color: #333;
-    }
-    input {
-      margin-right: 0.5rem;
-      width: 1.2rem;
-      height: 1.2rem;
-      cursor: pointer;
-    }
-    .required {
-      color: #e74c3c;
-      margin-left: 2px;
-    }
-    .error-msg {
-      color: #e74c3c;
-      font-size: 0.875rem;
-      margin-top: 0.25rem;
-    }
-    input.is-invalid {
-      outline: 1px solid #e74c3c;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+      .checkbox-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        font-weight: 500;
+        color: #333;
+      }
+      input {
+        margin-right: 0.5rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        cursor: pointer;
+      }
+    `,
+  ],
 })
 export class FormCheckboxComponent implements ControlValueAccessor {
   label = input<string>('');
