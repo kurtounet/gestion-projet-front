@@ -1,9 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProjectTemplateSprintTemplateStore } from '@app/features/dashboard/stores/project-template-sprint-template.store';
 import { ProjectTemplateStore } from '@app/features/dashboard/stores/project-template.store';
 import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
@@ -68,8 +64,10 @@ export class ProjectTemplateSprintTemplateFormComponent implements OnInit {
     if (this.isNew()) {
       this.projectTemplateSprintTemplateStore.createProjectTemplateSprintTemplate(mappingData);
     } else {
-      this.projectTemplateSprintTemplateStore.updateProjectTemplateSprintTemplate(String(this.id()), mappingData);
+      this.projectTemplateSprintTemplateStore.updateProjectTemplateSprintTemplate(
+        String(this.id()),
+        mappingData,
+      );
     }
   }
 }
-
