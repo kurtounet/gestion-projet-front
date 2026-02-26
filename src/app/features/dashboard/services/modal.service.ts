@@ -7,8 +7,8 @@ export class ModalService {
   isOpen = signal(false);
   title = signal<string>('');
   action = signal<string>('');
-  typeItem = signal<string>('');
   id = signal<number>(0);
+  typeItem = signal<string>('');
 
   formFactory = inject(FormFactoryService);
 
