@@ -1,9 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskTemplateStore } from '@app/features/dashboard/stores/task-template.store';
 import { SprintTemplateStore } from '@app/features/dashboard/stores/sprint-template.store';
 import { TypeTaskStore } from '@app/features/dashboard/stores/type-task.store';
@@ -14,12 +10,7 @@ import { ITaskTemplate } from '@app/features/dashboard/models/task-template.mode
 
 @Component({
   selector: 'app-task-template-form',
-  imports: [
-    ReactiveFormsModule,
-    FormInputComponent,
-    FormSelectComponent,
-    FormTextareaComponent,
-  ],
+  imports: [ReactiveFormsModule, FormInputComponent, FormSelectComponent, FormTextareaComponent],
   templateUrl: './task-template-form.component.html',
   styleUrl: './task-template-form.component.css',
 })
@@ -83,4 +74,3 @@ export class TaskTemplateFormComponent implements OnInit {
     }
   }
 }
-
