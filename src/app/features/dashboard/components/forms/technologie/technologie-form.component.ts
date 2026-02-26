@@ -1,9 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TechnologyStore } from '@app/features/dashboard/stores/technology.store';
 import { FormInputComponent } from '../../shared/form-input/form-input.component';
 import { ITechnology } from '@app/features/dashboard/models/technology.model';
@@ -58,4 +54,3 @@ export class TechnologieFormComponent implements OnInit {
     }
   }
 }
-
