@@ -10,12 +10,7 @@ import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.
 @Component({
   selector: 'app-form-project',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormInputComponent,
-    FormSelectComponent,
-    FormTextareaComponent,
-  ],
+  imports: [ReactiveFormsModule, FormInputComponent, FormSelectComponent, FormTextareaComponent],
   templateUrl: './form-project.html',
   styleUrl: './form-project.css',
 })
@@ -60,10 +55,9 @@ export class FormProject {
 
     const rawValue = this.form.getRawValue();
     console.log('FormProject submitted:', rawValue);
-    
+
     if (this.isNew()) {
       // this.projectStore.createProject(rawValue);
     }
   }
 }
-
