@@ -1,9 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationStore } from '@app/features/dashboard/stores/notification.store';
 import { UserStore } from '@app/features/dashboard/stores/user.store';
 import { FormInputComponent } from '../../shared/form-input/form-input.component';
@@ -46,7 +42,7 @@ export class NotificationFormComponent implements OnInit {
     if (data && !this.isNew()) {
       this.form.patchValue({
         ...data,
-        userId: data.userId || 0
+        userId: data.userId || 0,
       });
     }
   }
@@ -75,4 +71,3 @@ export class NotificationFormComponent implements OnInit {
     }
   }
 }
-
