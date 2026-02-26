@@ -1,9 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProjectTemplateStore } from '@app/features/dashboard/stores/project-template.store';
 import { FormInputComponent } from '../../shared/form-input/form-input.component';
 import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
@@ -66,4 +62,3 @@ export class ProjectTemplateFormComponent implements OnInit {
     }
   }
 }
-
