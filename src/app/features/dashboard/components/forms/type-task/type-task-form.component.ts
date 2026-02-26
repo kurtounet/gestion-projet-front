@@ -1,9 +1,5 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TypeTaskStore } from '@app/features/dashboard/stores/type-task.store';
 import { FormInputComponent } from '../../shared/form-input/form-input.component';
 import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.component';
@@ -12,12 +8,7 @@ import { ITypeTask } from '@app/features/dashboard/models/type-task.model';
 
 @Component({
   selector: 'app-type-task-form',
-  imports: [
-    ReactiveFormsModule,
-    FormInputComponent,
-    FormTextareaComponent,
-    FormCheckboxComponent,
-  ],
+  imports: [ReactiveFormsModule, FormInputComponent, FormTextareaComponent, FormCheckboxComponent],
   templateUrl: './type-task-form.component.html',
   styleUrl: './type-task-form.component.css',
 })
@@ -74,4 +65,3 @@ export class TypeTaskFormComponent implements OnInit {
     }
   }
 }
-
