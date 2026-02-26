@@ -72,5 +72,3 @@ export class FrameworkFormComponent implements OnInit {
     }
   }
 }
-
-
