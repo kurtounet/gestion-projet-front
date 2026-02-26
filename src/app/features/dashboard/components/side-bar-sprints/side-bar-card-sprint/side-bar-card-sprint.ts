@@ -43,6 +43,7 @@ export class SideBarcardSprint {
   toggleSprint() {
     this.isVisible = !this.isVisible;
   }
+
   selectedSprint() {
     this.isSelected = !this.isSelected;
   }

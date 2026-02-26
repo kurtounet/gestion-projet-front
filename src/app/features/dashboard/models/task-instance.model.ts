@@ -1,6 +1,6 @@
 export interface ITaskInstance {
-  '@id': string;
-  '@type': string;
+  '@id'?: string;
+  '@type'?: string;
   id: number;
   user: string;
   taskTemplate: string;
@@ -16,9 +16,9 @@ export interface ITaskInstance {
   dueDate: Date;
   parentTask: string;
   dependency: number;
-  createdAt: Date;
-  updatedAt: Date;
-  comment: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  comment?: string;
   position: number;
   completed: string;
 }

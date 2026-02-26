@@ -3,11 +3,9 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
 import { ProjectInstanceFormComponent } from '../../forms/project-instance/project-instance-form.component';
 
- 
-
 @Component({
   selector: 'app-view-project',
-  imports: [ProjectInstanceFormComponent ],
+  imports: [ProjectInstanceFormComponent],
   templateUrl: './view-project.html',
   styleUrl: './view-project.css',
 })
