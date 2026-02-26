@@ -11,6 +11,9 @@ import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.
 import { FormColorPickerComponent } from '../../shared/form-color-picker/form-color-picker.component';
 import { FormFilePickerComponent } from '../../shared/form-file-picker/form-file-picker.component';
 import { IProjectInstance } from '@app/features/dashboard/models/project-instance.model';
+import { GetStatusPipe } from '@app/pipes/get-status-pipe';
+import { GetPriorityPipe } from '@app/pipes/get-priority-pipe';
+import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
 
 @Component({
   selector: 'app-project-instance-form',
@@ -25,9 +28,11 @@ import { IProjectInstance } from '@app/features/dashboard/models/project-instanc
     FormFilePickerComponent,
   ],
   templateUrl: './project-instance-form.component.html',
+   providers: [IsoDatePipe],
 })
 export class ProjectInstanceFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private isoDatePipe = inject(IsoDatePipe);
 
   // Injection des stores
   private priorityStore = inject(PriorityStore);
@@ -54,8 +59,8 @@ export class ProjectInstanceFormComponent implements OnInit {
     color: [''],
     icon: [''],
     position: [0],
-    startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]],
+    startDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
+    endDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
     status: ['', [Validators.required]],
     priority: ['', [Validators.required]],
     projectTemplate: [''],
@@ -69,8 +74,15 @@ export class ProjectInstanceFormComponent implements OnInit {
     const data = this.projectInstanceStore.currentProject();
 
     if (data && !this.isNew()) {
-      // patchValue est plus sûr si l'objet data contient des propriétés en trop
-      this.form.patchValue(data);
+       const formattedData = {
+        ...data,
+        id: data.id,
+        status: this.statusStore.getLabelById(Number(data.status)),
+        priority: this.priorityStore.getLabelById(Number(data.priority)) ,
+        startDate: this.isoDatePipe.transform(data.startDate),
+        endDate: this.isoDatePipe.transform(data.endDate),
+      };
+      this.form.patchValue(formattedData);
     }
   }
   // protected canSubmit = computed(() => {

@@ -1,114 +1,108 @@
 <form
   [formGroup]="form"
   (ngSubmit)="onSubmit()"
-  class="w-full flex flex-col gap-4 max-w-md border-2 border-gray-200 p-4 rounded-lg shadow-sm"
+  class="w-full flex gap-2 font-medium text-sm"
 >
-  <h1 class="text-xl font-bold">Projet</h1>
-
-  <form-input-component
-    label="Nom du projet"
-    formControlName="name"
-    placeholder="Ex: Refonte du site web"
-    [required]="true"
-    errorMessage="Le nom est requise"
-  />
-
-  <form-input-component
-    label="Description"
-    formControlName="description"
-    placeholder="Entrez votre description"
-    errorMessage="La description est requise"
-  />
-  <form-file-picker-component
-    label="Chemin du Projet"
-    formControlName="pathProject"
-    placeholder="Cliquer pour choisir le dossier/fichier"
-    [required]="true"
-  />
-
-  <form-file-picker-component
-    label="Chemin du starUml"
-    formControlName="pathFileDatabase"
-    placeholder="Sélectionner le schéma de base de données"
-    [required]="true"
-  />
-  <form-color-picker-component
-    label="Couleur"
-    formControlName="color"
-  />
-  <form-input-component
-    label="Icon"
-    formControlName="icon"
-    placeholder="Entrez votre description"
-    errorMessage="La description est requise"
-  />
-
-  <div class="w-full flex gap-4">
-    <div class="flex flex-col gap-1 flex-1">
-      <label for="startDate" class="font-medium text-sm">Date de début</label>
-      <input
-        id="startDate"
-        type="date"
-        formControlName="startDate"
-        class="border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-      />
-      @if (submitted() && form.controls.startDate.errors) {
-        <small class="text-red-500 text-xs">La date de début est requise</small>
-      }
-    </div>
-
-    <div class="flex flex-col gap-1 flex-1">
-      <label for="endDate" class="font-medium text-sm">Date de fin</label>
-      <input
-        id="endDate"
-        type="date"
-        formControlName="endDate"
-        class="border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-      />
-      @if (submitted() && form.controls.endDate.errors) {
-        <small class="text-red-500 text-xs">La date de fin est requise</small>
-      }
-    </div>
-  </div>
-
-  <div class="w-full flex gap-4">
-    <form-select-component
-      label="Statut"
-      formControlName="status"
-      [options]="statusOptions()"
-      placeholder="Choisir un statut"
-      class="flex-1"
+  <div class="w-1/2 border-1 border-gray-200 p-4 rounded-md">
+    <h1 class="text-xl font-bold">Projet</h1>
+    <form-checkbox-component label="Ajouter aux favoris" formControlName="isFavory" />
+    <form-input-component
+      label="Nom du projet"
+      formControlName="name"
+      placeholder="Ex: Refonte du site web"
+      [required]="true"
+      errorMessage="Le nom est requise"
     />
-    <form-select-component
-      label="Priorité"
-      formControlName="priority"
-      [options]="priorityOptions()"
-      placeholder="Priorité"
-      class="flex-1"
+    <form-input-component
+      label="Description"
+      formControlName="description"
+      placeholder="Entrez votre description"
+      errorMessage="La description est requise"
+    />
+    <form-file-picker-component
+      label="Chemin du Projet"
+      formControlName="pathProject"
+      placeholder="Cliquer pour choisir le dossier/fichier"
+      [required]="true"
+    />
+    <form-file-picker-component
+      label="Chemin du starUml"
+      formControlName="pathFileDatabase"
+      placeholder="Sélectionner le schéma de base de données"
+      [required]="true"
+    />
+    <div class="flex gap-2">
+    <form-color-picker-component label="Couleur" formControlName="color" />
+    <form-input-component
+      label="Icon"
+      formControlName="icon"
+      placeholder="Entrez votre description"
+      errorMessage="La description est requise"
     />
   </div>
+  </div>
+  <div class="w-1/2 border-1 border-gray-200 p-4 rounded-md">
+    <div class="w-full flex gap-4">
+      <div class="flex flex-col gap-1 flex-1">
+        <label for="startDate" class="font-medium text-sm">Date de début</label>
+        <input
+          id="startDate"
+          type="date"
+          formControlName="startDate"
+          class="border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        @if (submitted() && form.controls.startDate.errors) {
+          <small class="text-red-500 text-xs">La date de début est requise</small>
+        }
+      </div>
 
-  <form-textarea-component
-    label="Commentaire"
-    formControlName="comment"
-    placeholder="Votre commentaire..."
-    [rows]="3"
-  />
+      <div class="flex flex-col gap-1 flex-1">
+        <label for="endDate" class="font-medium text-sm">Date de fin</label>
+        <input
+          id="endDate"
+          type="date"
+          formControlName="endDate"
+          class="border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        @if (submitted() && form.controls.endDate.errors) {
+          <small class="text-red-500 text-xs">La date de fin est requise</small>
+        }
+      </div>
+    </div>
 
-  <form-checkbox-component
-    label="Ajouter aux favoris"
-    formControlName="isFavory"
-  />
+    <div class="w-full flex gap-4">
+      <form-select-component
+        label="Statut"
+        formControlName="status"
+        [options]="statusOptions()"
+        placeholder="Choisir un statut"
+        class="flex-1"
+      />
+      <form-select-component
+        label="Priorité"
+        formControlName="priority"
+        [options]="priorityOptions()"
+        placeholder="Priorité"
+        class="flex-1"
+      />
+    </div>
 
-  @if (submitted() && form.invalid) {
-    <p class="text-sm text-red-600 font-medium">Certains champs sont invalides.</p>
-  }
+    <form-textarea-component
+      label="Commentaire"
+      formControlName="comment"
+      placeholder="Votre commentaire..."
+      [rows]="3"
+    />
 
-  <button
-    type="submit"
-    class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:bg-gray-400"
-    [disabled]="submitted() && form.invalid"
-  >
-    {{ isNew() ? 'Créer le projet' : 'Enregistrer les modifications' }}
-  </button>
+    @if (submitted() && form.invalid) {
+      <p class="text-red-600 font-medium text-sm ">Certains champs sont invalides.</p>
+    }
+    <button
+      type="submit"
+      class="mt-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors disabled:bg-gray-400"
+      [disabled]="submitted() && form.invalid"
+    >
+      {{ isNew() ? 'Créer le projet' : 'Enregistrer les modifications' }}
+    </button>
+  </div>
 </form>
