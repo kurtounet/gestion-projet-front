@@ -10,12 +10,7 @@ import { FormTextareaComponent } from '../../shared/form-textarea/form-textarea.
 @Component({
   selector: 'app-form-sprint',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormInputComponent,
-    FormSelectComponent,
-    FormTextareaComponent,
-  ],
+  imports: [ReactiveFormsModule, FormInputComponent, FormSelectComponent, FormTextareaComponent],
   templateUrl: './form-sprint.html',
   styleUrl: './form-sprint.css',
 })
@@ -55,4 +50,3 @@ export class FormSprint {
     console.log('FormSprint submitted:', this.form.getRawValue());
   }
 }
-
