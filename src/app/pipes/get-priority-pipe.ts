@@ -6,16 +6,15 @@ import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
   standalone: true,
 })
 export class GetPriorityPipe implements PipeTransform {
-
   private readonly priorityStore = inject(PriorityStore);
 
   transform(value: string | null | undefined) {
     if (!value) return null;
-    
+
     const segments = value.split('/');
     const id = Number(segments[segments.length - 1]);
-    if (isNaN(id)) return null;   
-   
+    if (isNaN(id)) return null;
+
     return this.priorityStore.priorities().find((p) => p.id === id)?.label ?? null;
   }
 }

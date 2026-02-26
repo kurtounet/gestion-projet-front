@@ -1,6 +1,4 @@
-import { IsoDatePipe } from "./iso-date.pipe";
-
- 
+import { IsoDatePipe } from './iso-date.pipe';
 
 describe('IsoDatePipe', () => {
   it('create an instance', () => {
