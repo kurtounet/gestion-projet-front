@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FrameworkFormComponent } from "../../forms/framework/framework-form.component";
+import { FrameworkFormComponent } from '../../forms/framework/framework-form.component';
 @Component({
   selector: 'app-view-frameworks',
   imports: [FrameworkFormComponent],

@@ -1,8 +1,8 @@
 import { I } from '@angular/cdk/keycodes';
 import { inject, Injectable, signal } from '@angular/core';
 import { FormFactoryService } from './form-factory.service';
-type TypeItem = ''|'project' | 'sprint' | 'task' | 'framework' | 'user' | 'role' | 'permission';
-type TypeAction = ''|'create' | 'edit' | 'delete';
+type TypeItem = '' | 'project' | 'sprint' | 'task' | 'framework' | 'user' | 'role' | 'permission';
+type TypeAction = '' | 'create' | 'edit' | 'delete';
 @Injectable({ providedIn: 'root' })
 export class ModalService {
   isOpen = signal(false);
@@ -18,7 +18,7 @@ export class ModalService {
     this.action.set(action);
     this.typeItem.set(typeItem);
     this.id.set(id);
-    this.isOpen.set(true);    
+    this.isOpen.set(true);
   }
 
   close() {

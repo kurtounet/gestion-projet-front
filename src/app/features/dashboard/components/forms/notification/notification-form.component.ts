@@ -1,22 +1,19 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationStore, UserStore } from '@app/features/dashboard/stores/index';
-import {
-  FormInputComponent,
-  FormTextareaComponent,
-  FormSelectComponent,
-} from '../../shared/index';
+import { FormInputComponent, FormTextareaComponent, FormSelectComponent } from '../../shared/index';
 import { INotification } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-notification-form',
-  standalone: true,
   imports: [ReactiveFormsModule, FormInputComponent, FormTextareaComponent, FormSelectComponent],
   templateUrl: './notification-form.component.html',
   styleUrl: './notification-form.component.css',
 })
 export class NotificationFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private notificationStore = inject(NotificationStore);
   private userStore = inject(UserStore);
 
@@ -38,6 +35,10 @@ export class NotificationFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.notificationStore.currentNotification();
 
     if (data && !this.isNew()) {

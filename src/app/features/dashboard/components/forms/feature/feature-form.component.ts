@@ -1,25 +1,19 @@
-import { Component, inject, signal } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, inject, signal, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FeatureStore } from '@app/features/dashboard/stores/index';
-
 import { IFeature } from '@app/features/dashboard/models/index';
 import { FormInputComponent } from '../../shared/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-feature-form',
-  standalone: true,
   imports: [ReactiveFormsModule, FormInputComponent],
   templateUrl: './feature-form.component.html',
   styleUrl: './feature-form.component.css',
 })
-export class FeatureFormComponent {
+export class FeatureFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private featureStore = inject(FeatureStore);
 
   // Signaux d'état
@@ -34,6 +28,10 @@ export class FeatureFormComponent {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.featureStore.currentFeature();
 
     if (data && !this.isNew()) {

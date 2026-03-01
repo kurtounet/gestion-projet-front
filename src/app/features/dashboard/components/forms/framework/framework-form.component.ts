@@ -2,11 +2,8 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FrameworkStore, TechnologyStore } from '@app/features/dashboard/stores/index';
 import { IFramework } from '@app/features/dashboard/models/index';
-import {
-  FormInputComponent,
-  FormSelectComponent,
-  FormTextareaComponent,
-} from '../../shared/index';
+import { FormInputComponent, FormSelectComponent, FormTextareaComponent } from '../../shared/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-framework-form',
@@ -16,6 +13,7 @@ import {
 })
 export class FrameworkFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private frameworkStore = inject(FrameworkStore);
   private technologyStore = inject(TechnologyStore);
 
@@ -41,6 +39,10 @@ export class FrameworkFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.frameworkStore.currentFramework();
 
     if (data && !this.isNew()) {

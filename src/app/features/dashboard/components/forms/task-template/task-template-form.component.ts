@@ -5,12 +5,9 @@ import {
   SprintTemplateStore,
   TypeTaskStore,
 } from '@app/features/dashboard/stores/index';
-import {
-  FormInputComponent,
-  FormSelectComponent,
-  FormTextareaComponent,
-} from '../../shared/index';
+import { FormInputComponent, FormSelectComponent, FormTextareaComponent } from '../../shared/index';
 import { ITaskTemplate } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-task-template-form',
@@ -20,6 +17,7 @@ import { ITaskTemplate } from '@app/features/dashboard/models/index';
 })
 export class TaskTemplateFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private taskTemplateStore = inject(TaskTemplateStore);
   private sprintTemplateStore = inject(SprintTemplateStore);
   private typeTaskStore = inject(TypeTaskStore);
@@ -42,21 +40,25 @@ export class TaskTemplateFormComponent implements OnInit {
     parentTask: [0, [Validators.required]],
     sprintTemplate: [null as string | null],
     typeTask: [null as string | null],
-    });
+  });
 
-    ngOnInit() {
+  ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.taskTemplateStore.currentTaskTemplate();
 
     if (data && !this.isNew()) {
       this.form.patchValue(data as any);
     }
-    }
+  }
 
-    get getForm() {
+  get getForm() {
     return this.form.controls;
-    }
+  }
 
-    onSubmit(): void {
+  onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {

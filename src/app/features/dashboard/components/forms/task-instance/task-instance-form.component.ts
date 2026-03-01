@@ -10,25 +10,21 @@ import {
   TypeTaskStore,
   CommentStore,
 } from '@app/features/dashboard/stores/index';
-import {
-  FormInputComponent,
-  FormSelectComponent,
-  FormTextareaComponent,
-} from '../../shared/index';
+import { FormInputComponent, FormSelectComponent, FormTextareaComponent } from '../../shared/index';
 import { ITaskInstance } from '@app/features/dashboard/models/index';
-import { GetStatusPipe } from '@app/pipes/get-status-pipe';
-import { GetPriorityPipe } from '@app/pipes/get-priority-pipe';
-import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
+import { DateService } from '@app/features/dashboard/services';
 
 @Component({
   selector: 'app-task-instance-form',
   imports: [ReactiveFormsModule, FormInputComponent, FormSelectComponent, FormTextareaComponent],
   templateUrl: './task-instance-form.component.html',
   styleUrl: './task-instance-form.component.css',
-  providers: [IsoDatePipe, GetPriorityPipe, GetStatusPipe],
+  providers: [],
 })
 export class TaskInstanceFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private taskInstanceStore = inject(TaskInstanceStore);
   private userStore = inject(UserStore);
   private taskTemplateStore = inject(TaskTemplateStore);
@@ -37,7 +33,7 @@ export class TaskInstanceFormComponent implements OnInit {
   private statusStore = inject(StatusStore);
   private typeTaskStore = inject(TypeTaskStore);
   private commentStore = inject(CommentStore);
-  private isoDatePipe = inject(IsoDatePipe);
+  private dateService = inject(DateService);
 
   // Options
   protected userOptions = this.userStore.users;
@@ -76,6 +72,12 @@ export class TaskInstanceFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    } else {
+      this.isNew.set(false);
+    }
     const data = this.taskInstanceStore.currentTaskInstance();
     console.log(data);
     if (data && !this.isNew()) {
@@ -84,8 +86,8 @@ export class TaskInstanceFormComponent implements OnInit {
         id: data.id,
         status: this.statusStore.getLabelById(data.status ?? ''),
         priority: this.priorityStore.getLabelById(data.priority ?? ''),
-        startDate: this.isoDatePipe.transform(data.startDate),
-        dueDate: this.isoDatePipe.transform(data.dueDate),
+        startDate: this.dateService.dateForForm(data.startDate),
+        dueDate: this.dateService.dateForForm(data.dueDate),
       };
       this.form.patchValue(formattedData as any);
     }

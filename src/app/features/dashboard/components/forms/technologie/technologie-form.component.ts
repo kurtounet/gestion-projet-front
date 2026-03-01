@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TechnologyStore } from '@app/features/dashboard/stores/index';
 import { FormInputComponent } from '../../shared/index';
 import { ITechnology } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-technologie-form',
@@ -12,6 +13,7 @@ import { ITechnology } from '@app/features/dashboard/models/index';
 })
 export class TechnologieFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private technologieStore = inject(TechnologyStore);
 
   // Signaux d'état
@@ -27,6 +29,10 @@ export class TechnologieFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     // Initialisation si nécessaire (ex: fetch current de la store)
     // const data = this.technologieStore.currentTechnology(); // Dépend de ce qui est dispo dans le store
   }

@@ -52,7 +52,7 @@ export class SideBarSprints {
     });
   }
 
-  addSprint(){
+  addSprint() {
     this.modalService.open('Nouveau sprint', 'create', 'sprint', 0);
   }
 

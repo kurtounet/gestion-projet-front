@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SprintTemplateStore } from '@app/features/dashboard/stores/index';
 import { FormInputComponent, FormTextareaComponent } from '../../shared/index';
 import { ISprintTemplate } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-sprint-template-form',
@@ -12,6 +13,7 @@ import { ISprintTemplate } from '@app/features/dashboard/models/index';
 })
 export class SprintTemplateFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private sprintTemplateStore = inject(SprintTemplateStore);
 
   // Signaux d'état
@@ -25,21 +27,25 @@ export class SprintTemplateFormComponent implements OnInit {
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
     description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(65535)]],
     duration: [0, [Validators.required]],
-    });
+  });
 
-    ngOnInit() {
+  ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.sprintTemplateStore.currentSprintTemplate();
 
     if (data && !this.isNew()) {
       this.form.patchValue(data as any);
     }
-    }
+  }
 
-    get getForm() {
+  get getForm() {
     return this.form.controls;
-    }
+  }
 
-    onSubmit(): void {
+  onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -55,7 +61,10 @@ export class SprintTemplateFormComponent implements OnInit {
     if (this.isNew()) {
       this.sprintTemplateStore.createSprintTemplate(templateData);
     } else {
-      this.sprintTemplateStore.updateSprintTemplate(String(templateData.sprintTemplateId), templateData);
+      this.sprintTemplateStore.updateSprintTemplate(
+        String(templateData.sprintTemplateId),
+        templateData,
+      );
     }
   }
 }

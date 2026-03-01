@@ -4,9 +4,9 @@
       <!-- Modal header -->
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">
-          {{ modalService.title() }}-{{ modalService.typeItem() }}-{{ modalService.action() }}-{{
-            modalService.id()
-          }}
+          {{ project().name }} > {{ modalService.title() }} > {{ modalService.typeItem() }} >
+          {{ modalService.action() }} >
+          {{ modalService.id() }}
         </h2>
         <button (click)="close()" class="text-gray-500 hover:text-black">✕</button>
       </div>

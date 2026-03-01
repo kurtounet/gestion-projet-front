@@ -7,6 +7,7 @@ import {
 } from '@app/features/dashboard/stores/index';
 import { FormSelectComponent, FormInputComponent } from '../../shared/index';
 import { ISprintTask } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-sprint-task-form',
@@ -16,6 +17,7 @@ import { ISprintTask } from '@app/features/dashboard/models/index';
 })
 export class SprintTaskFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private sprintTaskStore = inject(SprintTaskStore);
   private sprintTemplateStore = inject(SprintTemplateStore);
   private taskTemplateStore = inject(TaskTemplateStore);
@@ -37,6 +39,10 @@ export class SprintTaskFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.sprintTaskStore.currentSprintTask();
 
     if (data && !this.isNew()) {

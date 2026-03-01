@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-full flex gap-2 font-medium text-sm">
-  <div class="w-1/2 border-1 border-gray-200 p-4 rounded-md">
+  <div class="w-1/2 border border-gray-200 p-4 rounded-md">
     <h1 class="text-xl font-bold">Projet</h1>
     <form-checkbox-component label="Ajouter aux favoris" formControlName="isFavory" />
     <form-input-component
@@ -37,7 +37,7 @@
       />
     </div>
   </div>
-  <div class="w-1/2 border-1 border-gray-200 p-4 rounded-md">
+  <div class="w-1/2 border border-gray-200 p-4 rounded-md">
     <div class="w-full flex gap-4">
       <div class="flex flex-col gap-1 flex-1">
         <label for="startDate" class="font-medium text-sm">Date de début</label>
@@ -71,14 +71,12 @@
         label="Statut"
         formControlName="status"
         [options]="statusOptions()"
-        placeholder="Choisir un statut"
         class="flex-1"
       />
       <form-select-component
         label="Priorité"
         formControlName="priority"
         [options]="priorityOptions()"
-        placeholder="Priorité"
         class="flex-1"
       />
     </div>

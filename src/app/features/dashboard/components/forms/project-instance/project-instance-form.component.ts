@@ -1,34 +1,22 @@
 import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-// import {
-//   ProjectInstanceStore,
-//   PriorityStore,
-//   StatusStore,
-//   ProjectTemplateStore,
-// } from '@app/features/dashboard/stores/index';
-// import {
-//   FormInputComponent,
-//   FormSelectComponent,
-//   FormCheckboxComponent,
-//   FormTextareaComponent,
-//   FormColorPickerComponent,
-//   FormFilePickerComponent,
-// } from '../../shared/index';
+
 import { IProjectInstance } from '@app/features/dashboard/models/index';
-import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
+
 import { DateService } from '../../../services/date.service';
-import { 
-  FormCheckboxComponent, 
-  FormColorPickerComponent, 
-  FormFilePickerComponent, 
-  FormInputComponent, 
-  FormSelectComponent, 
-  FormTextareaComponent 
+import {
+  FormCheckboxComponent,
+  FormColorPickerComponent,
+  FormFilePickerComponent,
+  FormInputComponent,
+  FormSelectComponent,
+  FormTextareaComponent,
 } from '../../shared/index';
 import { PriorityStore } from '../../../stores/priority.store';
 import { ProjectInstanceStore } from '../../../stores/project-instance.store';
 import { ProjectTemplateStore } from '../../../stores/project-template.store';
 import { StatusStore } from '../../../stores/status.store';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-project-instance-form',
@@ -43,11 +31,12 @@ import { StatusStore } from '../../../stores/status.store';
     FormFilePickerComponent,
   ],
   templateUrl: './project-instance-form.component.html',
-  providers: [IsoDatePipe],
+  providers: [],
 })
 export class ProjectInstanceFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private dateService = inject(DateService);
+  private modalService = inject(ModalService);
 
   // Injection des stores
   private priorityStore = inject(PriorityStore);
@@ -88,8 +77,12 @@ export class ProjectInstanceFormComponent implements OnInit {
   });
 
   ngOnInit() {
-    console.log(this.statusOptions());
-    console.log(this.priorityOptions());
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    } else {
+      this.isNew.set(false);
+    }
     const data = this.projectInstanceStore.currentProject();
     if (data && !this.isNew()) {
       const formattedData = {
@@ -103,6 +96,11 @@ export class ProjectInstanceFormComponent implements OnInit {
       this.form.patchValue(formattedData);
     }
   }
+
+  get getForm() {
+    return this.form.controls;
+  }
+
   // protected canSubmit = computed(() => {
   //   return this.form.valid && (this.isNew() || this.form.dirty);
   // });

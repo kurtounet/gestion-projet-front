@@ -3,6 +3,7 @@ import { Component, EventEmitter, inject, input, Type } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { ModalService } from '../../services/modal.service';
 import { FormFactoryService } from '../../services/form-factory.service';
+import { ProjectInstanceStore } from '../../stores';
 
 @Component({
   selector: 'app-modal',
@@ -11,6 +12,7 @@ import { FormFactoryService } from '../../services/form-factory.service';
   styleUrl: './modal.css',
 })
 export class Modal {
+  readonly project = inject(ProjectInstanceStore).currentProject;
   modalService = inject(ModalService);
   formFactory = inject(FormFactoryService);
   formNames: string[] = [];

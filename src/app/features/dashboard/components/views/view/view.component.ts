@@ -38,5 +38,4 @@ export class ViewComponent {
       this.currentComponentRef.destroy();
     }
   }
-   
 }

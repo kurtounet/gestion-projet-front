@@ -7,6 +7,7 @@ import {
 } from '@app/features/dashboard/stores/index';
 import { FormSelectComponent, FormInputComponent } from '../../shared/index';
 import { IProjectTemplateSprintTemplate } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-project-template-sprint-template-form',
@@ -16,6 +17,7 @@ import { IProjectTemplateSprintTemplate } from '@app/features/dashboard/models/i
 })
 export class ProjectTemplateSprintTemplateFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private projectTemplateSprintTemplateStore = inject(ProjectTemplateSprintTemplateStore);
   private projectTemplateStore = inject(ProjectTemplateStore);
   private sprintTemplateStore = inject(SprintTemplateStore);
@@ -37,6 +39,10 @@ export class ProjectTemplateSprintTemplateFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.projectTemplateSprintTemplateStore.currentProjectTemplateSprintTemplate();
 
     if (data && !this.isNew()) {

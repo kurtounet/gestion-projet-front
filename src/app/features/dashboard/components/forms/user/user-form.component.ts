@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserStore } from '@app/features/dashboard/stores/index';
 import { FormInputComponent, FormSelectComponent } from '../../shared/index';
 import { IUser } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-user-form',
@@ -12,6 +13,7 @@ import { IUser } from '@app/features/dashboard/models/index';
 })
 export class UserFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private userStore = inject(UserStore);
 
   // Options
@@ -36,6 +38,10 @@ export class UserFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.userStore.currentUser();
 
     if (data && !this.isNew()) {

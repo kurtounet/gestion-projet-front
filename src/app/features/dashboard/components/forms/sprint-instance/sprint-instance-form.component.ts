@@ -9,25 +9,11 @@ import {
 
 import { ISprintInstance } from '@app/features/dashboard/models/index';
 
-// import { DateService, ModalService } from '@app/features/dashboard/services/index';
-// import {
-//   FormColorPickerComponent,
-//   FormInputComponent,
-//   FormSelectComponent,
-//   FormTextareaComponent,
-// } from '../../shared/index';
-// import {
-//   StatusStore,
-//   PriorityStore,
-//   ProjectInstanceStore,
-//   SprintInstanceStore,
-//   SprintTemplateStore,
-// } from '@app/features/dashboard/stores/index';
-import { 
-  FormColorPickerComponent, 
-  FormInputComponent, 
-  FormSelectComponent, 
-  FormTextareaComponent 
+import {
+  FormColorPickerComponent,
+  FormInputComponent,
+  FormSelectComponent,
+  FormTextareaComponent,
 } from '../../shared/index';
 import { PriorityStore } from '../../../stores/priority.store';
 import { ProjectInstanceStore } from '../../../stores/project-instance.store';
@@ -36,7 +22,7 @@ import { SprintTemplateStore } from '../../../stores/sprint-template.store';
 import { StatusStore } from '../../../stores/status.store';
 import { DateService } from '../../../services/date.service';
 import { ModalService } from '../../../services/modal.service';
-import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
+
 @Component({
   selector: 'app-sprint-instance-form',
   standalone: true,
@@ -49,7 +35,7 @@ import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
   ],
   templateUrl: './sprint-instance-form.component.html',
   styleUrl: './sprint-instance-form.component.css',
-  providers: [IsoDatePipe],
+  providers: [],
 })
 export class SprintInstanceFormComponent {
   private fb = inject(FormBuilder);
@@ -57,7 +43,7 @@ export class SprintInstanceFormComponent {
 
   // Injection des stores
   private statusStore = inject(StatusStore);
-  // private modalService = inject(ModalService);
+  private modalService = inject(ModalService);
   private priorityStore = inject(PriorityStore);
   private projectInstanceStore = inject(ProjectInstanceStore);
   private sprintInstanceStore = inject(SprintInstanceStore);
@@ -76,7 +62,10 @@ export class SprintInstanceFormComponent {
     projectInstance: [null as string | null],
     sprintTemplate: [null as string | null],
     sprintDependency: [null as string | null],
-    name: ['Mon Nouveau Sprint', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    name: [
+      'Mon Nouveau Sprint',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(255)],
+    ],
     description: [null as string | null],
     color: [null as string | null],
     icon: [null as string | null],
@@ -88,10 +77,12 @@ export class SprintInstanceFormComponent {
     comment: [null as string | null],
   });
   ngOnInit() {
-    // const action = this.modalService.action();
-    // if (action === 'create') {       
-    //   this.isNew.set(true);
-    // }
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    } else {
+      this.isNew.set(false);
+    }
 
     const data = this.projectInstanceStore.selectedSprint();
 
@@ -126,7 +117,7 @@ export class SprintInstanceFormComponent {
     }
 
     const rawValue = this.form.getRawValue();
-   
+
     const formValue: ISprintInstance = {
       ...rawValue,
       priority: this.priorityStore.getIdByLabel(rawValue.priority || ''),
@@ -134,15 +125,12 @@ export class SprintInstanceFormComponent {
       startDate: new Date(rawValue.startDate).toISOString(),
       endDate: new Date(rawValue.endDate).toISOString(),
     };
-      console.log(formValue);
+    console.log(formValue);
     let data = null;
     if (formValue.id === 0 || formValue.id === null) {
-      data = this.sprintInstanceStore.createSprintInstance(formValue);       
+      data = this.sprintInstanceStore.createSprintInstance(formValue);
     } else {
-      data = this.sprintInstanceStore.updateSprintInstance(
-        String(formValue.id),
-        formValue,
-      );
+      data = this.sprintInstanceStore.updateSprintInstance(String(formValue.id), formValue);
     }
     console.log(data);
   }

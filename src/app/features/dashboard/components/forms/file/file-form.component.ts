@@ -1,18 +1,19 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FileStore } from '@app/features/dashboard/stores/index';
 import { FormInputComponent } from '../../shared/index';
 import { IFile } from '@app/features/dashboard/models/index';
+import { ModalService } from '@app/features/dashboard/services/modal.service';
 
 @Component({
   selector: 'app-file-form',
-  standalone: true,
   imports: [ReactiveFormsModule, FormInputComponent],
   templateUrl: './file-form.component.html',
   styleUrl: './file-form.component.css',
 })
-export class FileFormComponent {
+export class FileFormComponent implements OnInit {
   private fb = inject(FormBuilder);
+  private modalService = inject(ModalService);
   private fileStore = inject(FileStore);
 
   // Signaux d'état
@@ -28,6 +29,10 @@ export class FileFormComponent {
   });
 
   ngOnInit() {
+    const action = this.modalService.action();
+    if (action === 'create') {
+      this.isNew.set(true);
+    }
     const data = this.fileStore.currentFile();
 
     if (data && !this.isNew()) {
