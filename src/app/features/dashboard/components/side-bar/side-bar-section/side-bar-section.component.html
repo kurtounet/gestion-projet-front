@@ -1,21 +1,3 @@
-<!-- <a [routerLink]="section()?.path" class="menu-link" routerLinkActive="active-link">
-  @if(section()?.icon) {
-  <span class="menu-icon">{{ section()?.icon }}</span>
-  }
-  <span class="menu-label" [class.hidden]="isCollapsed && !isMobile">
-    {{ section()?.label }}
-  </span>
-</a>
-@if(section()?.subGroups){
-<ul class="side-bar-section">
-  @for (item of section()?.subGroups; track item.label) {
-  <li class="side-bar-section-list-item" [class.active]="isActiveRoute(item.path)">
-    <app-item-section [item]="item" />
-  </li>
-  }
-</ul>
-} -->
-
 <div class="item-section" [class.active]="isActiveRoute(section()?.path || '')">
   <a
     class="flex items-center justify-between"
@@ -27,12 +9,12 @@
       <span class="menu-icon">{{ section()?.icon }}</span>
     }
 
-    <span class="menu-label" [class.hidden]="sideBarCollapsed && !isMobile">
+    <span class="menu-label" [class.hidden]="isSidebarCollapsed() && !isMobile()">
       {{ section()?.label }}
     </span>
-    @if (section()?.subGroups?.length) {
+    @if (section()?.subGroups?.length && (!isSidebarCollapsed() || isMobile())) {
       <img
-        [class.rotated]="isCollapsed"
+        [class.rotated]="isExpanded()"
         class="section-image"
         ngSrc="./assets/svg/chevron-right.svg"
         width="20"
@@ -41,15 +23,15 @@
     }
   </a>
 
-  @if (section()?.subGroups) {
-    <ul class="sub-menu-list" [class.collapsed]="isCollapsed">
+  @if (section()?.subGroups && (!isSidebarCollapsed() || isMobile())) {
+    <ul class="sub-menu-list" [class.collapsed]="!isExpanded()">
       @for (subGroups of section()?.subGroups; track subGroups.label) {
         <li class="sub-menu-item" [class.active]="isActiveRoute(subGroups.path)">
           <a [routerLink]="subGroups.path" class="menu-link" routerLinkActive="active-link">
             @if (subGroups.icon) {
               <span class="menu-icon">{{ subGroups.icon }}</span>
             }
-            <span class="menu-label" [class.hidden]="isCollapsed && !isMobile">
+            <span class="menu-label" [class.hidden]="isSidebarCollapsed() && !isMobile()">
               {{ subGroups.label }}
             </span>
           </a>

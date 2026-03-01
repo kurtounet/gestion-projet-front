@@ -50,10 +50,6 @@ export class SidebarComponent {
   buildMenuGroups(projects: IProjectInstance[]): IMenuGroups[] {
     let subGroups: IMenuGroups[] = [];
 
-    // if (!projects) {
-    //   return [];
-    // }
-
     for (const project of projects) {
       subGroups.push({ label: project.name, path: '/admin/project/' + project.id, icon: '📁' });
     }

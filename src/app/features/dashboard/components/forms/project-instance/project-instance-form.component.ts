@@ -1,24 +1,34 @@
 import { Component, inject, signal, OnInit, computed } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import {
-  ProjectInstanceStore,
-  PriorityStore,
-  StatusStore,
-  ProjectTemplateStore,
-} from '@app/features/dashboard/stores/index';
-import {
-  FormInputComponent,
-  FormSelectComponent,
-  FormCheckboxComponent,
-  FormTextareaComponent,
-  FormColorPickerComponent,
-  FormFilePickerComponent,
-} from '../../shared/index';
+// import {
+//   ProjectInstanceStore,
+//   PriorityStore,
+//   StatusStore,
+//   ProjectTemplateStore,
+// } from '@app/features/dashboard/stores/index';
+// import {
+//   FormInputComponent,
+//   FormSelectComponent,
+//   FormCheckboxComponent,
+//   FormTextareaComponent,
+//   FormColorPickerComponent,
+//   FormFilePickerComponent,
+// } from '../../shared/index';
 import { IProjectInstance } from '@app/features/dashboard/models/index';
-import { GetStatusPipe } from '@app/pipes/get-status-pipe';
-import { GetPriorityPipe } from '@app/pipes/get-priority-pipe';
 import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
-import { DateService } from '@app/features/dashboard/services/index';
+import { DateService } from '../../../services/date.service';
+import { 
+  FormCheckboxComponent, 
+  FormColorPickerComponent, 
+  FormFilePickerComponent, 
+  FormInputComponent, 
+  FormSelectComponent, 
+  FormTextareaComponent 
+} from '../../shared/index';
+import { PriorityStore } from '../../../stores/priority.store';
+import { ProjectInstanceStore } from '../../../stores/project-instance.store';
+import { ProjectTemplateStore } from '../../../stores/project-template.store';
+import { StatusStore } from '../../../stores/status.store';
 
 @Component({
   selector: 'app-project-instance-form',
@@ -76,6 +86,8 @@ export class ProjectInstanceFormComponent implements OnInit {
   });
 
   ngOnInit() {
+    console.log(this.statusOptions());
+    console.log(this.priorityOptions());
     const data = this.projectInstanceStore.currentProject();
     if (data && !this.isNew()) {
       const formattedData = {

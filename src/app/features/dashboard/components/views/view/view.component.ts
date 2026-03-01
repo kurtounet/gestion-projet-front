@@ -24,6 +24,7 @@ export class ViewComponent {
     }
 
     // Créer le nouveau composant
+    console.log(componentType);
     this.currentComponentRef = this.dynamicHost.createComponent(componentType);
 
     // Passer des données au composant si nécessaire
@@ -37,14 +38,5 @@ export class ViewComponent {
       this.currentComponentRef.destroy();
     }
   }
-  /*
-  vrc = inject(ViewContainerRef);
-  viewType!: string;
-  ngOnInit() {
-    // Creer dynamiquement le composant ViewListeTypeBar
-    const componentRef = this.vrc.createComponent(ViewKanbanComponent);
-    // Vous pouvez accéder à l'instance du composant si nécessaire
-    const instance = componentRef.instance;
-  }
-*/
+   
 }

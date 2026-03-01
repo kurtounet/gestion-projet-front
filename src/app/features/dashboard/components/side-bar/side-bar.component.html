@@ -35,7 +35,11 @@
       } @else if (ProjectInstanceStore.projectsLoaded()) {
         @for (section of menuGroups(); track section.label) {
           <li class="menu-item">
-            <app-side-bar-section [section]="section" />
+            <app-side-bar-section 
+              [section]="section" 
+              [isSidebarCollapsed]="isCollapsed()"
+              [isMobile]="isMobile()"
+            />
           </li>
         }
       }

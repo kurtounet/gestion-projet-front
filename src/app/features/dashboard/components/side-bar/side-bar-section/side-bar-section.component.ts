@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { IMenuGroups } from '../../../models/menu-item.model';
 import { NgOptimizedImage } from '@angular/common';
@@ -12,13 +12,13 @@ import { NgOptimizedImage } from '@angular/common';
 export class SideBarSectionComponent {
   private readonly router = inject(Router);
   section = input<IMenuGroups>();
-  sideBarCollapsed = false;
-  isCollapsed = true;
-  isMobile = false;
-  isOpen = false;
+  isSidebarCollapsed = input<boolean>(false);
+  isMobile = input<boolean>(false);
+
+  isExpanded = signal(false);
 
   toggleCollapsed() {
-    this.isCollapsed = !this.isCollapsed;
+    this.isExpanded.update((v) => !v);
   }
 
   isActiveRoute(path: string | null): boolean {

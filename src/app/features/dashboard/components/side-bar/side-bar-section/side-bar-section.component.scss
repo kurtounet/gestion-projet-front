@@ -68,6 +68,19 @@
 .collapsed {
   display: none;
 }
+
+.menu-label {
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+
+  &.hidden {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    display: none; /* Force la disparition pour l'espace */
+  }
+}
+
 .section-image-rotate-right {
   transform: rotate(0deg);
   transition: transform 0.3s ease;

@@ -19,6 +19,7 @@ import { ISprintInstance } from '../../models/sprint-instance.model';
 import { ProjectInstanceStore } from '../../stores/project-instance.store';
 import { OrderService } from '../../services/order.service';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
+import { ModalService } from '../../services';
 
 @Component({
   selector: 'app-side-bar-sprints',
@@ -28,6 +29,7 @@ import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 })
 export class SideBarSprints {
   orderSprint = signal<'asc' | 'desc'>('asc');
+  readonly modalService = inject(ModalService);
   readonly projectInstanceStore = inject(ProjectInstanceStore);
   readonly orderService = inject(OrderService);
 
@@ -48,6 +50,10 @@ export class SideBarSprints {
     queueMicrotask(() => {
       this.projectInstanceStore.updateSprintOrder(this.items());
     });
+  }
+
+  addSprint(){
+    this.modalService.open('Nouveau sprint', 'create', 'sprint', 0);
   }
 
   selectedSprint(sprint: ISprintInstance) {

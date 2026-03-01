@@ -8,22 +8,35 @@ import {
 } from '@angular/forms';
 
 import { ISprintInstance } from '@app/features/dashboard/models/index';
-import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
-import { DateService } from '@app/features/dashboard/services/index';
-import {
-  FormColorPickerComponent,
-  FormInputComponent,
-  FormSelectComponent,
-  FormTextareaComponent,
-} from '../../shared/index';
-import {
-  StatusStore,
-  PriorityStore,
-  ProjectInstanceStore,
-  SprintInstanceStore,
-  SprintTemplateStore,
-} from '@app/features/dashboard/stores/index';
 
+// import { DateService, ModalService } from '@app/features/dashboard/services/index';
+// import {
+//   FormColorPickerComponent,
+//   FormInputComponent,
+//   FormSelectComponent,
+//   FormTextareaComponent,
+// } from '../../shared/index';
+// import {
+//   StatusStore,
+//   PriorityStore,
+//   ProjectInstanceStore,
+//   SprintInstanceStore,
+//   SprintTemplateStore,
+// } from '@app/features/dashboard/stores/index';
+import { 
+  FormColorPickerComponent, 
+  FormInputComponent, 
+  FormSelectComponent, 
+  FormTextareaComponent 
+} from '../../shared/index';
+import { PriorityStore } from '../../../stores/priority.store';
+import { ProjectInstanceStore } from '../../../stores/project-instance.store';
+import { SprintInstanceStore } from '../../../stores/sprint-instance.store';
+import { SprintTemplateStore } from '../../../stores/sprint-template.store';
+import { StatusStore } from '../../../stores/status.store';
+import { DateService } from '../../../services/date.service';
+import { ModalService } from '../../../services/modal.service';
+import { IsoDatePipe } from '@app/pipes/IsoDatePipe/iso-date.pipe';
 @Component({
   selector: 'app-sprint-instance-form',
   standalone: true,
@@ -44,6 +57,7 @@ export class SprintInstanceFormComponent {
 
   // Injection des stores
   private statusStore = inject(StatusStore);
+  // private modalService = inject(ModalService);
   private priorityStore = inject(PriorityStore);
   private projectInstanceStore = inject(ProjectInstanceStore);
   private sprintInstanceStore = inject(SprintInstanceStore);
@@ -53,35 +67,40 @@ export class SprintInstanceFormComponent {
   protected priorityOptions = this.priorityStore.priorities;
   protected sprintTemplateOptions = this.sprintTemplateStore.sprintTemplates;
 
-  isNew = signal<boolean>(false);
   submitted = signal(false);
+  isNew = signal<boolean>(false);
+  id = signal<number>(0);
 
   protected form = this.fb.nonNullable.group({
-    id: [0],
+    id: [this.id()],
     projectInstance: [''],
-    priority: [''],
     sprintTemplate: [''],
     sprintDependency: [''],
-    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    name: ['Mon Nouveau Sprint', [ Validators.minLength(2), Validators.maxLength(255)]],
     description: [''],
     color: [''],
     icon: [''],
-    startDate: [new Date().toISOString().substring(0, 10), Validators.required],
-    endDate: [new Date().toISOString().substring(0, 10), Validators.required],
-    status: [''],
+    startDate: [new Date().toISOString().substring(0, 10) ],
+    endDate: [new Date().toISOString().substring(0, 10) ],
+    priority: ['' ],
+    status: ['' ],
     position: [0],
     comment: [''],
-    // createdAt: [''],
-    // updatedAt: [''],
+    
   });
   ngOnInit() {
+    // const action = this.modalService.action();
+    // if (action === 'create') {       
+    //   this.isNew.set(true);
+    // }
+
     const data = this.projectInstanceStore.selectedSprint();
 
     if (data && !this.isNew()) {
       console.log(data.status);
       const status = this.statusStore.getLabelById(data.status);
       const priority = this.priorityStore.getLabelById(data.priority);
-      const sprintTemplate = this.sprintTemplateStore.sprintTemplates();
+      // const sprintTemplate = this.sprintTemplateStore.sprintTemplates();
 
       const formattedData = {
         ...data,
@@ -108,6 +127,7 @@ export class SprintInstanceFormComponent {
     }
 
     const rawValue = this.form.getRawValue();
+   
     const formValue: ISprintInstance = {
       ...rawValue,
       priority: this.priorityStore.getIdByLabel(rawValue.priority),
@@ -115,16 +135,16 @@ export class SprintInstanceFormComponent {
       startDate: new Date(rawValue.startDate),
       endDate: new Date(rawValue.endDate),
     };
-
-    if (formValue.id === 0 || formValue.id === null) {
-      this.sprintInstanceStore.createSprintInstance(formValue);
-      this.form.reset();
+      console.log(formValue);
+    let data = null;
+    if (this.id() === 0 || this.id() === null) {
+      data = this.sprintInstanceStore.createSprintInstance(formValue);       
     } else {
-      const updatedSprintInstance = this.sprintInstanceStore.updateSprintInstance(
+      data = this.sprintInstanceStore.updateSprintInstance(
         String(formValue.id),
         formValue,
       );
-      console.log(updatedSprintInstance);
     }
+    console.log(data);
   }
 }

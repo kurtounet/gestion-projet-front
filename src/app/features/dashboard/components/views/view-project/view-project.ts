@@ -11,5 +11,5 @@ import { ProjectInstanceFormComponent } from '../../forms/project-instance/proje
 })
 export class ViewProject {
   private readonly projectStore = inject(ProjectInstanceStore);
-  project = this.projectStore.currentProject; //
+  project = this.projectStore.currentProject;
 }

@@ -9,7 +9,7 @@
     label="Nom du sprint"
     formControlName="name"
     placeholder="Nom du sprint"
-    [required]="true"
+    [required]="false"
   />
 
   <div class="grid grid-cols-2 gap-4">
@@ -23,20 +23,19 @@
       optionLabel="name"
       formControlName="priority"
       [options]="priorityOptions()"
-      [required]="true"
+      [required]="false"
     />
     <form-select-component
       label="Statut"
-      optionLabel="name"
-      placeholder="Sélectionner un statut"
+      optionLabel="name" 
       formControlName="status"
       [options]="statusOptions()"
-      [required]="true"
+      [required]="false"
     />
   </div>
 
   <div>
-    <form-color-picker-component label="Couleur" formControlName="color" [required]="true" />
+    <form-color-picker-component label="Couleur" formControlName="color" [required]="false" />
   </div>
 
   <form-textarea-component
