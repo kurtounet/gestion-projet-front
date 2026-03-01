@@ -26,7 +26,7 @@ export class ViewListComponent {
   readonly projectInstanceStore = inject(ProjectInstanceStore);
 
   items = computed(() =>
-    this.projectInstanceStore.currentTasks().sort((a, b) => a.position - b.position),
+    this.projectInstanceStore.currentTasks().sort((a, b) => (a.position ?? 0) - (b.position ?? 0)),
   );
 
   drop(event: CdkDragDrop<ITaskInstance[]>) {

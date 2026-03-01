@@ -30,14 +30,14 @@ export class FeatureFormComponent {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    label: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
   });
 
   ngOnInit() {
     const data = this.featureStore.currentFeature();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
   }
 
@@ -56,12 +56,13 @@ export class FeatureFormComponent {
     const featureData: IFeature = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.featureStore.createFeature(featureData);
     } else {
-      this.featureStore.updateFeature(String(this.id()), featureData);
+      this.featureStore.updateFeature(String(featureData.id), featureData);
     }
   }
 }

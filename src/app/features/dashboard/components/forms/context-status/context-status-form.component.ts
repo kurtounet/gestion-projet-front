@@ -41,15 +41,13 @@ export class ContextStatusFormComponent {
   protected form = this.fb.nonNullable.group({
     contextId: [0, [Validators.required]],
     statusId: [0, [Validators.required]],
-    createdAt: [new Date()],
-    updatedAt: [new Date()],
   });
 
   ngOnInit() {
     const data = this.contextStatusStore.currentContextStatus();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
   }
 
@@ -67,8 +65,7 @@ export class ContextStatusFormComponent {
     const rawValue = this.form.getRawValue();
     const contextStatusData: IContextStatus = {
       ...rawValue,
-      createdAt: new Date(rawValue.createdAt),
-      updatedAt: new Date(rawValue.updatedAt),
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {

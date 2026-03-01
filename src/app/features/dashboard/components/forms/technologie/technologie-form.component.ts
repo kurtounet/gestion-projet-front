@@ -22,7 +22,8 @@ export class TechnologieFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    label: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    framework: [[] as (string | null)[]],
   });
 
   ngOnInit() {
@@ -45,12 +46,13 @@ export class TechnologieFormComponent implements OnInit {
     const techData: ITechnology = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.technologieStore.createTechnology(techData);
     } else {
-      this.technologieStore.updateTechnology(String(this.id()), techData);
+      this.technologieStore.updateTechnology(String(techData.id), techData);
     }
   }
 }

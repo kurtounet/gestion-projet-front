@@ -23,15 +23,15 @@ export class FileFormComponent {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    path: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    keyWord: ['', [Validators.minLength(6), Validators.maxLength(255)]],
+    path: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    keyWord: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
   });
 
   ngOnInit() {
     const data = this.fileStore.currentFile();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
   }
 
@@ -50,12 +50,13 @@ export class FileFormComponent {
     const fileData: IFile = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.fileStore.createFile(fileData);
     } else {
-      this.fileStore.updateFile(String(this.id()), fileData);
+      this.fileStore.updateFile(String(fileData.id), fileData);
     }
   }
 }

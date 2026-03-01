@@ -7,8 +7,8 @@ export const initialSprintTemplateState: ISprintTemplate = {
   name: '',
   description: '',
   duration: 0,
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

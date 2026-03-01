@@ -3,13 +3,13 @@ import { UserService } from '../services/user.service';
 import { IUser } from '../models/user.model';
 export const initialUserState: IUser = {
   id: 0,
-  role: ['ROLE_USER'],
+  roles: ['ROLE_USER'],
   firstName: '',
   lastName: '',
   email: '',
   password: '',
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

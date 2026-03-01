@@ -5,8 +5,8 @@ export const initialProjectTemplateSprintTemplateState: IProjectTemplateSprintTe
   projectTemplateId: 0,
   sprintTemplateId: 0,
   sprintOrder: 0,
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

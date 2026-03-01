@@ -8,9 +8,9 @@ export const initialStatusState: IStatus = {
   '@type': '',
   id: 0,
   label: '',
-  context: 0,
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  context: null,
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 
 @Injectable({

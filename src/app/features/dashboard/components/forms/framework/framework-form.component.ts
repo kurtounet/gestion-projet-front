@@ -30,20 +30,21 @@ export class FrameworkFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    label: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    type: ['', [Validators.required]],
     version: ['', [Validators.required]],
-    description: ['', [Validators.minLength(6), Validators.maxLength(255)]],
-    icon: [''],
-    color: [''],
-    configuration: [''],
-    technology: [''],
+    description: [null as string | null, [Validators.maxLength(65535)]],
+    icon: [null as string | null],
+    color: [null as string | null],
+    configuration: [[] as (string | null)[]],
+    technology: [null as string | null],
   });
 
   ngOnInit() {
     const data = this.frameworkStore.currentFramework();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
   }
 
@@ -62,6 +63,7 @@ export class FrameworkFormComponent implements OnInit {
     const frameworkData: IFramework = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
       '@id': '',
       '@type': '',
     };
@@ -69,7 +71,7 @@ export class FrameworkFormComponent implements OnInit {
     if (this.isNew()) {
       this.frameworkStore.createFramework(frameworkData);
     } else {
-      this.frameworkStore.updateFramework(String(this.id()), frameworkData);
+      this.frameworkStore.updateFramework(String(frameworkData.id), frameworkData);
     }
   }
 }

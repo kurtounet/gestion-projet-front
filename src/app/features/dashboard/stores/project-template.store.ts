@@ -4,11 +4,10 @@ import { ProjectTemplateService } from '../services/project-template.service';
 export const initialProjectTemplateState: IProjectTemplate = {
   id: 0,
   name: '',
-  label: '',
   description: '',
-  duration: new Date('now()'),
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  duration: 0,
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

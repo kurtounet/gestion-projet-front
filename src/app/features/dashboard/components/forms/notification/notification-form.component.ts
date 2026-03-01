@@ -31,10 +31,10 @@ export class NotificationFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    userId: [0, [Validators.required]],
-    message: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    date: [new Date()],
-    type: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+    message: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(65535)]],
+    date: [new Date().toISOString(), [Validators.required]],
+    type: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    user: [null as string | null],
   });
 
   ngOnInit() {
@@ -43,8 +43,8 @@ export class NotificationFormComponent implements OnInit {
     if (data && !this.isNew()) {
       this.form.patchValue({
         ...data,
-        userId: data.userId || 0,
-      });
+        user: data.user || null,
+      } as any);
     }
   }
 
@@ -63,12 +63,13 @@ export class NotificationFormComponent implements OnInit {
     const notificationData: INotification = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.notificationStore.createNotification(notificationData);
     } else {
-      this.notificationStore.updateNotification(String(this.id()), notificationData);
+      this.notificationStore.updateNotification(String(notificationData.id), notificationData);
     }
   }
 }

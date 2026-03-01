@@ -3,13 +3,13 @@ import { TaskTemplateService } from '../services/task-template.service';
 import { ITaskTemplate } from '../models/task-template.model';
 export const initialTaskTemplateState: ITaskTemplate = {
   id: 0,
-  sprintTemplateId: 0,
   name: '',
   description: '',
   parentTask: 0,
-  typeTaskId: 0,
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
+  sprintTemplate: null,
+  typeTask: null,
 };
 @Injectable({
   providedIn: 'root',

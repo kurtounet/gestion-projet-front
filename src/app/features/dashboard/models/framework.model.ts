@@ -2,13 +2,15 @@ export interface IFramework {
   '@id': string;
   '@type': string;
   id: number;
-  name?: string;
-  label?: string;
-  description?: string;
-  icon: string;
-  color: string;
-  configuration: string;
-  technology: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  label: string;
+  type: string;
+  version: string;
+  description?: string | null;
+  configuration?: (string | null)[] | null;
+  icon?: string | null;
+  color?: string | null;
+  createdAt: string;
+  updatedAt?: string | null;
+  configProjectFrameworks?: (string | null)[];
+  technology?: string | null;
 }

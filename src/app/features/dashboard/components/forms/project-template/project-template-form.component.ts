@@ -22,26 +22,24 @@ export class ProjectTemplateFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    description: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    duration: [new Date()],
-    createdAt: [new Date()],
-    updatedAt: [new Date()],
-  });
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(65535)]],
+    duration: [0, [Validators.required]],
+    });
 
-  ngOnInit() {
+    ngOnInit() {
     const data = this.projectTemplateStore.currentProjectTemplate();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
-  }
+    }
 
-  get getForm() {
+    get getForm() {
     return this.form.controls;
-  }
+    }
 
-  onSubmit(): void {
+    onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -52,12 +50,13 @@ export class ProjectTemplateFormComponent implements OnInit {
     const templateData: IProjectTemplate = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.projectTemplateStore.createProjectTemplate(templateData);
     } else {
-      this.projectTemplateStore.updateProjectTemplate(String(this.id()), templateData);
+      this.projectTemplateStore.updateProjectTemplate(String(templateData.id), templateData);
     }
   }
 }

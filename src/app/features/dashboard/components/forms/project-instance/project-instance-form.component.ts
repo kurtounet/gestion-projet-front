@@ -67,22 +67,24 @@ export class ProjectInstanceFormComponent implements OnInit {
   // Formulaire typé (nonNullable garantit que reset() remet les valeurs par défaut au lieu de null)
   protected form = this.fb.nonNullable.group({
     id: [0],
-    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    description: ['', [Validators.minLength(6), Validators.maxLength(255)]],
-    pathProject: ['', [Validators.required]],
-    pathFileDatabase: ['', [Validators.required]],
-    color: [''],
-    icon: [''],
-    position: [0],
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    description: [null as string | null, [Validators.maxLength(65535)]],
+    pathProject: [null as string | null],
+    pathFileDatabase: [null as string | null],
+    color: [null as string | null],
+    icon: [null as string | null],
+    position: [0, [Validators.required]],
     startDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
     endDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
-    status: ['', [Validators.required]],
-    priority: ['', [Validators.required]],
-    projectTemplate: [''],
-    comment: [''],
-    sprintInstances: [[] as string[]],
-    projectInstances: [[] as string[]],
-    isFavory: [false],
+    status: [null as string | null],
+    priority: [null as string | null],
+    projectTemplate: [null as string | null],
+    comment: [null as string | null],
+    sprintInstances: [[] as (string | null)[]],
+    projectInstances: [[] as (string | null)[]],
+    parent: [null as string | null],
+    configFramework: [null as string | null],
+    isFavory: [false, [Validators.required]],
   });
 
   ngOnInit() {
@@ -93,8 +95,8 @@ export class ProjectInstanceFormComponent implements OnInit {
       const formattedData = {
         ...data,
         id: data.id,
-        status: this.statusStore.getLabelById(data.status),
-        priority: this.priorityStore.getLabelById(data.priority),
+        status: this.statusStore.getLabelById(data.status ?? ''),
+        priority: this.priorityStore.getLabelById(data.priority ?? ''),
         startDate: this.dateService.dateForForm(data.startDate),
         endDate: this.dateService.dateForForm(data.endDate),
       };
@@ -113,14 +115,16 @@ export class ProjectInstanceFormComponent implements OnInit {
 
     const formValue: IProjectInstance = {
       ...rawValue,
-      priority: this.priorityStore.getIdByLabel(rawValue.priority),
-      status: this.statusStore.getIdByLabel(rawValue.status),
+      priority: this.priorityStore.getIdByLabel(rawValue.priority || ''),
+      status: this.statusStore.getIdByLabel(rawValue.status || ''),
       startDate: rawValue.startDate ? new Date(rawValue.startDate).toISOString() : '',
       endDate: rawValue.endDate ? new Date(rawValue.endDate).toISOString() : '',
 
       // On garantit que ce sont des tableaux (pour éviter l'erreur string vs string[])
       sprintInstances: Array.isArray(rawValue.sprintInstances) ? rawValue.sprintInstances : [],
       projectInstances: Array.isArray(rawValue.projectInstances) ? rawValue.projectInstances : [],
+      parent: rawValue.parent || null,
+      configFramework: rawValue.configFramework || null,
     };
 
     if (formValue.id === 0 || formValue.id === null) {

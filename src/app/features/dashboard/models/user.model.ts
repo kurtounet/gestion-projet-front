@@ -1,10 +1,12 @@
 export interface IUser {
+  '@id'?: string;
+  '@type'?: string;
   id: number;
-  role: string[];
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  roles: (string | null)[];
+  password?: string | null;
+  createdAt?: string;
+  updatedAt?: string | null;
 }

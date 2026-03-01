@@ -3,7 +3,8 @@ export interface IStatus {
   '@type': string;
   id: number;
   label: string;
-  context: number;
-  createdAt: Date;
-  updatedAt: Date;
+  color?: string | null;
+  context: string | null;
+  createdAt: string;
+  updatedAt?: string | null;
 }

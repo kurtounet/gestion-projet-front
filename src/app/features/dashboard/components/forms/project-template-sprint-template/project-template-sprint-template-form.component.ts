@@ -34,15 +34,13 @@ export class ProjectTemplateSprintTemplateFormComponent implements OnInit {
     projectTemplateId: [0, [Validators.required]],
     sprintTemplateId: [0, [Validators.required]],
     sprintOrder: [0, [Validators.required]],
-    createdAt: [new Date(), [Validators.required]],
-    updatedAt: [new Date(), [Validators.required]],
   });
 
   ngOnInit() {
     const data = this.projectTemplateSprintTemplateStore.currentProjectTemplateSprintTemplate();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
   }
 
@@ -60,6 +58,7 @@ export class ProjectTemplateSprintTemplateFormComponent implements OnInit {
     const rawValue = this.form.getRawValue();
     const mappingData: IProjectTemplateSprintTemplate = {
       ...rawValue,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {

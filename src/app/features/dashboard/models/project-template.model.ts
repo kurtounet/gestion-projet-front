@@ -1,9 +1,8 @@
 export interface IProjectTemplate {
   id: number;
-  name?: string;
-  label?: string;
+  name: string;
   description: string;
-  duration: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  duration: number;
+  createdAt?: string;
+  updatedAt?: string | null;
 }

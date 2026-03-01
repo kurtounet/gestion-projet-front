@@ -3,6 +3,6 @@ export interface ISprintTemplate {
   name: string;
   description: string;
   duration: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: string;
+  updatedAt?: string | null;
 }

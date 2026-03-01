@@ -4,6 +4,8 @@ import { FeatureService } from '../services/feature.service';
 export const initialFeatureState: IFeature = {
   id: 0,
   label: '',
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

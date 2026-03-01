@@ -1,6 +1,7 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { ISprintInstance } from '@app/features/dashboard/models/sprint-instance.model';
+import { ColorService } from '@app/features/dashboard/services/color.service';
 import { ModalService } from '@app/features/dashboard/services/modal.service';
 import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
 import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
@@ -18,22 +19,30 @@ export class SideBarcardSprint {
   statuses = inject(StatusStore).statuses;
   priorities = inject(PriorityStore).priorities;
   modalService = inject(ModalService);
+  colorService = inject(ColorService);
+
   sprint = input<ISprintInstance>();
   isVisible: boolean = false;
   isSelected: boolean = false;
 
-  statusName = computed(() => {
+  status = computed(() => {
     const status = this.statuses().find((status) => status['@id'] === this.sprint()?.status);
-    return status ? status.label : '';
+    return status;
   });
-  priorityName = computed(() => {
+
+  priority = computed(() => {
     const priority = this.priorities().find(
       (priority) => priority['@id'] === this.sprint()?.priority,
     );
-    return priority ? priority.label : '';
+    return priority;
   });
+
   color = computed(() => {
-    return this.sprint()?.color;
+    const s = this.sprint();
+    if (!s || !s.color) {
+      return 'transparent';
+    }
+    return this.colorService.hexToRgba(s.color, 0.2);
   });
 
   editSprint(id: number | undefined) {

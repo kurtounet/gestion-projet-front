@@ -3,10 +3,12 @@ import { INotification } from '../models/notification.model';
 import { NotificationService } from '../services/notification.service';
 export const initialNotificationState: INotification = {
   id: 0,
-  userId: 0,
   message: '',
-  date: new Date('now()'),
+  date: new Date().toISOString(),
   type: '',
+  user: null,
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

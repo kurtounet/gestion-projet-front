@@ -30,16 +30,14 @@ export class ContextFormComponent {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    contextLabel: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    createdAt: [new Date()],
-    updatedAt: [new Date()],
+    contextLabel: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
   });
 
   ngOnInit() {
     const data = this.contextStore.currentContext();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
   }
 
@@ -58,14 +56,13 @@ export class ContextFormComponent {
     const contextData: IContext = {
       ...rawValue,
       id: rawValue.id || 0,
-      createdAt: new Date(rawValue.createdAt),
-      updatedAt: new Date(rawValue.updatedAt),
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.contextStore.createContext(contextData);
     } else {
-      this.contextStore.updateContext(String(this.id()), contextData);
+      this.contextStore.updateContext(String(contextData.id), contextData);
     }
   }
 }

@@ -1,6 +1,6 @@
 export interface IContext {
   id: number;
   contextLabel: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: string;
+  updatedAt?: string | null;
 }

@@ -2,6 +2,8 @@
   (click)="selectedSprint()"
   class="card flex justify-between hover:bg-gray-50 hover:cursor-pointer"
   [class.sprint-active]="projectInstanceStore.selectedSprintId() === sprint()?.id"
+  [style.backgroundColor]="color()"
+  [style.borderColor]="sprint()?.color"
 >
   <div class="w-full pr-2 flex flex-col">
     <div class="w-full flex items-center justify-start gap-2">
@@ -13,12 +15,17 @@
       <p class="text-xs">F:{{ sprint()?.endDate | date: 'd/M/yyyy' }}</p>
     </div>
 
-    <div class="flex items-center justify-between">
-      <p class="sprint-status text-xs font-semibold py-2">Statut : {{ statusName() }}</p>
-      <p class="sprint-status text-xs font-semibold py-2">
+    <div class="flex flex-col items-start justify-between py-1">
+      <p class="sprint-status text-xs font-semibold py-1">
+        Statut :
+        <span [style.backgroundColor]="status()?.color" class="px-2 py-0.5 rounded-md">{{
+          status()?.label
+        }}</span>
+      </p>
+      <p class="sprint-status text-xs font-semibold py-1">
         Priorité :
-        <span [style.backgroundColor]="sprint()?.color" class="p-1 rounded-2xl">{{
-          priorityName()
+        <span [style.backgroundColor]="priority()?.color" class="px-2 py-0.5 rounded-md">{{
+          priority()?.label
         }}</span>
       </p>
     </div>

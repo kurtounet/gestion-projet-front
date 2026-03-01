@@ -30,26 +30,24 @@ export class PriorityFormComponent {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    label: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
     priorityNumber: [0, [Validators.required]],
-    color: [''],
-    createdAt: [new Date()],
-    updatedAt: [new Date()],
-  });
+    color: [null as string | null],
+    });
 
-  ngOnInit() {
+    ngOnInit() {
     const data = this.priorityStore.currentPriority();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
-  }
+    }
 
-  get getForm() {
+    get getForm() {
     return this.form.controls;
-  }
+    }
 
-  onSubmit(): void {
+    onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -60,8 +58,7 @@ export class PriorityFormComponent {
     const priorityData: IPriority = {
       ...rawValue,
       id: rawValue.id || 0,
-      createdAt: new Date(rawValue.createdAt),
-      updatedAt: new Date(rawValue.updatedAt),
+      createdAt: '', // Will be set by backend
       '@id': '',
       '@type': '',
     };
@@ -69,7 +66,7 @@ export class PriorityFormComponent {
     if (this.isNew()) {
       this.priorityStore.createPriority(priorityData);
     } else {
-      this.priorityStore.updatePriority(String(this.id()), priorityData);
+      this.priorityStore.updatePriority(String(priorityData.id), priorityData);
     }
   }
 }

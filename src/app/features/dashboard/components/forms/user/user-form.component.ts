@@ -28,20 +28,19 @@ export class UserFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    role: [['ROLE_USER'], [Validators.required]],
+    roles: [['ROLE_USER'] as (string | null)[], [Validators.required]],
     firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
     lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    createdAt: [new Date(), [Validators.required]],
-    updatedAt: [new Date(), [Validators.required]],
   });
 
   ngOnInit() {
     const data = this.userStore.currentUser();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      const { password, ...rest } = data;
+      this.form.patchValue(rest as any);
     }
   }
 

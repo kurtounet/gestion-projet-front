@@ -7,6 +7,8 @@ export const initialCodeBaseState: ICodeBase = {
   code: '',
   pathFile: '',
   feature: '',
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

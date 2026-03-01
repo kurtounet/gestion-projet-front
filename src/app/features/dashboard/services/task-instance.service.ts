@@ -76,9 +76,9 @@ export class TaskInstanceService {
   }
   positionOrder(tasks: ITaskInstance[], order: string = 'asc'): ITaskInstance[] {
     if (order === 'desc') {
-      return tasks.sort((a, b) => b.position - a.position);
+      return tasks.sort((a, b) => (b.position ?? 0) - (a.position ?? 0));
     }
-    return tasks.sort((a, b) => a.position - b.position);
+    return tasks.sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
   }
 
   updateTaskOrder(newOrder: IPayloadItemOrder) {

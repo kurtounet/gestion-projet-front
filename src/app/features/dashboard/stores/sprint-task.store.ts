@@ -5,8 +5,8 @@ export const initialSprintTaskState: ISprintTask = {
   sprintTemplateId: 0,
   taskTemplateId: 0,
   taskOrder: 0,
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

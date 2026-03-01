@@ -56,25 +56,23 @@ export class TaskInstanceFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    user: ['', [Validators.required]],
-    taskTemplate: [''],
-    sprintInstance: ['', [Validators.required]],
-    icon: [''],
-    color: [''],
-    priority: ['', [Validators.required]],
-    status: ['', [Validators.required]],
-    typeTask: ['', [Validators.required]],
-    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    description: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    user: [null as string | null],
+    taskTemplate: [null as string | null],
+    sprintInstance: [null as string | null],
+    icon: ['', [Validators.required]],
+    color: ['', [Validators.required]],
+    priority: [null as string | null],
+    status: [null as string | null],
+    typeTask: [null as string | null],
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(65535)]],
     startDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
     dueDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
-    position: [0],
-    parentTask: [''],
-    dependency: [0],
-    // createdAt: [new Date(), [Validators.required]],
-    // updatedAt: [new Date(), [Validators.required]],
-    comment: [''],
-    completed: [''],
+    position: [0 as number | null],
+    parentTask: [null as string | null],
+    dependency: [null as string | null],
+    comment: [null as string | null],
+    completed: [null as string | null],
   });
 
   ngOnInit() {
@@ -84,8 +82,8 @@ export class TaskInstanceFormComponent implements OnInit {
       const formattedData = {
         ...data,
         id: data.id,
-        status: this.statusStore.getLabelById(data.status),
-        priority: this.priorityStore.getLabelById(data.priority),
+        status: this.statusStore.getLabelById(data.status ?? ''),
+        priority: this.priorityStore.getLabelById(data.priority ?? ''),
         startDate: this.isoDatePipe.transform(data.startDate),
         dueDate: this.isoDatePipe.transform(data.dueDate),
       };
@@ -107,16 +105,16 @@ export class TaskInstanceFormComponent implements OnInit {
     const rawValue = this.form.getRawValue();
     const formValue: ITaskInstance = {
       ...rawValue,
-      priority: this.priorityStore.getIdByLabel(rawValue.priority),
-      status: this.statusStore.getIdByLabel(rawValue.status),
-      startDate: new Date(rawValue.startDate),
-      dueDate: new Date(rawValue.dueDate),
+      priority: this.priorityStore.getIdByLabel(rawValue.priority || ''),
+      status: this.statusStore.getIdByLabel(rawValue.status || ''),
+      startDate: new Date(rawValue.startDate).toISOString(),
+      dueDate: new Date(rawValue.dueDate).toISOString(),
     };
 
     if (this.isNew()) {
       this.taskInstanceStore.createTaskInstance(formValue);
     } else {
-      this.taskInstanceStore.updateTaskInstance(String(this.id()), formValue);
+      this.taskInstanceStore.updateTaskInstance(String(formValue.id), formValue);
     }
   }
 }

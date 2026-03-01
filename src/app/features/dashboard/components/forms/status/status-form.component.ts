@@ -7,14 +7,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { StatusStore } from '@app/features/dashboard/stores/index';
-import { FormInputComponent } from '../../shared/index';
+import { FormInputComponent, FormColorPickerComponent } from '../../shared/index';
 
 import { IStatus } from '@app/features/dashboard/models/index';
 
 @Component({
   selector: 'app-status-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormInputComponent],
+  imports: [ReactiveFormsModule, FormInputComponent, FormColorPickerComponent],
   templateUrl: './status-form.component.html',
   styleUrl: './status-form.component.css',
 })
@@ -30,25 +30,24 @@ export class StatusFormComponent {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    context: [0, [Validators.required]],
-    createdAt: [new Date()],
-    updatedAt: [new Date()],
-  });
+    label: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    color: [null as string | null],
+    context: [null as string | null],
+    });
 
-  ngOnInit() {
+    ngOnInit() {
     const data = this.statusStore.currentStatus();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
-  }
+    }
 
-  get getForm() {
+    get getForm() {
     return this.form.controls;
-  }
+    }
 
-  onSubmit(): void {
+    onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -59,8 +58,7 @@ export class StatusFormComponent {
     const statusData: IStatus = {
       ...rawValue,
       id: rawValue.id || 0,
-      createdAt: new Date(rawValue.createdAt),
-      updatedAt: new Date(rawValue.updatedAt),
+      createdAt: '', // Will be set by backend
       '@id': '',
       '@type': '',
     };
@@ -68,7 +66,7 @@ export class StatusFormComponent {
     if (this.isNew()) {
       this.statusStore.createStatus(statusData);
     } else {
-      this.statusStore.updateStatus(String(this.id()), statusData);
+      this.statusStore.updateStatus(String(statusData.id), statusData);
     }
   }
 }

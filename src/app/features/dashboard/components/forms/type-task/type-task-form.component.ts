@@ -26,28 +26,27 @@ export class TypeTaskFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    codeId: [0],
-    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    pathFileScript: ['', [Validators.minLength(6), Validators.maxLength(255)]],
-    description: ['', [Validators.minLength(6), Validators.maxLength(255)]],
-    createdAt: [new Date(), [Validators.required]],
-    updatedAt: [new Date(), [Validators.required]],
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    color: [null as string | null],
+    pathFileScript: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(65535)]],
     automatique: [false, [Validators.required]],
-  });
+    code: [null as string | null],
+    });
 
-  ngOnInit() {
+    ngOnInit() {
     const data = this.typeTaskStore.currentTypeTask();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
-  }
+    }
 
-  get getForm() {
+    get getForm() {
     return this.form.controls;
-  }
+    }
 
-  onSubmit(): void {
+    onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -58,12 +57,13 @@ export class TypeTaskFormComponent implements OnInit {
     const typeTaskData: ITypeTask = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.typeTaskStore.createTypeTask(typeTaskData);
     } else {
-      this.typeTaskStore.updateTypeTask(String(this.id()), typeTaskData);
+      this.typeTaskStore.updateTypeTask(String(typeTaskData.id), typeTaskData);
     }
   }
 }

@@ -34,27 +34,25 @@ export class CommentFormComponent {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    taskId: [0, [Validators.required]],
-    userId: [0, [Validators.required]],
-    subject: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    content: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    createdAt: [new Date()],
-    updatedAt: [new Date()],
-  });
+    subject: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    content: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(65535)]],
+    task: [null as string | null],
+    user: [null as string | null],
+    });
 
-  ngOnInit() {
+    ngOnInit() {
     const data = this.commentStore.currentComment();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
-  }
+    }
 
-  get getForm() {
+    get getForm() {
     return this.form.controls;
-  }
+    }
 
-  onSubmit(): void {
+    onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -65,14 +63,13 @@ export class CommentFormComponent {
     const commentData: IComment = {
       ...rawValue,
       id: rawValue.id || 0,
-      createdAt: new Date(rawValue.createdAt),
-      updatedAt: new Date(rawValue.updatedAt),
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.commentStore.createComment(commentData);
     } else {
-      this.commentStore.updateComment(String(this.id()), commentData);
+      this.commentStore.updateComment(String(commentData.id), commentData);
     }
   }
 }

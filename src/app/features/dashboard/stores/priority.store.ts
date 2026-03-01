@@ -8,10 +8,10 @@ export const initialPriorityState: IPriority = {
   '@type': '',
   id: 0,
   label: '',
-  color: '',
+  color: null,
   priorityNumber: 0,
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

@@ -4,8 +4,8 @@ import { ContextService } from '../services/context.service';
 export const initialContextState: IContext = {
   id: 0,
   contextLabel: '',
-  createdAt: new Date('now()'),
-  updatedAt: new Date('now()'),
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

@@ -34,15 +34,13 @@ export class SprintTaskFormComponent implements OnInit {
     sprintTemplateId: [0, [Validators.required]],
     taskTemplateId: [0, [Validators.required]],
     taskOrder: [0, [Validators.required]],
-    createdAt: [new Date(), [Validators.required]],
-    updatedAt: [new Date(), [Validators.required]],
   });
 
   ngOnInit() {
     const data = this.sprintTaskStore.currentSprintTask();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
   }
 
@@ -60,6 +58,7 @@ export class SprintTaskFormComponent implements OnInit {
     const rawValue = this.form.getRawValue();
     const mappingData: ISprintTask = {
       ...rawValue,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {

@@ -1,7 +1,9 @@
 export interface INotification {
   id: number;
-  userId: number;
   message: string;
-  date: Date;
+  date: string;
   type: string;
+  user?: string | null;
+  createdAt?: string;
+  updatedAt?: string | null;
 }

@@ -1,10 +1,11 @@
 export interface ITypeTask {
   id: number;
-  codeId: number;
   name: string;
+  color?: string | null;
   pathFileScript: string;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
-  automatique: any;
+  automatique: boolean;
+  code?: string | null;
+  createdAt?: string;
+  updatedAt?: string | null;
 }

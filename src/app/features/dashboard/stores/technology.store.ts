@@ -5,6 +5,9 @@ import { TechnologyService } from '../services/technology.service';
 export const initialTechnologieState: ITechnology = {
   id: 0,
   label: '',
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
+  framework: [],
 };
 @Injectable({
   providedIn: 'root',

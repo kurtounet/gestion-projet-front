@@ -3,8 +3,8 @@ export interface IPriority {
   '@type': string;
   id: number;
   label: string;
-  color: string;
+  color: string | null;
   priorityNumber: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: string;
+  updatedAt?: string | null;
 }

@@ -30,25 +30,25 @@ export class CodeBaseFormComponent {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     id: [0],
-    label: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    code: ['', [Validators.minLength(6), Validators.maxLength(255)]],
-    pathFile: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    feature: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-  });
+    label: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    code: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    pathFile: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    feature: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    });
 
-  ngOnInit() {
+    ngOnInit() {
     const data = this.codeBaseStore.currentCodeBase();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
-  }
+    }
 
-  get getForm() {
+    get getForm() {
     return this.form.controls;
-  }
+    }
 
-  onSubmit(): void {
+    onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -59,12 +59,13 @@ export class CodeBaseFormComponent {
     const codeBaseData: ICodeBase = {
       ...rawValue,
       id: rawValue.id || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.codeBaseStore.createCodeBase(codeBaseData);
     } else {
-      this.codeBaseStore.updateCodeBase(String(this.id()), codeBaseData);
+      this.codeBaseStore.updateCodeBase(String(codeBaseData.id), codeBaseData);
     }
   }
 }

@@ -1,6 +1,8 @@
 export interface IContextStatus {
   contextId: number;
   statusId: any;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: string;
+  updatedAt?: string | null;
+  context?: string | null;
+  status?: string | null;
 }

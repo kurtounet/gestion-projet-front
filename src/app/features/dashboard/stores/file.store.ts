@@ -5,6 +5,8 @@ export const initialFileState: IFile = {
   id: 0,
   path: '',
   keyWord: '',
+  createdAt: new Date().toISOString(),
+  updatedAt: null,
 };
 @Injectable({
   providedIn: 'root',

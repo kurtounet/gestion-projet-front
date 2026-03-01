@@ -22,26 +22,24 @@ export class SprintTemplateFormComponent implements OnInit {
   // Formulaire typé
   protected form = this.fb.nonNullable.group({
     sprintTemplateId: [0],
-    name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
-    description: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(255)]],
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(65535)]],
     duration: [0, [Validators.required]],
-    createdAt: [new Date(), [Validators.required]],
-    updatedAt: [new Date(), [Validators.required]],
-  });
+    });
 
-  ngOnInit() {
+    ngOnInit() {
     const data = this.sprintTemplateStore.currentSprintTemplate();
 
     if (data && !this.isNew()) {
-      this.form.patchValue(data);
+      this.form.patchValue(data as any);
     }
-  }
+    }
 
-  get getForm() {
+    get getForm() {
     return this.form.controls;
-  }
+    }
 
-  onSubmit(): void {
+    onSubmit(): void {
     this.submitted.set(true);
 
     if (this.form.invalid) {
@@ -51,13 +49,13 @@ export class SprintTemplateFormComponent implements OnInit {
     const rawValue = this.form.getRawValue();
     const templateData: ISprintTemplate = {
       ...rawValue,
-      sprintTemplateId: rawValue.sprintTemplateId || 0,
+      createdAt: '', // Will be set by backend
     };
 
     if (this.isNew()) {
       this.sprintTemplateStore.createSprintTemplate(templateData);
     } else {
-      this.sprintTemplateStore.updateSprintTemplate(String(this.id()), templateData);
+      this.sprintTemplateStore.updateSprintTemplate(String(templateData.sprintTemplateId), templateData);
     }
   }
 }

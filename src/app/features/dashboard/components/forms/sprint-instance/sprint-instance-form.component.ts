@@ -72,21 +72,20 @@ export class SprintInstanceFormComponent {
   id = signal<number>(0);
 
   protected form = this.fb.nonNullable.group({
-    id: [this.id()],
-    projectInstance: [''],
-    sprintTemplate: [''],
-    sprintDependency: [''],
-    name: ['Mon Nouveau Sprint', [ Validators.minLength(2), Validators.maxLength(255)]],
-    description: [''],
-    color: [''],
-    icon: [''],
-    startDate: [new Date().toISOString().substring(0, 10) ],
-    endDate: [new Date().toISOString().substring(0, 10) ],
-    priority: ['' ],
-    status: ['' ],
-    position: [0],
-    comment: [''],
-    
+    id: [0],
+    projectInstance: [null as string | null],
+    sprintTemplate: [null as string | null],
+    sprintDependency: [null as string | null],
+    name: ['Mon Nouveau Sprint', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    description: [null as string | null],
+    color: [null as string | null],
+    icon: [null as string | null],
+    startDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
+    endDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
+    priority: [null as string | null],
+    status: [null as string | null],
+    position: [0 as number | null],
+    comment: [null as string | null],
   });
   ngOnInit() {
     // const action = this.modalService.action();
@@ -98,8 +97,8 @@ export class SprintInstanceFormComponent {
 
     if (data && !this.isNew()) {
       console.log(data.status);
-      const status = this.statusStore.getLabelById(data.status);
-      const priority = this.priorityStore.getLabelById(data.priority);
+      const status = this.statusStore.getLabelById(data.status ?? '');
+      const priority = this.priorityStore.getLabelById(data.priority ?? '');
       // const sprintTemplate = this.sprintTemplateStore.sprintTemplates();
 
       const formattedData = {
@@ -130,14 +129,14 @@ export class SprintInstanceFormComponent {
    
     const formValue: ISprintInstance = {
       ...rawValue,
-      priority: this.priorityStore.getIdByLabel(rawValue.priority),
-      status: this.statusStore.getIdByLabel(rawValue.status),
-      startDate: new Date(rawValue.startDate),
-      endDate: new Date(rawValue.endDate),
+      priority: this.priorityStore.getIdByLabel(rawValue.priority || ''),
+      status: this.statusStore.getIdByLabel(rawValue.status || ''),
+      startDate: new Date(rawValue.startDate).toISOString(),
+      endDate: new Date(rawValue.endDate).toISOString(),
     };
       console.log(formValue);
     let data = null;
-    if (this.id() === 0 || this.id() === null) {
+    if (formValue.id === 0 || formValue.id === null) {
       data = this.sprintInstanceStore.createSprintInstance(formValue);       
     } else {
       data = this.sprintInstanceStore.updateSprintInstance(
