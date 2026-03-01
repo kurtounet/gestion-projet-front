@@ -2,6 +2,7 @@ import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
 import { ISprintInstance } from '@app/features/dashboard/models/sprint-instance.model';
 import { ColorService } from '@app/features/dashboard/services/color.service';
+import { DialogService } from '@app/features/dashboard/services/dialog.service';
 import { ModalService } from '@app/features/dashboard/services/modal.service';
 import { PriorityStore } from '@app/features/dashboard/stores/priority.store';
 import { ProjectInstanceStore } from '@app/features/dashboard/stores/project-instance.store';
@@ -19,6 +20,7 @@ export class SideBarcardSprint {
   statuses = inject(StatusStore).statuses;
   priorities = inject(PriorityStore).priorities;
   modalService = inject(ModalService);
+  dialogService = inject(DialogService);
   colorService = inject(ColorService);
 
   sprint = input<ISprintInstance>();
@@ -46,7 +48,21 @@ export class SideBarcardSprint {
   });
 
   editSprint(id: number | undefined) {
+    console.log('edit sprint', id);
     this.modalService.open('Edit sprint', 'edit', 'sprint', id);
+  }
+  async deleteSprint(id: number | undefined) {
+    const response = await this.dialogService.open(
+      'Vous voulez vraiment supprimer ce sprint',
+      'delete',
+      'sprint',
+      id,
+    );
+    if (response === 'yes') {
+      console.log('delete sprint', id, response);
+    } else {
+      console.log('delete sprint canceled', id, response);
+    }
   }
 
   toggleSprint() {

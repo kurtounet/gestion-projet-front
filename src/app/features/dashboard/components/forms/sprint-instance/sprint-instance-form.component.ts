@@ -59,7 +59,7 @@ export class SprintInstanceFormComponent {
 
   protected form = this.fb.nonNullable.group({
     id: [0],
-    projectInstance: [null as string | null],
+    projectInstance: [this.projectInstanceStore.currentProject()['@id'], [Validators.required]],
     sprintTemplate: [null as string | null],
     sprintDependency: [null as string | null],
     name: [
@@ -71,8 +71,11 @@ export class SprintInstanceFormComponent {
     icon: [null as string | null],
     startDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
     endDate: [new Date().toISOString().substring(0, 10), [Validators.required]],
-    priority: [null as string | null],
-    status: [null as string | null],
+    priority: [
+      this.priorityStore.getLabelById(this.priorityOptions()[0]['@id']),
+      [Validators.required],
+    ],
+    status: [this.statusStore.getLabelById(this.statusOptions()[0]['@id']), [Validators.required]],
     position: [0 as number | null],
     comment: [null as string | null],
   });
@@ -87,7 +90,6 @@ export class SprintInstanceFormComponent {
     const data = this.projectInstanceStore.selectedSprint();
 
     if (data && !this.isNew()) {
-      console.log(data.status);
       const status = this.statusStore.getLabelById(data.status ?? '');
       const priority = this.priorityStore.getLabelById(data.priority ?? '');
       // const sprintTemplate = this.sprintTemplateStore.sprintTemplates();
@@ -128,7 +130,8 @@ export class SprintInstanceFormComponent {
     console.log(formValue);
     let data = null;
     if (formValue.id === 0 || formValue.id === null) {
-      data = this.sprintInstanceStore.createSprintInstance(formValue);
+      const { id, ...dataWithoutId } = formValue;
+      data = this.sprintInstanceStore.createSprintInstance(dataWithoutId);
     } else {
       data = this.sprintInstanceStore.updateSprintInstance(String(formValue.id), formValue);
     }

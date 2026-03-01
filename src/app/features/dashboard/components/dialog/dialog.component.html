@@ -1,0 +1,42 @@
+@if (dialService.isOpen()) {
+  <div class="fixed inset-0 z-1000 flex items-center justify-center bg-black/50">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl p-6">
+      <!-- Modal header -->
+      <button
+        (click)="close()"
+        class="flex items-center mb-4 w-full justify-end text-gray-500 hover:text-black"
+      >
+        ✕
+      </button>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">
+          {{ dialService.message() }}
+        </h2>
+      </div>
+      <!-- Modal content -->
+      <div class="dialog-content"></div>
+
+      <!-- Modal footer -->
+      <div class="mt-6 flex justify-end gap-3">
+        <button
+          (click)="confirm()"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 cursor-pointer"
+        >
+          oui
+        </button>
+        <button
+          (click)="cancel()"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 cursor-pointer"
+        >
+          non
+        </button>
+        <button
+          (click)="close()"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 cursor-pointer"
+        >
+          Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+}

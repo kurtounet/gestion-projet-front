@@ -91,8 +91,10 @@ export class PriorityStore {
     });
   }
   getIdByLabel(label: string): string {
-    const id = this.priorities().find((priority) => priority.label === label)?.id;
-    return `/api/priorities/${id}`;
+    const priority = this.priorities().find(
+      (priority) => priority.label.toLowerCase() === label.toLowerCase(),
+    );
+    return `/api/priorities/${priority?.id}`;
   }
   getLabelById(uri: string): string {
     const id = this.uriService.extractId(uri);

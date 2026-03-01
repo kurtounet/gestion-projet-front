@@ -56,7 +56,7 @@ export class ProjectInstanceFormComponent implements OnInit {
   // Formulaire typé (nonNullable garantit que reset() remet les valeurs par défaut au lieu de null)
   protected form = this.fb.nonNullable.group({
     id: [0],
-    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
+    name: ['Mon projet', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]],
     description: [null as string | null, [Validators.maxLength(65535)]],
     pathProject: [null as string | null],
     pathFileDatabase: [null as string | null],
@@ -127,8 +127,10 @@ export class ProjectInstanceFormComponent implements OnInit {
 
     if (formValue.id === 0 || formValue.id === null) {
       this.projectInstanceStore.createProjectInstance(formValue);
+      console.log('Création du projet :', formValue);
     } else {
       this.projectInstanceStore.updateProjectInstance(String(formValue.id), formValue);
+      console.log('Mise à jour du projet :', formValue);
     }
   }
 }

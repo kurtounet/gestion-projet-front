@@ -46,8 +46,15 @@
     </div>
   </div>
   <div class="flex flex-col justify-between">
-    <img ngSrc="assets/svg/edit.svg" width="20" height="20" (click)="editSprint(sprint()?.id)" />
-
+    <div class="flex items-center gap-1 pr-3 z-100">
+      <img ngSrc="assets/svg/edit.svg" width="20" height="20" (click)="editSprint(sprint()?.id)" />
+      <img
+        ngSrc="assets/svg/trash.svg"
+        width="20"
+        height="20"
+        (click)="deleteSprint(sprint()?.id)"
+      />
+    </div>
     <img
       (click)="toggleSprint()"
       class="rotate-90 hover:cursor-pointer"

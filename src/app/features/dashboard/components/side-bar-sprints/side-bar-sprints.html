@@ -18,7 +18,7 @@
     !projectInstanceStore.sprintLoading() && projectInstanceStore.currentProjectSprints().length > 0
   ) {
     <ul class="sprints-container flex flex-col gap-1">
-      @for (sprint of items(); track sprint.name) {
+      @for (sprint of items(); track sprint.id) {
         <li (click)="selectedSprint(sprint)" cdkDrag>
           <app-side-bar-card-sprint [sprint]="sprint" />
         </li>
